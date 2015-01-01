@@ -101,6 +101,7 @@ class Canvas(object):
   self.offset = 0
 
  def show(self):
+  Constant(640, 480, 0).draw(self.canvas, self.palette)
   for pos, widget in self.widgetMap.iteritems():
    print "Drawing: %s at %s" % (str(widget), str(pos))
    items = widget.draw(self.canvas, self.palette)
@@ -131,9 +132,11 @@ class Canvas(object):
   for pos, widget in reversed(list(self.widgetMap.iteritems())):
    gen += textwrap.dedent("""
     elsif ((%s > %d) and (%s > %d) and (%s < %d) and (%s < %d)) then
-   """) % (hpos, pos[0], vpos, pos[1], hpos, widget.w, vpos, widget.h)
+   """) % (hpos, pos[0], vpos, pos[1], hpos, pos[0] + widget.w, vpos, pos[1] + widget.h)
    gen += " " + widget.generate('(%s-%d)' % (hpos, pos[0]), '(%s-%d)' % (vpos, pos[1]))
   gen = gen[4:] + textwrap.dedent("""
+   else
+    addr <= X"000";
    end if;
   """)
   return boilerplate % gen
