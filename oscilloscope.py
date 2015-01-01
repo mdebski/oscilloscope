@@ -32,6 +32,7 @@ def main():
  #d[(340, 320)] = Constant(20, 20, 14)
  #d[(320, 350)] = Sprite("ledon")
  #d[(340, 350)] = Sprite("ledoff")
+ #d[(320-16, 240-16)] = Sprite("test")
 
  for i in xrange(8):
   d[(width - M.r - 30 - 500, M.t + i*50)] = Constant(500, 40, C.border)

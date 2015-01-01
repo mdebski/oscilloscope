@@ -131,7 +131,7 @@ class Canvas(object):
   gen = ''
   for pos, widget in reversed(list(self.widgetMap.iteritems())):
    gen += textwrap.dedent("""
-    elsif ((%s > %d) and (%s > %d) and (%s < %d) and (%s < %d)) then
+    elsif ((%s >= %d) and (%s >= %d) and (%s < %d) and (%s < %d)) then
    """) % (hpos, pos[0], vpos, pos[1], hpos, pos[0] + widget.w, vpos, pos[1] + widget.h)
    gen += " " + widget.generate('(%s-%d)' % (hpos, pos[0]), '(%s-%d)' % (vpos, pos[1]))
   gen = gen[4:] + textwrap.dedent("""
@@ -148,8 +148,11 @@ class Canvas(object):
 
 
  def memPush(self, n):
-  self.memory.append(Bin(n, 4))
-  self.offset += 1
+  if(0 <= n < 16):
+   self.memory.append(Bin(n, 4))
+   self.offset += 1
+  else:
+   raise ValueError("Invalid memory push: %d" % n)
 
  def buildMemory(self):
   for i in xrange(16):
@@ -212,6 +215,8 @@ class Sprite(Widget):
   name = self.args[0]
   self.key = name
   self._image = Image.open("sprites/" + name + ".png")
+  if(self._image.mode != 'P'):
+   raise ValueError("Not indexed image: %s, mode: %s" % (self.key, self._image.mode))
   self.image = ImageTk.PhotoImage(self._image)
   self.w = self.image.width()
   self.h = self.image.height()
@@ -222,9 +227,11 @@ class Sprite(Widget):
 
  def generate(self, hpos, vpos):
   assert self.offset is not None, "Run buildMemory first!"
-  return '''addr <= Std_logic_vector((%s sll 6) + %s + %d);''' % (hpos, vpos, self.offset)
+  return '''addr <= Std_logic_vector((%s * %d) + %s + %d);''' % (hpos, self.w, vpos, self.offset)
 
  def serialize(self):
+  if len(self._image.tobytes()) != self.w * self.h:
+   raise ValueError("Image.tobytes on %s didn't work as expected :(" % self.key)
   return [ord(x) for x in self._image.tobytes()]
 
  def __str__(self):
