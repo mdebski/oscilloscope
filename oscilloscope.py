@@ -11,7 +11,7 @@ def main():
  width=640
  height=480
 
- C = Bunch(bg=0, border=8)
+ C = Bunch(bg=0, border=8, graph=12)
 
  palette = Palette("4bit-RGBI.gpl")
 
@@ -24,6 +24,7 @@ def main():
  for i in xrange(8):
   d[(width - M.r - 30 - 500, M.t + i*50)] = Constant(500, 40, C.border)
   d[(width - M.r - 30 - 500 + 2, M.t + i*50 + 2)] = Constant(500-4 , 40-4, C.bg)
+  d[(width - M.r - 30 - 500 + 4, M.t + i*50 + 4)] = RandomGraph(500-8 , 40-8, C.graph)
   d[(width - M.r - 30 + 4 + 6, M.t + i*50 + 2 + 11)] = Sprite("led" + ("on" if (i%2) else "off"))
 
  # End of Image

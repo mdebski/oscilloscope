@@ -1,5 +1,6 @@
 import os
 import re
+import random
 import textwrap
 import itertools
 import collections
@@ -102,8 +103,9 @@ class Canvas(object):
  def show(self):
   for pos, widget in self.widgetMap.iteritems():
    print "Drawing: %s at %s" % (str(widget), str(pos))
-   item = widget.draw(self.canvas, self.palette)
-   self.canvas.move(item, pos[0], pos[1])
+   items = widget.draw(self.canvas, self.palette)
+   for item in items:
+    self.canvas.move(item, pos[0], pos[1])
   self.root.mainloop()
 
  def generate(self, hpos, vpos):
@@ -168,7 +170,7 @@ class Constant(Widget):
   self.c = self.args[2]
 
  def draw(self, canvas, palette):
-  return canvas.create_rectangle(0, 0, self.w, self.h, fill=palette[self.c])
+  return [canvas.create_rectangle(0, 0, self.w, self.h, fill=palette[self.c])]
 
  def generate(self, hpos, vpos):
   return '''X"%x"''' % self.c
@@ -189,7 +191,7 @@ class Sprite(Widget):
   self.offset = None
 
  def draw(self, canvas, palette):
-  return canvas.create_image(self.image.width()/2, self.image.height()/2, image=self.image)
+  return [canvas.create_image(self.image.width()/2, self.image.height()/2, image=self.image)]
 
  def generate(self, hpos, vpos):
   assert self.offset is not None, "Run buildMemory first!"
@@ -200,3 +202,28 @@ class Sprite(Widget):
 
  def __str__(self):
   return "Sprite " + self.args[0]
+
+class RandomGraph(Widget):
+ def __init__(self, *args, **kwargs):
+  super(RandomGraph, self).__init__(*args, **kwargs)
+  a = self.args
+  self.w = self.args[0]
+  self.h = self.args[1]
+  self.c = self.args[2]
+
+ @staticmethod
+ def generateData(n):
+  data = [random.choice([0, 1])]
+  while len(data) < n:
+   data.append(data[-1] if random.random() > 0.1 else (1-data[-1]))
+  return data
+
+ def draw(self, canvas, palette):
+  data = self.generateData(self.w)
+  ret = []
+  for i in xrange(len(data)):
+   ret.append(canvas.create_line(i, 30*data[i], i, 30*data[i], fill=palette[self.c]))
+  return ret
+
+ def generate(self, hpos, vpos):
+  return '''// Read data mem'''
