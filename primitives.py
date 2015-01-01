@@ -130,7 +130,7 @@ class Canvas(object):
   gen = ''
   for pos, widget in reversed(list(self.widgetMap.iteritems())):
    gen += textwrap.dedent("""
-    elsif((%s > %d) and (%s > %d) and (%s < %d) and (%s < %d) then
+    elsif ((%s > %d) and (%s > %d) and (%s < %d) and (%s < %d)) then
    """) % (hpos, pos[0], vpos, pos[1], hpos, widget.w, vpos, widget.h)
    gen += " " + widget.generate('(%s-%d)' % (hpos, pos[0]), '(%s-%d)' % (vpos, pos[1]))
   gen = gen[4:] + textwrap.dedent("""
@@ -197,7 +197,7 @@ class Constant(Widget):
   return [canvas.create_rectangle(0, 0, self.w, self.h, fill=palette[self.c])]
 
  def generate(self, hpos, vpos):
-  return '''X"%x"''' % self.c
+  return '''addr <= X"%03x";''' % self.c
 
  def __str__(self):
   a = self.args
@@ -219,7 +219,7 @@ class Sprite(Widget):
 
  def generate(self, hpos, vpos):
   assert self.offset is not None, "Run buildMemory first!"
-  return '''(%s slr 6) + %s + %d''' % (hpos, vpos, self.offset)
+  return '''addr <= Std_logic_vector((%s sll 6) + %s + %d);''' % (hpos, vpos, self.offset)
 
  def serialize(self):
   return [ord(x) for x in self._image.tobytes()]
@@ -250,4 +250,4 @@ class RandomGraph(Widget):
   return ret
 
  def generate(self, hpos, vpos):
-  return '''// TODO: Read data mem\n X"0"'''
+  return '''-- FIXME: Read data mem\n addr <= X"000";'''
