@@ -7,27 +7,83 @@ import collections
 import Tkinter as tk
 from PIL import Image, ImageTk
 
+def Bin(n, l):
+ return bin(n)[2:].rjust(l, '0')
+
 class Bunch:
  def __init__(self, **kwds):
   self.__dict__.update(kwds)
 
-def importPalette(filename):
- palette = []
- with open(filename, 'r') as f:
-  l = f.readline().strip()
-  if l != "GIMP Palette":
-   raise ValueError("Invalid header")
-  for l in f.readlines():
-   l = re.sub(r'([^#]*)#.*$', r'\1', l)
-   l = l.strip()
-   if not l:
-    continue
-   m = re.match(r'^\s*(\d+)\s+(\d+)\s+(\d+)\s*$', l)
-   if not m:
-    #raise ValueError("Unexpected line: " + l)
-    continue
-   palette.append("#%02x%02x%02x" % (int(m.group(1)), int(m.group(2)), int(m.group(3))))
- return palette
+class Palette(object):
+ def __init__(self, filename):
+  self.palette = []
+  self.raw_palette = []
+  with open(filename, 'r') as f:
+   l = f.readline().strip()
+   if l != "GIMP Palette":
+    raise ValueError("Invalid header")
+   for l in f.readlines():
+    l = re.sub(r'([^#]*)#.*$', r'\1', l)
+    l = l.strip()
+    if not l:
+     continue
+    m = re.match(r'^\s*(\d+)\s+(\d+)\s+(\d+)\s*$', l)
+    if not m:
+     #raise ValueError("Unexpected line: " + l)
+     continue
+    t = (int(m.group(1)), int(m.group(2)), int(m.group(3)))
+    self.raw_palette.append(t)
+    self.palette.append("#%02x%02x%02x" % t)
+
+ def __getitem__(self, index):
+  return self.palette[index]
+
+ def generate(self):
+  boilerplate = textwrap.dedent("""\
+   library IEEE;
+   use IEEE.STD_LOGIC_1164.ALL;
+
+   entity palette is
+    port(
+     color_4bit: in std_logic_vector(3 downto 0);
+     color_8bit: out std_logic_vector(7 downto 0)
+    );
+   end palette;
+
+   architecture Behavioral of palette is
+   begin
+    with color_4bit select color_8bit <=
+    %s
+   end Behavioral;
+  """)
+  case = ""
+  for i, val in enumerate(self.raw_palette):
+   case += ''' X"%02x" when X"%x",\n ''' % (self.to8bit(val), i)
+  case += ''' X"00" when others;'''
+
+  return boilerplate % case
+
+ def to8bit(self, val):
+  def roundBits(val, n):
+   assert (n==2) or (n==3)
+   vals = {}
+   vals[3] = [0, 36, 73, 109, 146, 182, 219, 255]
+   vals[2] = [0, 85, 170, 255]
+   if val not in vals[n]:
+    print "Warning: not exact rounding of %d" % val
+   rounded = int(round((float(val) / 255.0) * float(2**n-1)))
+   return Bin(rounded, n)
+
+  r, g, b = val
+  r = roundBits(r, 3)
+  g = roundBits(g, 3)
+  b = roundBits(b, 2)
+  return int(r + g + b, 2)
+
+
+ def writeVhdl(self, filename):
+  with open(filename, 'w') as f:
+   f.write(self.generate())
 
 
 class Canvas(object):
@@ -63,7 +119,7 @@ class Canvas(object):
   return gen
 
  def memPush(self, n):
-  self.memory.append(bin(n)[2:].rjust(4, '0'))
+  self.memory.append(Bin(n, 4))
   self.offset += 1
 
  def buildMemory(self):
