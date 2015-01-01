@@ -33,8 +33,7 @@ def main():
  image.buildMemory()
  image.writeCoe("video_rom.coe")
  palette.writeVhdl("palette.vhd")
-
- print image.generate("hcount", "vcount")
+ image.writeVhdl("addr_logic.vhd")
  print "Used memory: %d words" % len(image.memory)
  image.show()
 

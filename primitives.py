@@ -108,7 +108,25 @@ class Canvas(object):
     self.canvas.move(item, pos[0], pos[1])
   self.root.mainloop()
 
- def generate(self, hpos, vpos):
+ def generate(self, hpos="hcount", vpos="vcount"):
+  boilerplate = textwrap.dedent("""\
+   library IEEE;
+   use IEEE.STD_LOGIC_1164.ALL;
+
+   use IEEE.NUMERIC_STD.ALL;
+
+   entity addr_logic is
+    port(
+     hcount, vcount: in unsigned(10 downto 0);
+     addr: out std_logic_vector(11 downto 0)
+    );
+   end addr_logic;
+
+   architecture Behavioral of addr_logic is
+   begin process(hcount, vcount) is begin
+    %s
+   end process; end Behavioral;
+  """)
   gen = ''
   for pos, widget in reversed(list(self.widgetMap.iteritems())):
    gen += textwrap.dedent("""
@@ -118,7 +136,13 @@ class Canvas(object):
   gen = gen[4:] + textwrap.dedent("""
    end if;
   """)
-  return gen
+  return boilerplate % gen
+
+ def writeVhdl(self, filename):
+  with open(filename, 'w') as f:
+   f.write(self.generate())
+
+
 
  def memPush(self, n):
   self.memory.append(Bin(n, 4))
@@ -195,7 +219,7 @@ class Sprite(Widget):
 
  def generate(self, hpos, vpos):
   assert self.offset is not None, "Run buildMemory first!"
-  return '''%s slr 6 + %s + %d''' % (hpos, vpos, self.offset)
+  return '''(%s slr 6) + %s + %d''' % (hpos, vpos, self.offset)
 
  def serialize(self):
   return [ord(x) for x in self._image.tobytes()]
@@ -226,4 +250,4 @@ class RandomGraph(Widget):
   return ret
 
  def generate(self, hpos, vpos):
-  return '''// Read data mem'''
+  return '''// TODO: Read data mem\n X"0"'''
