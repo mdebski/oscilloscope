@@ -103,7 +103,6 @@ class Canvas(object):
  def show(self):
   Constant(640, 480, 0).draw(self.canvas, self.palette)
   for pos, widget in self.widgetMap.iteritems():
-   print "Drawing: %s at %s" % (str(widget), str(pos))
    items = widget.draw(self.canvas, self.palette)
    for item in items:
     self.canvas.move(item, pos[0], pos[1])
@@ -119,12 +118,13 @@ class Canvas(object):
    entity addr_logic is
     port(
      hcount, vcount: in unsigned(10 downto 0);
+     sw: in std_logic_vector(7 downto 0);
      addr: out std_logic_vector(11 downto 0)
     );
    end addr_logic;
 
    architecture Behavioral of addr_logic is
-   begin process(hcount, vcount) is begin
+   begin process(hcount, vcount, sw) is begin
     %s
    end process; end Behavioral;
   """)
@@ -152,20 +152,20 @@ class Canvas(object):
    self.memory.append(Bin(n, 4))
    self.offset += 1
   else:
-   raise ValueError("Invalid memory push: %d" % n)
+   raise ValueError("Invalid memory push: %s" % str(n))
 
  def buildMemory(self):
   for i in xrange(16):
    self.memPush(i)
   widgets_to_offsets = {}
   for w in self.widgetMap.itervalues():
-   a = w.serialize()
-   if(a):
-    if w.key not in widgets_to_offsets:
-     widgets_to_offsets[w.key] = self.offset
+   for k, a in w.serialize().iteritems():
+    if k not in widgets_to_offsets:
+     widgets_to_offsets[k] = self.offset
      for v in a:
       self.memPush(v)
-    w.offset = widgets_to_offsets[w.key]
+   w.setOffsets(widgets_to_offsets)
+  print widgets_to_offsets
 
  def writeCoe(self, filename):
   with open(filename, 'w') as f:
@@ -188,7 +188,10 @@ class Widget(object):
   raise NotImplementedError
 
  def serialize(self):
-  return []
+  return {}
+
+ def setOffsets(self, offsets):
+  pass
 
 
 class Constant(Widget):
@@ -209,6 +212,38 @@ class Constant(Widget):
   a = self.args
   return "Constant %d W: %d, H: %d" % (a[2], a[0], a[1])
 
+class Led(Widget):
+ def __init__(self, *args, **kwargs):
+  super(Led, self).__init__(*args, **kwargs)
+  self.num = self.args[0]
+  self.on = Sprite("ledon")
+  self.off = Sprite("ledoff")
+  self.key = "onoff"
+  self.w = self.on.w
+  self.h = self.on.h
+
+ def draw(self, canvas, palette):
+  img = self.on if random.choice([True, False]) else self.off
+  return img.draw(canvas, palette)
+
+ def generate(self, hpos, vpos):
+  return textwrap.dedent('''
+   if sw(%d) = '1' then
+    %s
+   else
+    %s
+   end if;''') % (self.num, self.on.generate(hpos, vpos), self.off.generate(hpos, vpos))
+
+ def serialize(self):
+  d = self.on.serialize()
+  d.update(self.off.serialize())
+  return d
+
+ def setOffsets(self, offsets):
+  self.on.setOffsets(offsets)
+  self.off.setOffsets(offsets)
+
+
 class Sprite(Widget):
  def __init__(self, *args, **kwargs):
   super(Sprite, self).__init__(*args, **kwargs)
@@ -227,12 +262,15 @@ class Sprite(Widget):
 
  def generate(self, hpos, vpos):
   assert self.offset is not None, "Run buildMemory first!"
-  return '''addr <= Std_logic_vector((%s * %d) + %s + %d);''' % (hpos, self.w, vpos, self.offset)
+  return '''addr <= Std_logic_vector((%s * %d) + %s + %d);''' % (vpos, self.w, hpos, self.offset)
 
  def serialize(self):
   if len(self._image.tobytes()) != self.w * self.h:
    raise ValueError("Image.tobytes on %s didn't work as expected :(" % self.key)
-  return [ord(x) for x in self._image.tobytes()]
+  return {self.key: [ord(x) for x in self._image.tobytes()]}
+
+ def setOffsets(self, offsets):
+  self.offset = offsets[self.key]
 
  def __str__(self):
   return "Sprite " + self.args[0]
