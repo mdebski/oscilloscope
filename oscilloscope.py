@@ -47,6 +47,10 @@ def main():
  d[(width - M.r -30 - 8,  M.t + 405)] = Digit("d4")
  d[(width - M.r -30 + 3,  M.t + 405)] = Sprite("MHz")
 
+ d[(width - M.r -300 + 3,  M.t + 405)] = Sprite("repeat")
+ d[(width - M.r -300 + 3,  M.t + 425)] = Sprite("refresh")
+ d[(width - M.r -200 + 3,  M.t + 405)] = Sprite("check")
+
  # End of Image
 
  image.widgetMap = d
