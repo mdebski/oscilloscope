@@ -218,13 +218,11 @@ class Led(Widget):
   self.num = self.args[0]
   self.on = Sprite("ledon")
   self.off = Sprite("ledoff")
-  self.key = "onoff"
   self.w = self.on.w
   self.h = self.on.h
 
  def draw(self, canvas, palette):
-  img = self.on if random.choice([True, False]) else self.off
-  return img.draw(canvas, palette)
+  return random.choice([self.on, self.off]).draw(canvas, palette)
 
  def generate(self, hpos, vpos):
   return textwrap.dedent('''
@@ -242,6 +240,36 @@ class Led(Widget):
  def setOffsets(self, offsets):
   self.on.setOffsets(offsets)
   self.off.setOffsets(offsets)
+
+class Digit(Widget):
+ def __init__(self, *args, **kwargs):
+  super(Digit, self).__init__(*args, **kwargs)
+  self.digits = []
+  self.var = self.args[0]
+  for i in xrange(10):
+    self.digits.append(Sprite("digit%d" % i))
+  self.w = self.digits[0].w
+  self.h = self.digits[0].h
+
+ def draw(self, canvas, palette):
+  return random.choice(self.digits).draw(canvas, palette)
+
+ def generate(self, hpos, vpos):
+  assert self.diff is not None, "Run buildMemory first!"
+  return '''addr <= Std_logic_vector((%s * %d) + %s + %d + (%d*%s));''' % (vpos, self.w, hpos, self.base, self.diff, self.var)
+
+ def serialize(self):
+  d = collections.OrderedDict()
+  for v in self.digits:
+    d.update(v.serialize())
+  return d
+
+ def setOffsets(self, offsets):
+  self.base = offsets["digit0"]
+  self.diff = offsets["digit1"] - offsets["digit0"]
+  for d in self.digits:
+    d.setOffsets(offsets)
+
 
 
 class Sprite(Widget):

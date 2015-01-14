@@ -40,7 +40,12 @@ def main():
  # d[(width - M.r - 30 - 500 + 4, M.t + i*50 + 4)] = RandomGraph(500-8 , 40-8, C.graph)
   d[(width - M.r - 30 + 4 + 6, M.t + i*50 + 2 + 11)] = Led(i) # Sprite("led" + ("on" if (i%2) else "off"))
 
- d[(width - M.r - 80, height - M.b - 8)] = Sprite("digits")
+ d[(width - M.r -30 - 48, M.t + 405)] = Sprite("f")
+ d[(width - M.r -30 - 32, M.t + 405)] = Digit("d1")
+ d[(width - M.r -30 - 24, M.t + 405)] = Digit("d2")
+ d[(width - M.r -30 - 16, M.t + 405)] = Digit("d3")
+ d[(width - M.r -30 - 8,  M.t + 405)] = Digit("d4")
+ d[(width - M.r -30 + 3,  M.t + 405)] = Sprite("MHz")
 
  # End of Image
 
