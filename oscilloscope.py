@@ -38,7 +38,7 @@ def main():
   d[(width - M.r - 30 - 500, M.t + i*50)] = Constant(500, 40, C.border)
   d[(width - M.r - 30 - 500 + 2, M.t + i*50 + 2)] = Constant(500-4 , 40-4, C.bg)
  # d[(width - M.r - 30 - 500 + 4, M.t + i*50 + 4)] = RandomGraph(500-8 , 40-8, C.graph)
-  d[(width - M.r - 30 + 4 + 6, M.t + i*50 + 2 + 11)] = Led(i) # Sprite("led" + ("on" if (i%2) else "off"))
+  d[(width - M.r - 30 + 4 + 5, M.t + i*50 + 12)] = Led(i)
 
  d[(width - M.r -30 - 48, M.t + 405)] = Sprite("f")
  d[(width - M.r -30 - 32, M.t + 405)] = Digit("d1")
