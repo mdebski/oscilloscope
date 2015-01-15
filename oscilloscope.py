@@ -11,7 +11,7 @@ def main():
  width=640
  height=480
 
- C = Bunch(bg=0, border=8, graph=12)
+ C = Bunch(bg=0, border=8, graph=12, line=14)
 
  palette = Palette("4bit-RGBI.gpl")
 
@@ -34,22 +34,25 @@ def main():
  #d[(340, 350)] = Sprite("ledoff")
  #d[(320-16, 240-16)] = Sprite("test")
 
+
  for i in xrange(8):
-  d[(width - M.r - 30 - 500, M.t + i*50)] = Constant(500, 40, C.border)
-  d[(width - M.r - 30 - 500 + 2, M.t + i*50 + 2)] = Constant(500-4 , 40-4, C.bg)
- # d[(width - M.r - 30 - 500 + 4, M.t + i*50 + 4)] = RandomGraph(500-8 , 40-8, C.graph)
-  d[(width - M.r - 30 + 4 + 5, M.t + i*50 + 12)] = Led(i)
+  d[(width - M.r - 30 - 516, M.t + i*50)] = Constant(512+4, 40, C.border)
+  d[(width - M.r - 30 - 516 + 2, M.t + i*50 + 2)] = Constant(512 , 40-4, C.bg)
+ # d[(width - M.r - 30 - 512 + 4, M.t + i*50 + 4)] = RandomGraph(512-8 , 40-8, C.graph)
+  d[(width - M.r - 30 + 4 + 5, M.t + i*50 + 12)] = Select("toggle(%d) = '1'" % i, "ledon", "ledoff")
 
  d[(width - M.r -30 - 48, M.t + 405)] = Sprite("f")
- d[(width - M.r -30 - 32, M.t + 405)] = Digit("d1")
- d[(width - M.r -30 - 24, M.t + 405)] = Digit("d2")
- d[(width - M.r -30 - 16, M.t + 405)] = Digit("d3")
- d[(width - M.r -30 - 8,  M.t + 405)] = Digit("d4")
+ d[(width - M.r -30 - 32, M.t + 405)] = Digit("freq_digits(3)")
+ d[(width - M.r -30 - 24, M.t + 405)] = Digit("freq_digits(2)")
+ d[(width - M.r -30 - 16, M.t + 405)] = Digit("freq_digits(1)")
+ d[(width - M.r -30 - 8,  M.t + 405)] = Digit("freq_digits(0)")
  d[(width - M.r -30 + 3,  M.t + 405)] = Sprite("MHz")
 
  d[(width - M.r -300 + 3,  M.t + 405)] = Sprite("repeat")
  d[(width - M.r -300 + 3,  M.t + 425)] = Sprite("refresh")
  d[(width - M.r -200 + 3,  M.t + 405)] = Sprite("check")
+
+ d[("line_pos", 0)] = Constant(2,480,C.line)
 
  # End of Image
 
@@ -57,7 +60,7 @@ def main():
  image.buildMemory()
  image.writeCoe("video_rom.coe")
  palette.writeVhdl("palette.vhd")
- image.writeVhdl("addr_logic.vhd")
+ image.writeVhdl("renderer.vhd")
  print "Used memory: %d words" % len(image.memory)
  image.show()
 

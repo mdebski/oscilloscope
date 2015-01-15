@@ -105,38 +105,50 @@ class Canvas(object):
   for pos, widget in self.widgetMap.iteritems():
    items = widget.draw(self.canvas, self.palette)
    for item in items:
-    self.canvas.move(item, pos[0], pos[1])
+     a = pos[0] if isinstance(pos[0], (int, long)) else random.randint(0,640)
+     b = pos[1] if isinstance(pos[1], (int, long)) else random.randint(0,480)
+     print "Move: %s, %d, %d" % (str(item), a, b)
+     self.canvas.move(item, a, b)
   self.root.mainloop()
 
  def generate(self, hpos="hcount", vpos="vcount"):
   boilerplate = textwrap.dedent("""\
    library IEEE;
    use IEEE.STD_LOGIC_1164.ALL;
-
    use IEEE.NUMERIC_STD.ALL;
+   use work.common.all;
 
-   entity addr_logic is
+   entity renderer is
     port(
      hcount, vcount: in unsigned(10 downto 0);
-     sw: in std_logic_vector(7 downto 0);
-     addr: out std_logic_vector(11 downto 0)
-    );
-   end addr_logic;
+     toggle: in std_logic_vector(7 downto 0);
+     freq_digits: in DIGIT_ARRAY(3 downto 0);
+     line_pos: in unsigned(10 downto 0);
+     state: in STATE_TYPE;
+     prescale: in unsigned(2 downto 0);
 
-   architecture Behavioral of addr_logic is
-   begin process(hcount, vcount, sw) is begin
+     output: out std_logic_vector(11 downto 0);
+     enable_dread, enable_vread, enable_immediate: out std_logic
+    );
+   end renderer;
+
+   architecture Behavioral of renderer is
+   begin process(hcount, vcount, toggle, line_pos, freq_digits, state, prescale) is begin
+    enable_dread <= '0';
+    enable_vread <= '0';
+    enable_immediate <= '0';
     %s
    end process; end Behavioral;
   """)
   gen = ''
   for pos, widget in reversed(list(self.widgetMap.iteritems())):
    gen += textwrap.dedent("""
-    elsif ((%s >= %d) and (%s >= %d) and (%s < %d) and (%s < %d)) then
-   """) % (hpos, pos[0], vpos, pos[1], hpos, pos[0] + widget.w, vpos, pos[1] + widget.h)
-   gen += " " + widget.generate('(%s-%d)' % (hpos, pos[0]), '(%s-%d)' % (vpos, pos[1]))
+    elsif ((%s >= %s) and (%s >= %s) and (%s < %s + %d) and (%s < %s + %d)) then
+   """) % (hpos, str(pos[0]), vpos, str(pos[1]), hpos, str(pos[0]), widget.w, vpos, str(pos[1]), widget.h)
+   gen += " " + widget.generate('(%s-%s)' % (hpos, str(pos[0])), '(%s-%s)' % (vpos, str(pos[1])))
   gen = gen[4:] + textwrap.dedent("""
    else
-    addr <= X"000";
+    output <= X"000"; enable_immediate <= '1';
    end if;
   """)
   return boilerplate % gen
@@ -144,8 +156,6 @@ class Canvas(object):
  def writeVhdl(self, filename):
   with open(filename, 'w') as f:
    f.write(self.generate())
-
-
 
  def memPush(self, n):
   if(0 <= n < 16):
@@ -203,43 +213,56 @@ class Constant(Widget):
   self.c = self.args[2]
 
  def draw(self, canvas, palette):
+  print "Draw: %s" % str(self)
   return [canvas.create_rectangle(0, 0, self.w, self.h, fill=palette[self.c])]
 
  def generate(self, hpos, vpos):
-  return '''addr <= X"%03x";''' % self.c
+  return '''output <= X"%03x"; enable_vread <= '1'; ''' % self.c
 
  def __str__(self):
   a = self.args
   return "Constant %d W: %d, H: %d" % (a[2], a[0], a[1])
 
-class Led(Widget):
+class Line(Widget):
  def __init__(self, *args, **kwargs):
-  super(Led, self).__init__(*args, **kwargs)
-  self.num = self.args[0]
-  self.on = Sprite("ledon")
-  self.off = Sprite("ledoff")
-  self.w = self.on.w
-  self.h = self.on.h
+  super(Line, self).__init__(*args, **kwargs)
+  self.var = self.args[0]
+  self.w = 1
+  self.h = 480
 
  def draw(self, canvas, palette):
   return random.choice([self.on, self.off]).draw(canvas, palette)
 
+class Select(Widget):
+ def __init__(self, *args, **kwargs):
+  super(Select, self).__init__(*args, **kwargs)
+  self.cond = self.args[0]
+  self.opt1 = Sprite(self.args[1])
+  self.opt2 = Sprite(self.args[2])
+  assert self.opt1.w == self.opt2.w
+  assert self.opt1.h == self.opt2.h
+  self.w = self.opt1.w
+  self.h = self.opt1.h
+
+ def draw(self, canvas, palette):
+  return random.choice([self.opt1, self.opt2]).draw(canvas, palette)
+
  def generate(self, hpos, vpos):
   return textwrap.dedent('''
-   if sw(%d) = '1' then
+   if %s then
     %s
    else
     %s
-   end if;''') % (self.num, self.on.generate(hpos, vpos), self.off.generate(hpos, vpos))
+   end if;''') % (self.cond, self.opt1.generate(hpos, vpos), self.opt2.generate(hpos, vpos))
 
  def serialize(self):
-  d = self.on.serialize()
-  d.update(self.off.serialize())
+  d = self.opt1.serialize()
+  d.update(self.opt2.serialize())
   return d
 
  def setOffsets(self, offsets):
-  self.on.setOffsets(offsets)
-  self.off.setOffsets(offsets)
+  self.opt1.setOffsets(offsets)
+  self.opt2.setOffsets(offsets)
 
 class Digit(Widget):
  def __init__(self, *args, **kwargs):
@@ -256,7 +279,8 @@ class Digit(Widget):
 
  def generate(self, hpos, vpos):
   assert self.diff is not None, "Run buildMemory first!"
-  return '''addr <= Std_logic_vector((%s * %d) + %s + %d + (%d*%s));''' % (vpos, self.w, hpos, self.base, self.diff, self.var)
+  var = "to_unsigned(to_integer(%s), 12)" % self.var
+  return '''output <= Std_logic_vector((%s * %d) + %s + %d + (%d*%s)); enable_vread <= '1';''' % (vpos, self.w, hpos, self.base, self.diff, var)
 
  def serialize(self):
   d = collections.OrderedDict()
@@ -290,7 +314,7 @@ class Sprite(Widget):
 
  def generate(self, hpos, vpos):
   assert self.offset is not None, "Run buildMemory first!"
-  return '''addr <= Std_logic_vector((%s * %d) + %s + %d);''' % (vpos, self.w, hpos, self.offset)
+  return '''output <= Std_logic_vector((%s * %d) + %s + %d); enable_vread <= '1';''' % (vpos, self.w, hpos, self.offset)
 
  def serialize(self):
   if len(self._image.tobytes()) != self.w * self.h:
@@ -326,4 +350,4 @@ class RandomGraph(Widget):
   return ret
 
  def generate(self, hpos, vpos):
-  return '''-- FIXME: Read data mem\n addr <= X"000";'''
+  return '''output <= %s; enable_dread <= '1';''' % hpos
