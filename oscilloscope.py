@@ -31,6 +31,11 @@ def main():
  d[(width - M.r -30 -24 - 24, M.t + 405)] = Digit("freq_digits(2)")
  d[(width - M.r -30 -24 - 16, M.t + 405)] = Digit("freq_digits(1)")
  d[(width - M.r -30 -24 - 8,  M.t + 405)] = Digit("freq_digits(0)")
+
+ d[(width - M.r -30 -24 - 32 + 6,  M.t + 412)] = Select(["prescale = 1 or prescale = 4 or prescale = 7"], ["comma", "nocomma"])
+ d[(width - M.r -30 -24 - 24 + 6,  M.t + 412)] = Select(["prescale = 0 or prescale = 3 or prescale = 6"], ["comma", "nocomma"])
+ d[(width - M.r -30 -24 - 16 + 6,  M.t + 412)] = Select(["prescale = 2 or prescale = 5"], ["comma", "nocomma"])
+
  d[(width - M.r -30 -24 + 3,  M.t + 405)] = Select(["prescale <= 1", "prescale <= 4"], ["MHz", "kHz", "Hz"])
 
  d[(width - M.r -30 + 9,  M.t + 405 - 4)] = Select(["state=EVERY", "state=ONCE"], ["every", "once", "once-done"])
