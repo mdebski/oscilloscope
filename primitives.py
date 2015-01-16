@@ -236,33 +236,36 @@ class Line(Widget):
 class Select(Widget):
  def __init__(self, *args, **kwargs):
   super(Select, self).__init__(*args, **kwargs)
-  self.cond = self.args[0]
-  self.opt1 = Sprite(self.args[1])
-  self.opt2 = Sprite(self.args[2])
-  assert self.opt1.w == self.opt2.w
-  assert self.opt1.h == self.opt2.h
-  self.w = self.opt1.w
-  self.h = self.opt1.h
+  self.conds = self.args[0]
+  self.opts = [Sprite(x) for x in self.args[1]]
+  assert len(self.opts) - 1 == len(self.conds)
+  for o in self.opts:
+   assert o.w == self.opts[0].w
+   assert o.h == self.opts[0].h
+  self.w = self.opts[0].w
+  self.h = self.opts[0].h
 
  def draw(self, canvas, palette):
-  return random.choice([self.opt1, self.opt2]).draw(canvas, palette)
+  return random.choice(self.opts).draw(canvas, palette)
 
  def generate(self, hpos, vpos):
-  return textwrap.dedent('''
-   if %s then
-    %s
-   else
-    %s
-   end if;''') % (self.cond, self.opt1.generate(hpos, vpos), self.opt2.generate(hpos, vpos))
+   res = []
+   base = textwrap.dedent("elsif %s then\n %s\n")
+   for c, o in zip(self.conds, self.opts[:-1]):
+    res.append(base % (c,o.generate(hpos, vpos)))
+   res.append("else\n %s\n" % self.opts[-1].generate(hpos, vpos))
+   res.append("end if;")
+   return ''.join(res)[3:]
 
  def serialize(self):
-  d = self.opt1.serialize()
-  d.update(self.opt2.serialize())
+  d = {}
+  for o in self.opts:
+   d.update(o.serialize())
   return d
 
  def setOffsets(self, offsets):
-  self.opt1.setOffsets(offsets)
-  self.opt2.setOffsets(offsets)
+  for o in self.opts:
+   o.setOffsets(offsets)
 
 class Digit(Widget):
  def __init__(self, *args, **kwargs):

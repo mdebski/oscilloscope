@@ -20,37 +20,20 @@ def main():
 
  # Image
 
- #d[(320, 240)] = Constant(20, 20, 5)
- #d[(320, 260)] = Constant(20, 20, 6)
- #d[(320, 280)] = Constant(20, 20, 7)
- #d[(320, 300)] = Constant(20, 20, 8)
- #d[(320, 320)] = Constant(20, 20, 9)
- #d[(340, 240)] = Constant(20, 20, 10)
- #d[(340, 260)] = Constant(20, 20, 11)
- #d[(340, 280)] = Constant(20, 20, 12)
- #d[(340, 300)] = Constant(20, 20, 13)
- #d[(340, 320)] = Constant(20, 20, 14)
- #d[(320, 350)] = Sprite("ledon")
- #d[(340, 350)] = Sprite("ledoff")
- #d[(320-16, 240-16)] = Sprite("test")
-
-
  for i in xrange(8):
   d[(width - M.r - 30 - 516, M.t + i*50)] = Constant(512+4, 40, C.border)
   d[(width - M.r - 30 - 516 + 2, M.t + i*50 + 2)] = Constant(512 , 40-4, C.bg)
  # d[(width - M.r - 30 - 512 + 4, M.t + i*50 + 4)] = RandomGraph(512-8 , 40-8, C.graph)
-  d[(width - M.r - 30 + 4 + 5, M.t + i*50 + 12)] = Select("toggle(%d) = '1'" % i, "ledon", "ledoff")
+  d[(width - M.r - 30 + 4 + 5, M.t + i*50 + 12)] = Select(["toggle(%d) = '1'" % i], ["ledon", "ledoff"])
 
- d[(width - M.r -30 - 48, M.t + 405)] = Sprite("f")
- d[(width - M.r -30 - 32, M.t + 405)] = Digit("freq_digits(3)")
- d[(width - M.r -30 - 24, M.t + 405)] = Digit("freq_digits(2)")
- d[(width - M.r -30 - 16, M.t + 405)] = Digit("freq_digits(1)")
- d[(width - M.r -30 - 8,  M.t + 405)] = Digit("freq_digits(0)")
- d[(width - M.r -30 + 3,  M.t + 405)] = Sprite("MHz")
+ d[(width - M.r -30 -24 - 48, M.t + 405)] = Sprite("f")
+ d[(width - M.r -30 -24 - 32, M.t + 405)] = Digit("freq_digits(3)")
+ d[(width - M.r -30 -24 - 24, M.t + 405)] = Digit("freq_digits(2)")
+ d[(width - M.r -30 -24 - 16, M.t + 405)] = Digit("freq_digits(1)")
+ d[(width - M.r -30 -24 - 8,  M.t + 405)] = Digit("freq_digits(0)")
+ d[(width - M.r -30 -24 + 3,  M.t + 405)] = Select(["prescale <= 1", "prescale <= 4"], ["MHz", "kHz", "Hz"])
 
- d[(width - M.r -300 + 3,  M.t + 405)] = Sprite("repeat")
- d[(width - M.r -300 + 3,  M.t + 425)] = Sprite("refresh")
- d[(width - M.r -200 + 3,  M.t + 405)] = Sprite("check")
+ d[(width - M.r -30 + 9,  M.t + 405 - 4)] = Select(["state=EVERY", "state=ONCE"], ["every", "once", "once-done"])
 
  d[("line_pos", 0)] = Constant(2,480,C.line)
 
