@@ -20,7 +20,7 @@ def main():
 
  # Image
 
- for i in xrange(8):
+ for i in xrange(6):
   d[(width - M.r - 30 - 518, M.t + i*50)] = Constant(518, 40, C.border)
   d[(width - M.r - 30 - 518 + 2, M.t + i*50 + 2)] = Constant(514 , 40-4, C.bg)
   d[(width - M.r - 30 - 518 + 3, M.t + i*50 + 4)] = Graph(512, i, True, C.graph)
