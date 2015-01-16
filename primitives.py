@@ -107,7 +107,6 @@ class Canvas(object):
    for item in items:
      a = pos[0] if isinstance(pos[0], (int, long)) else random.randint(0,640)
      b = pos[1] if isinstance(pos[1], (int, long)) else random.randint(0,480)
-     print "Move: %s, %d, %d" % (str(item), a, b)
      self.canvas.move(item, a, b)
   self.root.mainloop()
 
@@ -128,6 +127,8 @@ class Canvas(object):
      prescale: in unsigned(2 downto 0);
 
      output: out std_logic_vector(11 downto 0);
+     mask: out std_logic_vector(7 downto 0);
+     neg: out std_logic;
      enable_dread, enable_vread, enable_immediate: out std_logic
     );
    end renderer;
@@ -137,6 +138,9 @@ class Canvas(object):
     enable_dread <= '0';
     enable_vread <= '0';
     enable_immediate <= '0';
+    neg <= '0';
+    mask <= "00000000";
+    output(11) <= '0';
     %s
    end process; end Behavioral;
   """)
@@ -330,27 +334,25 @@ class Sprite(Widget):
  def __str__(self):
   return "Sprite " + self.args[0]
 
-class RandomGraph(Widget):
+class Graph(Widget):
  def __init__(self, *args, **kwargs):
-  super(RandomGraph, self).__init__(*args, **kwargs)
+  super(Graph, self).__init__(*args, **kwargs)
   a = self.args
   self.w = self.args[0]
-  self.h = self.args[1]
-  self.c = self.args[2]
-
- @staticmethod
- def generateData(n):
-  data = [random.choice([0, 1])]
-  while len(data) < n:
-   data.append(data[-1] if random.random() > 0.1 else (1-data[-1]))
-  return data
+  self.h = 1
+  self.index = self.args[1]
+  self.neg = not self.args[2]
+  self.color = self.args[3]
 
  def draw(self, canvas, palette):
-  data = self.generateData(self.w)
   ret = []
-  for i in xrange(len(data)):
-   ret.append(canvas.create_line(i, 30*data[i], i, 30*data[i], fill=palette[self.c]))
+  for i in xrange(self.w):
+   if random.choice([True, False]):
+    ret.append(canvas.create_line(i, 1, i, 1, fill=palette[self.color]))
   return ret
 
  def generate(self, hpos, vpos):
-  return '''output <= %s; enable_dread <= '1';''' % hpos
+  mask = ['0'] * 8
+  mask[self.index] = '1'
+  mask = ''.join(mask)
+  return '''output(10 downto 0) <= std_logic_vector(%s); mask <= "%s"; neg <= '%s'; enable_dread <= '1';''' % (hpos, mask, 1 if self.neg else 0)

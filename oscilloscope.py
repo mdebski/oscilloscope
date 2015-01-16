@@ -21,9 +21,10 @@ def main():
  # Image
 
  for i in xrange(8):
-  d[(width - M.r - 30 - 516, M.t + i*50)] = Constant(512+4, 40, C.border)
-  d[(width - M.r - 30 - 516 + 2, M.t + i*50 + 2)] = Constant(512 , 40-4, C.bg)
- # d[(width - M.r - 30 - 512 + 4, M.t + i*50 + 4)] = RandomGraph(512-8 , 40-8, C.graph)
+  d[(width - M.r - 30 - 518, M.t + i*50)] = Constant(518, 40, C.border)
+  d[(width - M.r - 30 - 518 + 2, M.t + i*50 + 2)] = Constant(514 , 40-4, C.bg)
+  d[(width - M.r - 30 - 518 + 3, M.t + i*50 + 4)] = Graph(512, i, True, C.graph)
+  d[(width - M.r - 30 - 518 + 3, M.t + i*50 + 34)] = Graph(512, i, False, C.graph)
   d[(width - M.r - 30 + 4 + 5, M.t + i*50 + 12)] = Select(["toggle(%d) = '1'" % i], ["ledon", "ledoff"])
 
  d[(width - M.r -30 -24 - 48, M.t + 405)] = Sprite("f")
