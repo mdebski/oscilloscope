@@ -127,7 +127,7 @@ class Canvas(object):
      prescale: in unsigned(2 downto 0);
 
      output: out std_logic_vector(11 downto 0);
-     mask: out std_logic_vector(7 downto 0);
+     index: out unsigned(2 downto 0);
      neg: out std_logic;
      enable_dread, enable_vread, enable_immediate: out std_logic
     );
@@ -139,7 +139,7 @@ class Canvas(object):
     enable_vread <= '0';
     enable_immediate <= '0';
     neg <= '0';
-    mask <= "00000000";
+    index <= "000";
     output(11) <= '0';
     %s
    end process; end Behavioral;
@@ -352,7 +352,5 @@ class Graph(Widget):
   return ret
 
  def generate(self, hpos, vpos):
-  mask = ['0'] * 8
-  mask[self.index] = '1'
-  mask = ''.join(mask)
-  return '''output(10 downto 0) <= std_logic_vector(%s); mask <= "%s"; neg <= '%s'; enable_dread <= '1';''' % (hpos, mask, 1 if self.neg else 0)
+  mask = Bin(self.index, 3)
+  return '''output(10 downto 0) <= std_logic_vector(%s); index <= "%s"; neg <= '%s'; enable_dread <= '1';''' % (hpos, mask, 1 if self.neg else 0)
