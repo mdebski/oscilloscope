@@ -129,15 +129,12 @@ class Canvas(object):
      output: out std_logic_vector(11 downto 0);
      index: out unsigned(2 downto 0);
      neg: out std_logic;
-     enable_dread, enable_vread, enable_immediate: out std_logic
+     select_mem: out std_logic
     );
    end renderer;
 
    architecture Behavioral of renderer is
    begin process(hcount, vcount, toggle, line_pos, freq_digits, state, prescale) is begin
-    enable_dread <= '0';
-    enable_vread <= '0';
-    enable_immediate <= '0';
     neg <= '0';
     index <= "000";
     output(11) <= '0';
@@ -152,7 +149,7 @@ class Canvas(object):
    gen += " " + widget.generate('(%s-%s)' % (hpos, str(pos[0])), '(%s-%s)' % (vpos, str(pos[1])))
   gen = gen[4:] + textwrap.dedent("""
    else
-    output <= X"000"; enable_immediate <= '1';
+    output <= X"000"; select_mem <= '0';
    end if;
   """)
   return boilerplate % gen
@@ -221,7 +218,7 @@ class Constant(Widget):
   return [canvas.create_rectangle(0, 0, self.w, self.h, fill=palette[self.c])]
 
  def generate(self, hpos, vpos):
-  return '''output <= X"%03x"; enable_vread <= '1'; ''' % self.c
+  return '''output <= X"%03x"; select_mem <= '0'; ''' % self.c
 
  def __str__(self):
   a = self.args
@@ -287,7 +284,7 @@ class Digit(Widget):
  def generate(self, hpos, vpos):
   assert self.diff is not None, "Run buildMemory first!"
   var = "to_unsigned(to_integer(%s), 12)" % self.var
-  return '''output <= Std_logic_vector((%s * %d) + %s + %d + (%d*%s)); enable_vread <= '1';''' % (vpos, self.w, hpos, self.base, self.diff, var)
+  return '''output <= Std_logic_vector((%s * %d) + %s + %d + (%d*%s)); select_mem <= '0';''' % (vpos, self.w, hpos, self.base, self.diff, var)
 
  def serialize(self):
   d = collections.OrderedDict()
@@ -321,7 +318,7 @@ class Sprite(Widget):
 
  def generate(self, hpos, vpos):
   assert self.offset is not None, "Run buildMemory first!"
-  return '''output <= Std_logic_vector((%s * %d) + %s + %d); enable_vread <= '1';''' % (vpos, self.w, hpos, self.offset)
+  return '''output <= Std_logic_vector((%s * %d) + %s + %d); select_mem <= '0';''' % (vpos, self.w, hpos, self.offset)
 
  def serialize(self):
   if len(self._image.tobytes()) != self.w * self.h:
@@ -353,4 +350,4 @@ class Graph(Widget):
 
  def generate(self, hpos, vpos):
   mask = Bin(self.index, 3)
-  return '''output(10 downto 0) <= std_logic_vector(%s); index <= "%s"; neg <= '%s'; enable_dread <= '1';''' % (hpos, mask, 1 if self.neg else 0)
+  return '''output(10 downto 0) <= std_logic_vector(%s); index <= "%s"; neg <= '%s'; select_mem <= '1';''' % (hpos, mask, 1 if self.neg else 0)
