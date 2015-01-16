@@ -39,7 +39,7 @@ def main():
 
  d[(width - M.r -30 -24 + 3,  M.t + 405)] = Select(["prescale <= 1", "prescale <= 4"], ["MHz", "kHz", "Hz"])
 
- d[(width - M.r -30 + 9,  M.t + 405 - 4)] = Select(["state=EVERY", "state=ONCE"], ["every", "once", "once-done"])
+ d[(width - M.r -30 + 9,  M.t + 405 - 4)] = Select(["state=EVERY", "state=ONCE", "state=ONCE_PROBING"], ["every", "once", "once-probing", "once-done"])
 
  d[("line_pos", 0)] = Constant(2,480,C.line)
 
