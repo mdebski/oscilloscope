@@ -128,16 +128,13 @@ class Canvas(object):
 
      output: out std_logic_vector(11 downto 0);
      index: out unsigned(2 downto 0);
-     neg: out std_logic;
      select_mem: out std_logic
     );
    end renderer;
 
    architecture Behavioral of renderer is
    begin process(hcount, vcount, toggle, line_pos, freq_digits, state, prescale) is begin
-    neg <= '0';
     index <= "000";
-    output(11) <= '0';
     %s
    end process; end Behavioral;
   """)
@@ -350,4 +347,4 @@ class Graph(Widget):
 
  def generate(self, hpos, vpos):
   mask = Bin(self.index, 3)
-  return '''output(10 downto 0) <= std_logic_vector(%s); index <= "%s"; neg <= '%s'; select_mem <= '1';''' % (hpos, mask, 1 if self.neg else 0)
+  return '''output(10 downto 0) <= std_logic_vector(%s); index <= "%s"; output(11) <= '%s'; select_mem <= '1';''' % (hpos, mask, 1 if self.neg else 0)
