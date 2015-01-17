@@ -25,7 +25,7 @@ def main():
   d[(width - M.r - 30 - 518 + 2, M.t + i*50 + 2)] = Constant(514 , 40-4, C.bg)
   d[(width - M.r - 30 - 518 + 3, M.t + i*50 + 4)] = Graph(512, i, True, C.graph)
   d[(width - M.r - 30 - 518 + 3, M.t + i*50 + 34)] = Graph(512, i, False, C.graph)
-  d[(width - M.r - 30 + 4 + 5, M.t + i*50 + 12)] = Select(["toggle(%d) = '1'" % (7-i)], ["ledon", "ledoff"])
+  d[(width - M.r - 30 + 4 + 5, M.t + i*50 + 12)] = Select(["toggle(%d) = '1'" % i], ["ledon", "ledoff"])
 
  d[(width - M.r -30 -24 - 48, M.t + 405)] = Sprite("f")
  d[(width - M.r -30 -24 - 32, M.t + 405)] = Digit("freq_digits(3)")
