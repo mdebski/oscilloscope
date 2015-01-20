@@ -1,0 +1,13 @@
+run
+-ifmt VHDL
+-ent dataram_exdes
+-p xc3s100e-cp132-5
+-ifn xst.prj
+-write_timing_constraints No
+-iobuf YES
+-max_fanout 100
+-ofn dataram_exdes 
+-ofmt NGC
+-bus_delimiter ()
+-hierarchy_separator /
+-case Maintain
