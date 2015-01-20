@@ -47,9 +47,9 @@ def main():
 
  image.widgetMap = d
  image.buildMemory()
- image.writeCoe("video_rom.coe")
- palette.writeVhdl("palette.vhd")
- image.writeVhdl("renderer.vhd")
+ image.writeCoe("autogen/video_rom.coe")
+ palette.writeVhdl("autogen/palette.vhd")
+ image.writeVhdl("autogen/renderer.vhd")
  print "Used memory: %d words" % len(image.memory)
  image.show()
 

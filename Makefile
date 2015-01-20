@@ -1,5 +1,6 @@
-video_rom.coe: oscilloscope.py primitives.py
-	./oscilloscope.py
+all:
+	./generator/oscilloscope.py
 
 clean:
-	rm -f video_rom.coe
+	rm -f autogen/video_rom.coe autogen/*.vhd
+

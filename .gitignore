@@ -1,4 +1,1 @@
 *.pyc
-*.coe
-palette.vhd
-addr_logic.vhd
