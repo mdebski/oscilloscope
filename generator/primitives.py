@@ -88,8 +88,9 @@ class Palette(object):
 
 
 class Canvas(object):
- def __init__(self, width, height, palette, widgetMap):
+ def __init__(self, width, height, palette, widgetMap, select_color):
   self.root = tk.Tk()
+  self.select_color = select_color
   def ping():
    self.root.after(50, ping)
   ping()
@@ -122,7 +123,9 @@ class Canvas(object):
      hcount, vcount: in unsigned(10 downto 0);
      toggle: in std_logic_vector(7 downto 0);
      freq_digits: in DIGIT_ARRAY(3 downto 0);
+     selected: in unsigned(3 downto 0);
      line_pos: in unsigned(10 downto 0);
+     line2_pos: in unsigned(10 downto 0);
      state: in STATE_TYPE;
      prescale: in unsigned(2 downto 0);
 
@@ -133,12 +136,18 @@ class Canvas(object):
    end renderer;
 
    architecture Behavioral of renderer is
+    signal select_x1, select_x2, select_y1, select_y2: unsigned(10 downto 0);
    begin process(hcount, vcount, toggle, line_pos, freq_digits, state, prescale) is begin
     index <= "000";
+   %s
     %s
    end process; end Behavioral;
   """)
   gen = ''
+  gen += textwrap.dedent("""
+   elsif (((%s = select_x1) or (%s = select_x2)) and ((%s = select_y1) or (%s = select_y1))) then
+     output <= X"%03x" select_mem <= '0';
+  """) % (hpos, vpos, hpos, vpos, self.select_color)
   for pos, widget in reversed(list(self.widgetMap.iteritems())):
    gen += textwrap.dedent("""
     elsif ((%s >= %s) and (%s >= %s) and (%s < %s + %d) and (%s < %s + %d)) then
@@ -149,7 +158,37 @@ class Canvas(object):
     output <= X"000"; select_mem <= '0';
    end if;
   """)
-  return boilerplate % gen
+  select = self.formatSelect()
+  return boilerplate % (select, gen)
+
+ def formatSelect(self):
+  data = collections.defaultdict(dict)
+  s = ""
+  for ((x,y), w) in self.widgetMap.iteritems():
+
+   def add(p, i):
+    if isinstance(p, (int, long)):
+     return '''X"%03x"''' % (max(p+i, 0))
+    if i > 0:
+     return "%s + %d" % (p,i)
+    if i < 0:
+     return "%s - %d" % (p, -i)
+    return p
+
+   if 'select' in w.kwargs:
+    num = w.kwargs['select']
+    data['x1'][num] = add(x, -1)
+    data['x2'][num] = add(x, w.w + 1)
+    data['y1'][num] = add(y, -1)
+    data['y2'][num] = add(y, w.h + 1)
+
+  for k, v in data.iteritems():
+   s += " with selected select select_%s <=\n" % k
+   for k, v in v.iteritems():
+    s += '''  %s when X"%01x",\n''' % (v, k)
+   s += '''  X"000" when others;\n'''
+
+  return s[:-1]
 
  def writeVhdl(self, filename):
   with open(filename, 'w') as f:
@@ -184,7 +223,6 @@ class Canvas(object):
    for word, i in itertools.izip(self.memory, xrange(len(self.memory))):
     f.write(word)
     f.write(";" if i == len(self.memory)-1 else ",\n")
-
 
 
 class Widget(object):
