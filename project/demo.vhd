@@ -36,7 +36,7 @@ architecture Structural of demo is
  signal freq_inc: unsigned(12 downto 0);
  signal freq_dd: std_logic_vector(15 downto 0);
  signal freq_digits: DIGIT_ARRAY(3 downto 0);
- signal line_pos: unsigned(10 downto 0);
+ signal line_pos, line2_pos: unsigned(10 downto 0);
  signal state: STATE_TYPE;
  signal video_raw: std_logic_vector(3 downto 0);
  signal data_raw: std_logic_vector(7 downto 0);
@@ -44,12 +44,14 @@ architecture Structural of demo is
  signal mux1, mux2: std_logic_vector(7 downto 0);
  signal enable_write: std_logic_vector(0 downto 0);
  signal clk_buf, clk_tmp: std_logic;
- signal dd_rst: std_logic;
+ signal vs: std_logic;
  signal index: unsigned(2 downto 0);
+ signal selected: unsigned(3 downto 0);
 begin
  rst <= btn(0);
  hcount <= unsigned(hcount_v);
  vcount <= unsigned(vcount_v);
+ vsync <= vs;
  
  clk_ibufg: IBUFG port map (I => clk, O => clk_tmp);
  clk_bufg :  BUFG port map (I => clk_tmp, O => clk_buf);
@@ -76,7 +78,7 @@ begin
 		rst => rst,
 		pixel_clk => pixclk,
 		HS => hsync,
-		VS => vsync,
+		VS => vs,
 		hcount => hcount_v,
 		vcount => vcount_v,
 		blank => open
@@ -87,12 +89,13 @@ begin
 		vcount => vcount,
   toggle => sw,
   freq_digits => freq_digits,
-  line_pos => line_pos,
+  line_pos => line_pos, line2_pos => line2_pos,
   state => state,
   prescale => prescale,
 		output => render_out,
   index => index,
-  select_mem => select_mem
+  select_mem => select_mem,
+  selected => selected
 	);
  
  mux: entity work.mux PORT MAP(
@@ -177,18 +180,10 @@ begin
  
  freq_inc <= to_unsigned(to_integer(freq) + 1, 13);
  dd: entity work.double_dabble PORT MAP(
-  clk => pixclk180, rst => dd_rst,
+  clk => pixclk180, rst => vs,
 		input => std_logic_vector(freq_inc),
 		output => freq_dd
 	);
- 
- process(pixclk) is begin if rising_edge(pixclk) then
-  if vcount = 480 then
-   dd_rst <= '1';
-  else
-   dd_rst <= '0';
-  end if;
- end if; end process;
  
  freq_digits(0) <= unsigned(freq_dd(3  downto 0));
  freq_digits(1) <= unsigned(freq_dd(7  downto 4));
