@@ -137,16 +137,17 @@ class Canvas(object):
 
    architecture Behavioral of renderer is
     signal select_x1, select_x2, select_y1, select_y2: unsigned(10 downto 0);
-   begin process(hcount, vcount, toggle, line_pos, freq_digits, state, prescale) is begin
-    index <= "000";
+   begin
    %s
+   process(hcount, vcount, toggle, line_pos, freq_digits, state, prescale) is begin
+    index <= "000";
     %s
    end process; end Behavioral;
   """)
   gen = ''
   gen += textwrap.dedent("""
    elsif (((%s = select_x1) or (%s = select_x2)) and ((%s = select_y1) or (%s = select_y1))) then
-     output <= X"%03x" select_mem <= '0';
+     output <= X"%03x"; select_mem <= '0';
   """) % (hpos, vpos, hpos, vpos, self.select_color)
   for pos, widget in reversed(list(self.widgetMap.iteritems())):
    gen += textwrap.dedent("""
@@ -168,7 +169,7 @@ class Canvas(object):
 
    def add(p, i):
     if isinstance(p, (int, long)):
-     return '''X"%03x"''' % (max(p+i, 0))
+     return '''"%s"''' % (Bin(max(p+i, 0), 11))
     if i > 0:
      return "%s + %d" % (p,i)
     if i < 0:
@@ -186,7 +187,7 @@ class Canvas(object):
    s += " with selected select select_%s <=\n" % k
    for k, v in v.iteritems():
     s += '''  %s when X"%01x",\n''' % (v, k)
-   s += '''  X"000" when others;\n'''
+   s += '''  "00000000000" when others;\n'''
 
   return s[:-1]
 
