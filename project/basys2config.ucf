@@ -26,22 +26,6 @@ NET "btn<3>" LOC = "A7";
 NET "clk" LOC = "M6";
 #NET "clk" CLOCK_DEDICATED_ROUTE = false;
 
-# JC pmod
-NET "jc<0>" LOC = "A9";
-NET "jc<1>" LOC = "B9";
-NET "jc<2>" LOC = "A10";
-NET "jc<3>" LOC = "C9";
-NET "jc<0>" PULLDOWN;
-NET "jc<1>" PULLDOWN;
-NET "jc<2>" PULLDOWN;
-NET "jc<3>" PULLDOWN;
-
-# JD pmod
-NET "jd<0>" LOC = "C12";
-NET "jd<1>" LOC = "A13";
-NET "jd<2>" LOC = "C13";
-NET "jd<3>" LOC = "D12";
-
 # VGA
 
 NET "hsync"   LOC = "J14";

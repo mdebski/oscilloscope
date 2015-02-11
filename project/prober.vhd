@@ -6,7 +6,7 @@ use work.common.all;
 entity prober is
  port(
   clk, scaled_clk, slow_clk, rst: in std_logic;
-  btn_change: in std_logic;
+  change_mode: in std_logic;
   freq: in unsigned(11 downto 0);
   toggle, input: in std_logic_vector(7 downto 0);
 
@@ -21,26 +21,19 @@ architecture Behavioral of prober is
  signal got: unsigned(9 downto 0);
  signal sstate: STATE_TYPE;
  signal repeat: std_logic;
- signal btn_change_deb: std_logic;
  signal last_input: std_logic_vector(7 downto 0);
  signal last_chg: std_logic;
 begin
 
  addr <= Std_logic_vector(got(8 downto 0));
  state <= sstate;
- 
 
- decdeb: entity work.debouncer2 generic map (COUNT => 127, NBIT => 7) port map (
-  clk => slow_clk, rst => rst,
-  btn => btn_change, output => btn_change_deb
- );
- 
  -- mode change
  process(clk) is begin if rising_edge(clk) then 
-  last_chg <= btn_change_deb;
+  last_chg <= change_mode;
   if rst = '1' then
    repeat <= '1';
-  elsif(btn_change_deb = '1' and last_chg = '0') then
+  elsif(change_mode /= last_chg) then
    repeat <= not repeat;
   end if;
  end if; end process;

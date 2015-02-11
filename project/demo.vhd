@@ -13,9 +13,7 @@ entity demo is
   sw: in std_logic_vector(7 downto 0);
   btn: in std_logic_vector(3 downto 0);
   led: out std_logic_vector(7 downto 0);
-  jc: in std_logic_vector(3 downto 0);
-  
-  jd: out std_logic_vector(3 downto 0);
+
   hsync, vsync: out std_logic;
   vout: out std_logic_vector(7 downto 0)
  );
@@ -27,6 +25,7 @@ architecture Structural of demo is
  signal preclk, preclk180: std_logic; -- 40,96 MHz / 10^prescale
  signal slow_clk: std_logic; -- for debouncers.
  signal rst: std_logic;
+ signal btn_deb: std_logic_vector(3 downto 0);
  signal select_mem: std_logic;
  signal hcount_v, vcount_v: std_logic_vector(10 downto 0);
  signal hcount, vcount: unsigned(10 downto 0);
@@ -38,6 +37,7 @@ architecture Structural of demo is
  signal freq_digits: DIGIT_ARRAY(3 downto 0);
  signal line_pos, line2_pos: unsigned(10 downto 0);
  signal state: STATE_TYPE;
+ signal change_mode: std_logic;
  signal video_raw: std_logic_vector(3 downto 0);
  signal data_raw: std_logic_vector(7 downto 0);
  signal daddr: std_logic_vector(8 downto 0);
@@ -47,11 +47,24 @@ architecture Structural of demo is
  signal vs: std_logic;
  signal index: unsigned(2 downto 0);
  signal selected: unsigned(3 downto 0);
+ 
+ component debouncer2 is
+ generic(
+  COUNT: natural := 10;
+  NBIT: natural := 4
+ );
+ port(
+  btn:  in std_logic;
+  clk, rst:  in std_logic;
+  output: out std_logic
+ );
+ end component debouncer2;
+ for all: debouncer2 use entity work.debouncer2(Behavioral);
 begin
- rst <= btn(0);
  hcount <= unsigned(hcount_v);
  vcount <= unsigned(vcount_v);
  vsync <= vs;
+ rst <= '0';
  
  clk_ibufg: IBUFG port map (I => clk, O => clk_tmp);
  clk_bufg :  BUFG port map (I => clk_tmp, O => clk_buf);
@@ -73,6 +86,13 @@ begin
 		rst => rst,
 		clk_out => slow_clk 
 	);
+ 
+ debs: for i in 0 to 3 generate
+  deb: debouncer2 port map(
+   clk => slow_clk, rst => rst,
+   btn => btn(i), output => btn_deb(i)
+   );
+  end generate;
  
  controller: entity work.vga_controller_640_60 PORT MAP(
 		rst => rst,
@@ -105,30 +125,15 @@ begin
   output => vout
  );
  
- line_ctrl: entity work.line PORT MAP(
-		clk => pixclk, rst => rst,
-		btn_inc => jc(0),
-		btn_dec => jc(1),
-		line_pos => line_pos,
-  slow_clk => slow_clk,
-  debug => jd(1 downto 0)
-	);
- 
- pres_ctrl: entity work.pres_ctrl PORT MAP(
-  clk => pixclk, rst => rst, slow_clk => slow_clk,
-  btn_inc => btn(2), btn_dec => btn(1),
-  prescale => prescale
- );
- 
- jd(3) <= jc(1);
- jd(2) <= jc(0);
- 
- div_ctrl: entity work.div_ctrl PORT MAP(
+ ctrl: entity work.ctrl PORT MAP (
   clk => pixclk, rst => rst,
-  btn_inc => jc(2),
-  btn_dec => jc(3),
-  slow_clk => slow_clk,
-  freq => freq
+  btn => btn,
+  line_pos => line_pos,
+  line2_pos => line2_pos,
+  prescale => prescale,
+  freq => freq,
+  change_mode => change_mode,
+  selected => selected
  );
  
  prescaler: entity work.prescaler PORT MAP(
@@ -141,7 +146,7 @@ begin
  
  prober: entity work.prober PORT MAP(
   clk => probeclk, scaled_clk => preclk, slow_clk => slow_clk, rst => rst,
-  btn_change => btn(3),
+  change_mode => change_mode,
   toggle => sw,
   freq => freq,
   state => state,

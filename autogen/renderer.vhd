@@ -51,7 +51,7 @@ begin
   "00111100001" when X"3",
   "00111100001" when X"4",
   "00000000000" when others;
-process(hcount, vcount, toggle, line_pos, freq_digits, state, prescale) is begin
+process(hcount, vcount, toggle, line_pos, line2_pos, freq_digits, state, prescale, select_x1, select_x2, select_y1, select_y2) is begin
  index <= "000";
  if (((hcount = select_x1) or (vcount = select_x2)) and ((hcount = select_y1) or (vcount = select_y1))) then
   output <= X"00d"; select_mem <= '0';

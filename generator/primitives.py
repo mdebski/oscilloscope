@@ -139,7 +139,7 @@ class Canvas(object):
     signal select_x1, select_x2, select_y1, select_y2: unsigned(10 downto 0);
    begin
    %s
-   process(hcount, vcount, toggle, line_pos, freq_digits, state, prescale) is begin
+   process(hcount, vcount, toggle, line_pos, line2_pos, freq_digits, state, prescale, select_x1, select_x2, select_y1, select_y2) is begin
     index <= "000";
     %s
    end process; end Behavioral;
