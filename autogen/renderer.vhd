@@ -24,32 +24,32 @@ architecture Behavioral of renderer is
  signal select_x1, select_x2, select_y1, select_y2: unsigned(10 downto 0);
 begin
  with selected select select_x2 <=
-  "01001110010" when "000",
-  "01000100001" when "001",
-  "01001011100" when "010",
-  line_pos + 3 when "011",
-  line2_pos + 3 when "100",
+  "01000011100" when "000",
+  "01001011011" when "001",
+  "01001110001" when "010",
+  line_pos + 1 when "011",
+  line2_pos + 1 when "100",
   "00000000000" when others;
  with selected select select_y1 <=
-  "00110100100" when "000",
+  "00110101000" when "000",
   "00110101000" when "001",
-  "00110101000" when "010",
+  "00110100100" when "010",
   "00000000000" when "011",
   "00000000000" when "100",
   "00000000000" when others;
  with selected select select_x1 <=
-  "01001100000" when "000",
-  "01000001111" when "001",
-  "01001000010" when "010",
+  "01000001111" when "000",
+  "01001000010" when "001",
+  "01001100000" when "010",
   line_pos - 1 when "011",
   line2_pos - 1 when "100",
   "00000000000" when others;
  with selected select select_y2 <=
-  "00110110110" when "000",
-  "00110110010" when "001",
-  "00110110010" when "010",
-  "00111100001" when "011",
-  "00111100001" when "100",
+  "00110110001" when "000",
+  "00110110001" when "001",
+  "00110110101" when "010",
+  "00111100000" when "011",
+  "00111100000" when "100",
   "00000000000" when others;
 process(hcount, vcount, toggle, line_pos, line2_pos, freq_digits, state, prescale, select_x1, select_x2, select_y1, select_y2) is begin
  index <= "000";
@@ -59,9 +59,9 @@ process(hcount, vcount, toggle, line_pos, line2_pos, freq_digits, state, prescal
 elsif (((hcount = select_x1) or (hcount = select_x2)) and ((vcount >= select_y1) and (vcount <= select_y2))) then
   output <= X"00d"; select_mem <= '0';
 
-elsif ((hcount >= line2_pos) and (vcount >= 0) and (hcount < line2_pos + 2) and (vcount < 0 + 480)) then
+elsif ((hcount >= line2_pos) and (vcount >= 0) and (hcount < line2_pos + 1) and (vcount < 0 + 480)) then
  output <= X"00e"; select_mem <= '0'; 
-elsif ((hcount >= line_pos) and (vcount >= 0) and (hcount < line_pos + 2) and (vcount < 0 + 480)) then
+elsif ((hcount >= line_pos) and (vcount >= 0) and (hcount < line_pos + 1) and (vcount < 0 + 480)) then
  output <= X"00e"; select_mem <= '0'; 
 elsif ((hcount >= 609) and (vcount >= 421) and (hcount < 609 + 16) and (vcount < 421 + 16)) then
  if state=EVERY then

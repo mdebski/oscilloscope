@@ -7,12 +7,10 @@ https://github.com/mdebski/oscilloscope/blob/master/photos/screenshot.png
 https://github.com/mdebski/oscilloscope/blob/master/photos/board.png
 
 ## Inputs
-* btn0 -> reset
-* btn1, btn2 -> change prescaler (freq / or * 10)
-* btn3 -> toggle mode
+* btn2, btn3 -> select next/prev
+* btn1, btn0 -> increase/decrease selected
 * pmod JA(0 to 3), JB(0 to 3) -> data inputs
-* sw(0 to 7) -> toggle enabled on n-th input
-* JC(0 to 3) -> input from impulsers (regulate frequency and line position)
+* sw(0 to 7) -> trigger enabled on n-th input
 
 ## Project structure
 

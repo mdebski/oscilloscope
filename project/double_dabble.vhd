@@ -36,7 +36,7 @@ begin
   if rst = '1' then
    pre <= (0 => input(n-3), 1 => input(n-2), 2 => input(n-1), others => '0');
    cnt <= to_unsigned(n-3, cnt_length);
-	 output <= (others => '0');
+	  output <= (others => '0');
   else
    if cnt = 0 then
 	  output <= pre;

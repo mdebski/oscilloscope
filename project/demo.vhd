@@ -184,7 +184,7 @@ begin
  
  freq_inc <= to_unsigned(to_integer(freq) + 1, 13);
  dd: entity work.double_dabble PORT MAP(
-  clk => pixclk180, rst => vs,
+  clk => pixclk180, rst => not vs,
 		input => std_logic_vector(freq_inc),
 		output => freq_dd
 	);

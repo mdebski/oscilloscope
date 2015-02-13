@@ -183,9 +183,9 @@ class Canvas(object):
    if 'select' in w.kwargs:
     num = w.kwargs['select']
     data['x1'][num] = add(x, -1)
-    data['x2'][num] = add(x, w.w + 1)
+    data['x2'][num] = add(x, w.kwargs.get('select_width', w.w))
     data['y1'][num] = add(y, -1)
-    data['y2'][num] = add(y, w.h + 1)
+    data['y2'][num] = add(y, w.kwargs.get('select_height', w.h))
 
   for k, v in data.iteritems():
    s += " with selected select select_%s <=\n" % k
@@ -255,7 +255,7 @@ class Constant(Widget):
 
  def draw(self, canvas, palette):
   print "Draw: %s" % str(self)
-  return [canvas.create_rectangle(0, 0, self.w, self.h, fill=palette[self.c])]
+  return [canvas.create_rectangle(0, 0, self.w+1, self.h+1, fill=palette[self.c])]
 
  def generate(self, hpos, vpos):
   return '''output <= X"%03x"; select_mem <= '0'; ''' % self.c
