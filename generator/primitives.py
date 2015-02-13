@@ -146,9 +146,13 @@ class Canvas(object):
   """)
   gen = ''
   gen += textwrap.dedent("""
-   elsif (((%s = select_x1) or (%s = select_x2)) and ((%s = select_y1) or (%s = select_y2))) then
+   elsif (((%s >= select_x1) and (%s <= select_x2)) and ((%s = select_y1) or (%s = select_y2))) then
      output <= X"%03x"; select_mem <= '0';
-  """) % (hpos, vpos, hpos, vpos, self.select_color)
+  """) % (hpos, hpos, vpos, vpos, self.select_color)
+  gen += textwrap.dedent("""
+   elsif (((%s = select_x1) or (%s = select_x2)) and ((%s >= select_y1) and (%s <= select_y2))) then
+     output <= X"%03x"; select_mem <= '0';
+  """) % (hpos, hpos, vpos, vpos, self.select_color)
   for pos, widget in reversed(list(self.widgetMap.iteritems())):
    gen += textwrap.dedent("""
     elsif ((%s >= %s) and (%s >= %s) and (%s < %s + %d) and (%s < %s + %d)) then

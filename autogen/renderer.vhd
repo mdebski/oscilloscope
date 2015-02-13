@@ -53,7 +53,10 @@ begin
   "00000000000" when others;
 process(hcount, vcount, toggle, line_pos, line2_pos, freq_digits, state, prescale, select_x1, select_x2, select_y1, select_y2) is begin
  index <= "000";
- if (((hcount = select_x1) or (vcount = select_x2)) and ((hcount = select_y1) or (vcount = select_y2))) then
+ if (((hcount >= select_x1) and (hcount <= select_x2)) and ((vcount = select_y1) or (vcount = select_y2))) then
+  output <= X"00d"; select_mem <= '0';
+
+elsif (((hcount = select_x1) or (hcount = select_x2)) and ((vcount >= select_y1) and (vcount <= select_y2))) then
   output <= X"00d"; select_mem <= '0';
 
 elsif ((hcount >= line2_pos) and (vcount >= 0) and (hcount < line2_pos + 2) and (vcount < 0 + 480)) then

@@ -33,7 +33,7 @@ begin
   last_chg <= change_mode;
   if rst = '1' then
    repeat <= '1';
-  elsif(change_mode /= last_chg) then
+  elsif(change_mode = '1' and last_chg = '0') then
    repeat <= not repeat;
   end if;
  end if; end process;

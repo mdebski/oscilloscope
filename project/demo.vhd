@@ -50,7 +50,7 @@ architecture Structural of demo is
  
  component debouncer2 is
  generic(
-  COUNT: natural := 10;
+  COUNT: natural := 15;
   NBIT: natural := 4
  );
  port(
@@ -64,7 +64,6 @@ begin
  hcount <= unsigned(hcount_v);
  vcount <= unsigned(vcount_v);
  vsync <= vs;
- rst <= '0';
  
  clk_ibufg: IBUFG port map (I => clk, O => clk_tmp);
  clk_bufg :  BUFG port map (I => clk_tmp, O => clk_buf);
