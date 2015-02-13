@@ -84,19 +84,6 @@ begin
 		CLK0_OUT => open
 	);
 
- sdivider: entity work.sdivider PORT MAP(
-		clk_in => pixclk,
-		rst => rst,
-		clk_out => slow_clk
-	);
-
- debs: for i in 0 to 3 generate
-  deb: debouncer2 port map(
-   clk => slow_clk, rst => rst,
-   btn => btn(i), output => btn_deb(i)
-  );
- end generate;
-
  controller: entity work.vga_controller_640_60 PORT MAP(
 		rst => rst,
 		pixel_clk => pixclk,
@@ -128,9 +115,22 @@ begin
   sel => select_mem,
   output => vout
  );
+ 
+ sdivider: entity work.sdivider PORT MAP(
+		clk_in => pixclk,
+		rst => rst,
+		clk_out => slow_clk
+	);
+
+ debs: for i in 0 to 3 generate
+  deb: debouncer2 port map(
+   clk => slow_clk, rst => rst,
+   btn => btn(i), output => btn_deb(i)
+  );
+ end generate;
 
  ctrl: entity work.ctrl PORT MAP (
-  clk => pixclk, rst => rst,
+  clk => pixclk, rst => rst, slow_clk => slow_clk,
   btn => btn_deb,
   line_pos => line_pos,
   line2_pos => line2_pos,
