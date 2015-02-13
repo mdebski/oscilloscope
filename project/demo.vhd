@@ -48,7 +48,7 @@ architecture Structural of demo is
  signal mux1, mux2: std_logic_vector(7 downto 0);
  signal enable_write: std_logic_vector(0 downto 0);
  signal clk_buf, clk_tmp: std_logic;
- signal vs: std_logic;
+ signal vs, blank: std_logic;
  signal index: unsigned(2 downto 0);
  signal selected: unsigned(2 downto 0);
 
@@ -91,7 +91,7 @@ begin
 		VS => vs,
 		hcount => hcount_v,
 		vcount => vcount_v,
-		blank => open
+		blank => blank
 	);
 
  renderer: entity work.renderer PORT MAP(
@@ -113,6 +113,7 @@ begin
   in1 => mux1,
   in2 => mux2,
   sel => select_mem,
+  blank => blank,
   output => vout
  );
  
