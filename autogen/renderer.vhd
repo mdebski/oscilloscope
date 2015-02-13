@@ -9,6 +9,7 @@ entity renderer is
   vcount: in VCOORD;
   toggle: in std_logic_vector(7 downto 0);
   freq_digits: in DIGIT_ARRAY(3 downto 0);
+  dist_digits: in DIGIT_ARRAY(2 downto 0);
   selected: in unsigned(2 downto 0);
   line_pos, line2_pos: in HCOORD;
   state: in STATE_TYPE;
@@ -100,6 +101,12 @@ elsif ((hcount >= 550) and (vcount >= 432) and (hcount < 550 + 4) and (vcount < 
 else
  output <= Std_logic_vector(((vcount-432) * 4) + (hcount-550) + 1308); select_mem <= '0';
 end if;
+elsif ((hcount >= 568) and (vcount >= 437) and (hcount < 568 + 8) and (vcount < 437 + 8)) then
+ output <= Std_logic_vector(((vcount-437) * 8) + (hcount-568) + 656 + (64*to_unsigned(to_integer(dist_digits(0)), 12))); select_mem <= '0';
+elsif ((hcount >= 560) and (vcount >= 437) and (hcount < 560 + 8) and (vcount < 437 + 8)) then
+ output <= Std_logic_vector(((vcount-437) * 8) + (hcount-560) + 656 + (64*to_unsigned(to_integer(dist_digits(1)), 12))); select_mem <= '0';
+elsif ((hcount >= 552) and (vcount >= 437) and (hcount < 552 + 8) and (vcount < 437 + 8)) then
+ output <= Std_logic_vector(((vcount-437) * 8) + (hcount-552) + 656 + (64*to_unsigned(to_integer(dist_digits(2)), 12))); select_mem <= '0';
 elsif ((hcount >= 568) and (vcount >= 425) and (hcount < 568 + 8) and (vcount < 425 + 8)) then
  output <= Std_logic_vector(((vcount-425) * 8) + (hcount-568) + 656 + (64*to_unsigned(to_integer(freq_digits(0)), 12))); select_mem <= '0';
 elsif ((hcount >= 560) and (vcount >= 425) and (hcount < 560 + 8) and (vcount < 425 + 8)) then

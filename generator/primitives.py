@@ -127,6 +127,7 @@ class Canvas(object):
      vcount: in VCOORD;
      toggle: in std_logic_vector(7 downto 0);
      freq_digits: in DIGIT_ARRAY(3 downto 0);
+     dist_digits: in DIGIT_ARRAY(2 downto 0);
      selected: in unsigned(2 downto 0);
      line_pos, line2_pos: in HCOORD;
      state: in STATE_TYPE;

@@ -8,8 +8,9 @@ entity ctrl is
  port(
   clk, rst: in std_logic;
   btn: in std_logic_vector(3 downto 0);
-  
+
   line_pos, line2_pos: out HCOORD;
+  line_dist: out unsigned(9 downto 0);
   freq: out unsigned(11 downto 0);
   prescale: out unsigned(2 downto 0);
   change_mode: out std_logic;
@@ -38,17 +39,22 @@ architecture Behavioral of ctrl is
 begin
  line_pos <= sline_pos + LINE_MIN; line2_pos <= sline2_pos + LINE_MIN;
  prescale <= sprescale; selected <= sselected; freq <= sfreq;
-process(clk) is begin if rising_edge(clk) then 
+process(clk) is begin if rising_edge(clk) then
  if rst = '1' then
   sline_pos <= to_unsigned(0, 9);
   sline2_pos <= to_unsigned(511, 9);
   change_mode <= '0';
   sselected <= SELECTED_MIN;
   sprescale <= to_unsigned(0, 3);
-  sfreq <= to_unsigned(4095, 11);  
+  sfreq <= to_unsigned(4095, 11);
  else
   last <= btn;
   change_mode <= '0';
+  if(sline_pos < sline2_pos) then
+   line_dist <= sline2_pos - sline_pos;
+  else
+   line_dist <= sline_pos - sline2_pos;
+  end if;
   if(btn(BTN_PREV) = '1' and last(BTN_PREV) = '0') then
    case sselected is
     when SELECTED_MIN => sselected <= SELECTED_MAX;
