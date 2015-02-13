@@ -20,30 +20,34 @@ def main():
 
  # Image
 
+ d[(width - M.r - 30 - 518, M.t)] = Constant(2, 400, C.border) # left border
+ d[(width - M.r - 30 - 2, M.t)] = Constant(2, 400, C.border) # right border
+
+ d[(width - M.r - 30 - 518 + 2, M.t)] = Constant(516, 2, C.border) # top border
+
  for i in xrange(8):
-  d[(width - M.r - 30 - 518, M.t + i*50)] = Constant(518, 40, C.border)
-  d[(width - M.r - 30 - 518 + 2, M.t + i*50 + 2)] = Constant(514 , 40-4, C.bg)
-  d[(width - M.r - 30 - 518 + 3, M.t + i*50 + 4)] = Graph(512, i, True, C.graph)
-  d[(width - M.r - 30 - 518 + 3, M.t + i*50 + 34)] = Graph(512, i, False, C.graph)
-  d[(width - M.r - 30 + 4 + 5, M.t + i*50 + 12)] = Select(["toggle(%d) = '1'" % i], ["ledon", "ledoff"])
+  d[(width - M.r - 30 - 518, M.t + 50 + i*50)] = Constant(518, 2, C.border)
+  d[(width - M.r - 30 - 518 + 3, M.t + i*50 + 10)] = Graph(512, i, True, C.graph)
+  d[(width - M.r - 30 - 518 + 3, M.t + i*50 + 42)] = Graph(512, i, False, C.graph)
+  d[(width - M.r - 30 + 4 + 5, M.t + i*50 + 5 + 13)] = Select(["toggle(%d) = '1'" % i], ["ledon", "ledoff"])
 
- d[(width - M.r -30 -24 - 48, M.t + 405)] = Sprite("f", select=0, select_width=12)
- d[(width - M.r -30 -24 - 32, M.t + 405)] = Digit("freq_digits(3)")
- d[(width - M.r -30 -24 - 24, M.t + 405)] = Digit("freq_digits(2)")
- d[(width - M.r -30 -24 - 16, M.t + 405)] = Digit("freq_digits(1)")
- d[(width - M.r -30 -24 - 8,  M.t + 405)] = Digit("freq_digits(0)")
+ d[(width - M.r -30 -24 - 48, M.t + 8 + 405)] = Sprite("f", select=0, select_width=12)
+ d[(width - M.r -30 -24 - 32, M.t + 8 + 405)] = Digit("freq_digits(3)")
+ d[(width - M.r -30 -24 - 24, M.t + 8 + 405)] = Digit("freq_digits(2)")
+ d[(width - M.r -30 -24 - 16, M.t + 8 + 405)] = Digit("freq_digits(1)")
+ d[(width - M.r -30 -24 - 8,  M.t + 8 + 405)] = Digit("freq_digits(0)")
 
- d[(width - M.r -30 -24 - 24, M.t + 417)] = Digit("dist_digits(2)")
- d[(width - M.r -30 -24 - 16, M.t + 417)] = Digit("dist_digits(1)")
- d[(width - M.r -30 -24 - 8,  M.t + 417)] = Digit("dist_digits(0)")
+ d[(width - M.r -30 -24 - 24, M.t + 8 + 417)] = Digit("dist_digits(2)")
+ d[(width - M.r -30 -24 - 16, M.t + 8 + 417)] = Digit("dist_digits(1)")
+ d[(width - M.r -30 -24 - 8,  M.t + 8 + 417)] = Digit("dist_digits(0)")
 
- d[(width - M.r -30 -24 - 32 + 6,  M.t + 412)] = Select(["prescale = 1 or prescale = 4 or prescale = 7"], ["comma", "nocomma"])
- d[(width - M.r -30 -24 - 24 + 6,  M.t + 412)] = Select(["prescale = 0 or prescale = 3 or prescale = 6"], ["comma", "nocomma"])
- d[(width - M.r -30 -24 - 16 + 6,  M.t + 412)] = Select(["prescale = 2 or prescale = 5"], ["comma", "nocomma"])
+ d[(width - M.r -30 -24 - 32 + 6,  M.t + 8 + 412)] = Select(["prescale = 1 or prescale = 4 or prescale = 7"], ["comma", "nocomma"])
+ d[(width - M.r -30 -24 - 24 + 6,  M.t + 8 + 412)] = Select(["prescale = 0 or prescale = 3 or prescale = 6"], ["comma", "nocomma"])
+ d[(width - M.r -30 -24 - 16 + 6,  M.t + 8 + 412)] = Select(["prescale = 2 or prescale = 5"], ["comma", "nocomma"])
 
- d[(width - M.r -30 -24 + 3,  M.t + 405)] = Select(["prescale <= 1", "prescale <= 4"], ["MHz", "kHz", "Hz"], select=1)
+ d[(width - M.r -30 -24 + 3,  M.t + 8 + 405)] = Select(["prescale <= 1", "prescale <= 4"], ["MHz", "kHz", "Hz"], select=1)
 
- d[(width - M.r -30 + 9,  M.t + 405 - 4)] = Select(["state=EVERY", "state=ONCE", "state=ONCE_PROBING"], ["every", "once", "once-probing", "once-done"], select=2)
+ d[(width - M.r -30 + 9,  M.t + 8 + 405 - 4)] = Select(["state=EVERY", "state=ONCE", "state=ONCE_PROBING"], ["every", "once", "once-probing", "once-done"], select=2)
 
  d[("line_pos", 0)] = Constant(1,480,C.line, select=3)
  d[("line2_pos", 0)] = Constant(1,480,C.line, select=4)
