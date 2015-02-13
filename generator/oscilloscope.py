@@ -11,7 +11,7 @@ def main():
  width=640
  height=480
 
- C = Bunch(bg=0, border=8, graph=12, line=14, select=13)
+ C = Bunch(bg=0, border=8, graph=12, line=14, select=13, hack=7)
 
  palette = Palette("4bit-RGBI.gpl")
 
@@ -19,6 +19,11 @@ def main():
  image = Canvas(width=width, height=height, palette = palette, widgetMap = d, select_color=C.select)
 
  # Image
+
+ d[(0, 0)] = Constant(5, 1, C.hack)
+ d[(0, 1)] = Constant(1, 4, C.hack)
+ d[(width-1, height-6)] = Constant(1, 5, C.hack)
+ d[(width-6, height-1)] = Constant(5, 1, C.hack)
 
  d[(width - M.r - 30 - 518, M.t)] = Constant(2, 400, C.border) # left border
  d[(width - M.r - 30 - 2, M.t)] = Constant(2, 400, C.border) # right border

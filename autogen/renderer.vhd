@@ -219,6 +219,14 @@ elsif ((hcount >= 598) and (vcount >= 20) and (hcount < 598 + 2) and (vcount < 2
  output <= X"008"; select_mem <= '0'; 
 elsif ((hcount >= 82) and (vcount >= 20) and (hcount < 82 + 2) and (vcount < 20 + 400)) then
  output <= X"008"; select_mem <= '0'; 
+elsif ((hcount >= 634) and (vcount >= 479) and (hcount < 634 + 5) and (vcount < 479 + 1)) then
+ output <= X"007"; select_mem <= '0'; 
+elsif ((hcount >= 639) and (vcount >= 474) and (hcount < 639 + 1) and (vcount < 474 + 5)) then
+ output <= X"007"; select_mem <= '0'; 
+elsif ((hcount >= 0) and (vcount >= 1) and (hcount < 0 + 1) and (vcount < 1 + 4)) then
+ output <= X"007"; select_mem <= '0'; 
+elsif ((hcount >= 0) and (vcount >= 0) and (hcount < 0 + 5) and (vcount < 0 + 1)) then
+ output <= X"007"; select_mem <= '0'; 
 else
  output <= X"000"; select_mem <= '0';
 end if;
