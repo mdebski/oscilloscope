@@ -75,8 +75,8 @@ process(clk) is begin if rising_edge(clk) then
   end if;
   if(slow_clk = '1' and last_slow_clk = '0') then
    cnt <= cnt+1;
-   if(cnt(10 downto 0) = "00000000000") then -- repeat button
-    if(cnt(14 downto 0) = "000000000000000" and btn_speed < MAX_BTN_SPEED) then -- increase speed
+   if(cnt(9 downto 0) = "0000000000") then -- repeat button
+    if(cnt(12 downto 0) = "0000000000000" and btn_speed < MAX_BTN_SPEED) then -- increase speed
      btn_speed <= btn_speed + 1;
     end if;
     if(btn(BTN_INC) /= btn(BTN_DEC)) then
