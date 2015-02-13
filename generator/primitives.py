@@ -123,7 +123,7 @@ class Canvas(object):
      hcount, vcount: in unsigned(10 downto 0);
      toggle: in std_logic_vector(7 downto 0);
      freq_digits: in DIGIT_ARRAY(3 downto 0);
-     selected: in unsigned(3 downto 0);
+     selected: in unsigned(2 downto 0);
      line_pos: in unsigned(10 downto 0);
      line2_pos: in unsigned(10 downto 0);
      state: in STATE_TYPE;
@@ -146,7 +146,7 @@ class Canvas(object):
   """)
   gen = ''
   gen += textwrap.dedent("""
-   elsif (((%s = select_x1) or (%s = select_x2)) and ((%s = select_y1) or (%s = select_y1))) then
+   elsif (((%s = select_x1) or (%s = select_x2)) and ((%s = select_y1) or (%s = select_y2))) then
      output <= X"%03x"; select_mem <= '0';
   """) % (hpos, vpos, hpos, vpos, self.select_color)
   for pos, widget in reversed(list(self.widgetMap.iteritems())):
@@ -186,7 +186,7 @@ class Canvas(object):
   for k, v in data.iteritems():
    s += " with selected select select_%s <=\n" % k
    for k, v in v.iteritems():
-    s += '''  %s when X"%01x",\n''' % (v, k)
+    s += '''  %s when "%s",\n''' % (v, Bin(k, 3))
    s += '''  "00000000000" when others;\n'''
 
   return s[:-1]

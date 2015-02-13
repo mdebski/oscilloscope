@@ -46,7 +46,7 @@ architecture Structural of demo is
  signal clk_buf, clk_tmp: std_logic;
  signal vs: std_logic;
  signal index: unsigned(2 downto 0);
- signal selected: unsigned(3 downto 0);
+ signal selected: unsigned(2 downto 0);
  
  component debouncer2 is
  generic(
@@ -59,7 +59,7 @@ architecture Structural of demo is
   output: out std_logic
  );
  end component debouncer2;
- for all: debouncer2 use entity work.debouncer2(Behavioral);
+ for all: debouncer2 use entity work.debouncer2(counter);
 begin
  hcount <= unsigned(hcount_v);
  vcount <= unsigned(vcount_v);
@@ -91,8 +91,8 @@ begin
   deb: debouncer2 port map(
    clk => slow_clk, rst => rst,
    btn => btn(i), output => btn_deb(i)
-   );
-  end generate;
+  );
+ end generate;
  
  controller: entity work.vga_controller_640_60 PORT MAP(
 		rst => rst,
@@ -127,7 +127,7 @@ begin
  
  ctrl: entity work.ctrl PORT MAP (
   clk => pixclk, rst => rst,
-  btn => btn,
+  btn => btn_deb,
   line_pos => line_pos,
   line2_pos => line2_pos,
   prescale => prescale,
@@ -145,7 +145,7 @@ begin
  preclk180 <= not preclk;
  
  prober: entity work.prober PORT MAP(
-  clk => probeclk, scaled_clk => preclk, slow_clk => slow_clk, rst => rst,
+  clk => probeclk, scaled_clk => preclk, rst => rst,
   change_mode => change_mode,
   toggle => sw,
   freq => freq,

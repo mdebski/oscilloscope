@@ -8,7 +8,7 @@ entity renderer is
   hcount, vcount: in unsigned(10 downto 0);
   toggle: in std_logic_vector(7 downto 0);
   freq_digits: in DIGIT_ARRAY(3 downto 0);
-  selected: in unsigned(3 downto 0);
+  selected: in unsigned(2 downto 0);
   line_pos: in unsigned(10 downto 0);
   line2_pos: in unsigned(10 downto 0);
   state: in STATE_TYPE;
@@ -24,36 +24,36 @@ architecture Behavioral of renderer is
  signal select_x1, select_x2, select_y1, select_y2: unsigned(10 downto 0);
 begin
  with selected select select_x2 <=
-  "01001110010" when X"0",
-  "01000100001" when X"1",
-  "01001011100" when X"2",
-  line_pos + 3 when X"3",
-  line2_pos + 3 when X"4",
+  "01001110010" when "000",
+  "01000100001" when "001",
+  "01001011100" when "010",
+  line_pos + 3 when "011",
+  line2_pos + 3 when "100",
   "00000000000" when others;
  with selected select select_y1 <=
-  "00110100100" when X"0",
-  "00110101000" when X"1",
-  "00110101000" when X"2",
-  "00000000000" when X"3",
-  "00000000000" when X"4",
+  "00110100100" when "000",
+  "00110101000" when "001",
+  "00110101000" when "010",
+  "00000000000" when "011",
+  "00000000000" when "100",
   "00000000000" when others;
  with selected select select_x1 <=
-  "01001100000" when X"0",
-  "01000001111" when X"1",
-  "01001000010" when X"2",
-  line_pos - 1 when X"3",
-  line2_pos - 1 when X"4",
+  "01001100000" when "000",
+  "01000001111" when "001",
+  "01001000010" when "010",
+  line_pos - 1 when "011",
+  line2_pos - 1 when "100",
   "00000000000" when others;
  with selected select select_y2 <=
-  "00110110110" when X"0",
-  "00110110010" when X"1",
-  "00110110010" when X"2",
-  "00111100001" when X"3",
-  "00111100001" when X"4",
+  "00110110110" when "000",
+  "00110110010" when "001",
+  "00110110010" when "010",
+  "00111100001" when "011",
+  "00111100001" when "100",
   "00000000000" when others;
 process(hcount, vcount, toggle, line_pos, line2_pos, freq_digits, state, prescale, select_x1, select_x2, select_y1, select_y2) is begin
  index <= "000";
- if (((hcount = select_x1) or (vcount = select_x2)) and ((hcount = select_y1) or (vcount = select_y1))) then
+ if (((hcount = select_x1) or (vcount = select_x2)) and ((hcount = select_y1) or (vcount = select_y2))) then
   output <= X"00d"; select_mem <= '0';
 
 elsif ((hcount >= line2_pos) and (vcount >= 0) and (hcount < line2_pos + 2) and (vcount < 0 + 480)) then

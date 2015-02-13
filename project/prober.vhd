@@ -5,7 +5,7 @@ use work.common.all;
 
 entity prober is
  port(
-  clk, scaled_clk, slow_clk, rst: in std_logic;
+  clk, scaled_clk, rst: in std_logic;
   change_mode: in std_logic;
   freq: in unsigned(11 downto 0);
   toggle, input: in std_logic_vector(7 downto 0);
