@@ -8,6 +8,9 @@ import collections
 import Tkinter as tk
 from PIL import Image, ImageTk
 
+HSIZE=10
+VSIZE=9
+
 def Bin(n, l):
  return bin(n)[2:].rjust(l, '0')
 
@@ -120,12 +123,12 @@ class Canvas(object):
 
    entity renderer is
     port(
-     hcount, vcount: in unsigned(10 downto 0);
+     hcount: in HCOORD;
+     vcount: in VCOORD;
      toggle: in std_logic_vector(7 downto 0);
      freq_digits: in DIGIT_ARRAY(3 downto 0);
      selected: in unsigned(2 downto 0);
-     line_pos: in unsigned(10 downto 0);
-     line2_pos: in unsigned(10 downto 0);
+     line_pos, line2_pos: in HCOORD;
      state: in STATE_TYPE;
      prescale: in unsigned(2 downto 0);
 
@@ -136,7 +139,8 @@ class Canvas(object):
    end renderer;
 
    architecture Behavioral of renderer is
-    signal select_x1, select_x2, select_y1, select_y2: unsigned(10 downto 0);
+    signal select_x1, select_x2: HCOORD;
+    signal select_y1, select_y2: VCOORD;
    begin
    %s
    process(hcount, vcount, toggle, line_pos, line2_pos, freq_digits, state, prescale, select_x1, select_x2, select_y1, select_y2) is begin
@@ -171,9 +175,9 @@ class Canvas(object):
   s = ""
   for ((x,y), w) in self.widgetMap.iteritems():
 
-   def add(p, i):
+   def add(p, i, n):
     if isinstance(p, (int, long)):
-     return '''"%s"''' % (Bin(max(p+i, 0), 11))
+     return '''"%s"''' % (Bin(max(p+i, 0), n))
     if i > 0:
      return "%s + %d" % (p,i)
     if i < 0:
@@ -182,16 +186,16 @@ class Canvas(object):
 
    if 'select' in w.kwargs:
     num = w.kwargs['select']
-    data['x1'][num] = add(x, -1)
-    data['x2'][num] = add(x, w.kwargs.get('select_width', w.w))
-    data['y1'][num] = add(y, -1)
-    data['y2'][num] = add(y, w.kwargs.get('select_height', w.h))
+    data['x1'][num] = add(x, -1, n=HSIZE)
+    data['x2'][num] = add(x, w.kwargs.get('select_width', w.w), n=HSIZE)
+    data['y1'][num] = add(y, -1, n=VSIZE)
+    data['y2'][num] = add(y, w.kwargs.get('select_height', w.h), n=VSIZE)
 
-  for k, v in data.iteritems():
-   s += " with selected select select_%s <=\n" % k
-   for k, v in v.iteritems():
-    s += '''  %s when "%s",\n''' % (v, Bin(k, 3))
-   s += '''  "00000000000" when others;\n'''
+  for k1, v in data.iteritems():
+   s += " with selected select select_%s <=\n" % k1
+   for k2, v in v.iteritems():
+    s += '''  %s when "%s",\n''' % (v, Bin(k2, 3))
+   s += '''  "%s" when others;\n''' % ("0" * (HSIZE if k1[0] == 'x' else VSIZE))
 
   return s[:-1]
 

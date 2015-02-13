@@ -28,14 +28,15 @@ architecture Structural of demo is
  signal btn_deb: std_logic_vector(3 downto 0);
  signal select_mem: std_logic;
  signal hcount_v, vcount_v: std_logic_vector(10 downto 0);
- signal hcount, vcount: unsigned(10 downto 0);
+ signal hcount: HCOORD;
+ signal vcount: VCOORD;
  signal render_out: std_logic_vector(11 downto 0);
  signal prescale: unsigned(2 downto 0); -- prescale by 10^k
  signal freq: unsigned(11 downto 0);
  signal freq_inc: unsigned(12 downto 0);
  signal freq_dd: std_logic_vector(15 downto 0);
  signal freq_digits: DIGIT_ARRAY(3 downto 0);
- signal line_pos, line2_pos: unsigned(10 downto 0);
+ signal line_pos, line2_pos: HCOORD;
  signal state: STATE_TYPE;
  signal change_mode: std_logic;
  signal video_raw: std_logic_vector(3 downto 0);
@@ -61,8 +62,8 @@ architecture Structural of demo is
  end component debouncer2;
  for all: debouncer2 use entity work.debouncer2(counter);
 begin
- hcount <= unsigned(hcount_v);
- vcount <= unsigned(vcount_v);
+ hcount <= unsigned(hcount_v(HSIZE-1 downto 0));
+ vcount <= unsigned(vcount_v(VSIZE-1 downto 0));
  vsync <= vs;
  
  clk_ibufg: IBUFG port map (I => clk, O => clk_tmp);

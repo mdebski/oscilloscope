@@ -5,12 +5,12 @@ use work.common.all;
 
 entity renderer is
  port(
-  hcount, vcount: in unsigned(10 downto 0);
+  hcount: in HCOORD;
+  vcount: in VCOORD;
   toggle: in std_logic_vector(7 downto 0);
   freq_digits: in DIGIT_ARRAY(3 downto 0);
   selected: in unsigned(2 downto 0);
-  line_pos: in unsigned(10 downto 0);
-  line2_pos: in unsigned(10 downto 0);
+  line_pos, line2_pos: in HCOORD;
   state: in STATE_TYPE;
   prescale: in unsigned(2 downto 0);
 
@@ -21,36 +21,37 @@ entity renderer is
 end renderer;
 
 architecture Behavioral of renderer is
- signal select_x1, select_x2, select_y1, select_y2: unsigned(10 downto 0);
+ signal select_x1, select_x2: HCOORD;
+ signal select_y1, select_y2: VCOORD;
 begin
  with selected select select_x2 <=
-  "01000011100" when "000",
-  "01001011011" when "001",
-  "01001110001" when "010",
+  "1000011100" when "000",
+  "1001011011" when "001",
+  "1001110001" when "010",
   line_pos + 1 when "011",
   line2_pos + 1 when "100",
-  "00000000000" when others;
+  "0000000000" when others;
  with selected select select_y1 <=
-  "00110101000" when "000",
-  "00110101000" when "001",
-  "00110100100" when "010",
-  "00000000000" when "011",
-  "00000000000" when "100",
-  "00000000000" when others;
+  "110101000" when "000",
+  "110101000" when "001",
+  "110100100" when "010",
+  "000000000" when "011",
+  "000000000" when "100",
+  "000000000" when others;
  with selected select select_x1 <=
-  "01000001111" when "000",
-  "01001000010" when "001",
-  "01001100000" when "010",
+  "1000001111" when "000",
+  "1001000010" when "001",
+  "1001100000" when "010",
   line_pos - 1 when "011",
   line2_pos - 1 when "100",
-  "00000000000" when others;
+  "0000000000" when others;
  with selected select select_y2 <=
-  "00110110001" when "000",
-  "00110110001" when "001",
-  "00110110101" when "010",
-  "00111100000" when "011",
-  "00111100000" when "100",
-  "00000000000" when others;
+  "110110001" when "000",
+  "110110001" when "001",
+  "110110101" when "010",
+  "111100000" when "011",
+  "111100000" when "100",
+  "000000000" when others;
 process(hcount, vcount, toggle, line_pos, line2_pos, freq_digits, state, prescale, select_x1, select_x2, select_y1, select_y2) is begin
  index <= "000";
  if (((hcount >= select_x1) and (hcount <= select_x2)) and ((vcount = select_y1) or (vcount = select_y2))) then

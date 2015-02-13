@@ -2,13 +2,14 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
 use IEEE.NUMERIC_STD.ALL;
+use work.common.ALL;
 
 entity ctrl is
  port(
   clk, rst: in std_logic;
   btn: in std_logic_vector(3 downto 0);
   
-  line_pos, line2_pos: out unsigned(10 downto 0);
+  line_pos, line2_pos: out HCOORD;
   freq: out unsigned(11 downto 0);
   prescale: out unsigned(2 downto 0);
   change_mode: out std_logic;
