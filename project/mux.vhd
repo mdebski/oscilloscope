@@ -11,7 +11,7 @@ entity mux is
 end mux;
 
 architecture Behavioral of mux is
- signal dec: std_logic_vector(1 downto 0);
+ signal dec: std_logic_vector(0 to 1);
 begin
  dec(0) <= sel;
  dec(1) <= blank;
