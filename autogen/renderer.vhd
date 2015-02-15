@@ -61,11 +61,11 @@ process(hcount, vcount, toggle, line_pos, line2_pos, freq_digits, state, prescal
 elsif (((hcount = select_x1) or (hcount = select_x2)) and ((vcount >= select_y1) and (vcount <= select_y2))) then
   output <= X"00d"; select_mem <= '0';
 
-elsif ((hcount >= line2_pos) and (vcount >= 0) and (hcount < line2_pos + 1) and (vcount < 0 + 480)) then
- output <= X"00e"; select_mem <= '0'; 
-elsif ((hcount >= line_pos) and (vcount >= 0) and (hcount < line_pos + 1) and (vcount < 0 + 480)) then
- output <= X"00e"; select_mem <= '0'; 
-elsif ((hcount >= 609) and (vcount >= 429) and (hcount < 609 + 16) and (vcount < 429 + 16)) then
+elsif ((hcount = line2_pos) and (vcount >= 0) and (vcount < 0 + 480)) then
+ output <= X"00e"; select_mem <= '0';
+elsif ((hcount = line_pos) and (vcount >= 0) and (vcount < 0 + 480)) then
+ output <= X"00e"; select_mem <= '0';
+elsif ((hcount >= 609) and (hcount < 609 + 16) and (vcount >= 429) and (vcount < 429 + 16)) then
  if state=EVERY then
  output <= Std_logic_vector(((vcount-429) * 16) + (hcount-609) + 2152); select_mem <= '0';
 elsif state=ONCE then
@@ -75,7 +75,7 @@ elsif state=ONCE_PROBING then
 else
  output <= Std_logic_vector(((vcount-429) * 16) + (hcount-609) + 2408); select_mem <= '0';
 end if;
-elsif ((hcount >= 579) and (vcount >= 433) and (hcount < 579 + 24) and (vcount < 433 + 8)) then
+elsif ((hcount >= 579) and (hcount < 579 + 24) and (vcount >= 433) and (vcount < 433 + 8)) then
  if prescale <= 1 then
  output <= Std_logic_vector(((vcount-433) * 24) + (hcount-579) + 1704); select_mem <= '0';
 elsif prescale <= 4 then
@@ -83,150 +83,150 @@ elsif prescale <= 4 then
 else
  output <= Std_logic_vector(((vcount-433) * 24) + (hcount-579) + 1320); select_mem <= '0';
 end if;
-elsif ((hcount >= 566) and (vcount >= 440) and (hcount < 566 + 4) and (vcount < 440 + 3)) then
+elsif ((hcount >= 566) and (hcount < 566 + 4) and (vcount >= 440) and (vcount < 440 + 3)) then
  if prescale = 2 or prescale = 5 then
  output <= Std_logic_vector(((vcount-440) * 4) + (hcount-566) + 1296); select_mem <= '0';
 else
  output <= Std_logic_vector(((vcount-440) * 4) + (hcount-566) + 1308); select_mem <= '0';
 end if;
-elsif ((hcount >= 558) and (vcount >= 440) and (hcount < 558 + 4) and (vcount < 440 + 3)) then
+elsif ((hcount >= 558) and (hcount < 558 + 4) and (vcount >= 440) and (vcount < 440 + 3)) then
  if prescale = 0 or prescale = 3 or prescale = 6 then
  output <= Std_logic_vector(((vcount-440) * 4) + (hcount-558) + 1296); select_mem <= '0';
 else
  output <= Std_logic_vector(((vcount-440) * 4) + (hcount-558) + 1308); select_mem <= '0';
 end if;
-elsif ((hcount >= 550) and (vcount >= 440) and (hcount < 550 + 4) and (vcount < 440 + 3)) then
+elsif ((hcount >= 550) and (hcount < 550 + 4) and (vcount >= 440) and (vcount < 440 + 3)) then
  if prescale = 1 or prescale = 4 or prescale = 7 then
  output <= Std_logic_vector(((vcount-440) * 4) + (hcount-550) + 1296); select_mem <= '0';
 else
  output <= Std_logic_vector(((vcount-440) * 4) + (hcount-550) + 1308); select_mem <= '0';
 end if;
-elsif ((hcount >= 568) and (vcount >= 445) and (hcount < 568 + 8) and (vcount < 445 + 8)) then
+elsif ((hcount >= 568) and (hcount < 568 + 8) and (vcount >= 445) and (vcount < 445 + 8)) then
  output <= Std_logic_vector(((vcount-445) * 8) + (hcount-568) + 656 + (64*to_unsigned(to_integer(dist_digits(0)), 12))); select_mem <= '0';
-elsif ((hcount >= 560) and (vcount >= 445) and (hcount < 560 + 8) and (vcount < 445 + 8)) then
+elsif ((hcount >= 560) and (hcount < 560 + 8) and (vcount >= 445) and (vcount < 445 + 8)) then
  output <= Std_logic_vector(((vcount-445) * 8) + (hcount-560) + 656 + (64*to_unsigned(to_integer(dist_digits(1)), 12))); select_mem <= '0';
-elsif ((hcount >= 552) and (vcount >= 445) and (hcount < 552 + 8) and (vcount < 445 + 8)) then
+elsif ((hcount >= 552) and (hcount < 552 + 8) and (vcount >= 445) and (vcount < 445 + 8)) then
  output <= Std_logic_vector(((vcount-445) * 8) + (hcount-552) + 656 + (64*to_unsigned(to_integer(dist_digits(2)), 12))); select_mem <= '0';
-elsif ((hcount >= 568) and (vcount >= 433) and (hcount < 568 + 8) and (vcount < 433 + 8)) then
+elsif ((hcount >= 568) and (hcount < 568 + 8) and (vcount >= 433) and (vcount < 433 + 8)) then
  output <= Std_logic_vector(((vcount-433) * 8) + (hcount-568) + 656 + (64*to_unsigned(to_integer(freq_digits(0)), 12))); select_mem <= '0';
-elsif ((hcount >= 560) and (vcount >= 433) and (hcount < 560 + 8) and (vcount < 433 + 8)) then
+elsif ((hcount >= 560) and (hcount < 560 + 8) and (vcount >= 433) and (vcount < 433 + 8)) then
  output <= Std_logic_vector(((vcount-433) * 8) + (hcount-560) + 656 + (64*to_unsigned(to_integer(freq_digits(1)), 12))); select_mem <= '0';
-elsif ((hcount >= 552) and (vcount >= 433) and (hcount < 552 + 8) and (vcount < 433 + 8)) then
+elsif ((hcount >= 552) and (hcount < 552 + 8) and (vcount >= 433) and (vcount < 433 + 8)) then
  output <= Std_logic_vector(((vcount-433) * 8) + (hcount-552) + 656 + (64*to_unsigned(to_integer(freq_digits(2)), 12))); select_mem <= '0';
-elsif ((hcount >= 544) and (vcount >= 433) and (hcount < 544 + 8) and (vcount < 433 + 8)) then
+elsif ((hcount >= 544) and (hcount < 544 + 8) and (vcount >= 433) and (vcount < 433 + 8)) then
  output <= Std_logic_vector(((vcount-433) * 8) + (hcount-544) + 656 + (64*to_unsigned(to_integer(freq_digits(3)), 12))); select_mem <= '0';
-elsif ((hcount >= 528) and (vcount >= 433) and (hcount < 528 + 16) and (vcount < 433 + 8)) then
+elsif ((hcount >= 528) and (hcount < 528 + 16) and (vcount >= 433) and (vcount < 433 + 8)) then
  output <= Std_logic_vector(((vcount-433) * 16) + (hcount-528) + 528); select_mem <= '0';
-elsif ((hcount >= 609) and (vcount >= 388) and (hcount < 609 + 16) and (vcount < 388 + 16)) then
+elsif ((hcount >= 609) and (hcount < 609 + 16) and (vcount >= 388) and (vcount < 388 + 16)) then
  if toggle(7) = '1' then
  output <= Std_logic_vector(((vcount-388) * 16) + (hcount-609) + 272); select_mem <= '0';
 else
  output <= Std_logic_vector(((vcount-388) * 16) + (hcount-609) + 16); select_mem <= '0';
 end if;
-elsif ((hcount >= 85) and (vcount >= 412) and (hcount < 85 + 512) and (vcount < 412 + 1)) then
+elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 412)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "111"; output(11) <= '1'; select_mem <= '1';
-elsif ((hcount >= 85) and (vcount >= 380) and (hcount < 85 + 512) and (vcount < 380 + 1)) then
+elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 380)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "111"; output(11) <= '0'; select_mem <= '1';
-elsif ((hcount >= 82) and (vcount >= 420) and (hcount < 82 + 518) and (vcount < 420 + 2)) then
- output <= X"008"; select_mem <= '0'; 
-elsif ((hcount >= 609) and (vcount >= 338) and (hcount < 609 + 16) and (vcount < 338 + 16)) then
+elsif ((hcount >= 82) and (hcount < 82 + 518) and (vcount >= 420) and (vcount < 420 + 2)) then
+ output <= X"008"; select_mem <= '0';
+elsif ((hcount >= 609) and (hcount < 609 + 16) and (vcount >= 338) and (vcount < 338 + 16)) then
  if toggle(6) = '1' then
  output <= Std_logic_vector(((vcount-338) * 16) + (hcount-609) + 272); select_mem <= '0';
 else
  output <= Std_logic_vector(((vcount-338) * 16) + (hcount-609) + 16); select_mem <= '0';
 end if;
-elsif ((hcount >= 85) and (vcount >= 362) and (hcount < 85 + 512) and (vcount < 362 + 1)) then
+elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 362)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "110"; output(11) <= '1'; select_mem <= '1';
-elsif ((hcount >= 85) and (vcount >= 330) and (hcount < 85 + 512) and (vcount < 330 + 1)) then
+elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 330)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "110"; output(11) <= '0'; select_mem <= '1';
-elsif ((hcount >= 82) and (vcount >= 370) and (hcount < 82 + 518) and (vcount < 370 + 2)) then
- output <= X"008"; select_mem <= '0'; 
-elsif ((hcount >= 609) and (vcount >= 288) and (hcount < 609 + 16) and (vcount < 288 + 16)) then
+elsif ((hcount >= 82) and (hcount < 82 + 518) and (vcount >= 370) and (vcount < 370 + 2)) then
+ output <= X"008"; select_mem <= '0';
+elsif ((hcount >= 609) and (hcount < 609 + 16) and (vcount >= 288) and (vcount < 288 + 16)) then
  if toggle(5) = '1' then
  output <= Std_logic_vector(((vcount-288) * 16) + (hcount-609) + 272); select_mem <= '0';
 else
  output <= Std_logic_vector(((vcount-288) * 16) + (hcount-609) + 16); select_mem <= '0';
 end if;
-elsif ((hcount >= 85) and (vcount >= 312) and (hcount < 85 + 512) and (vcount < 312 + 1)) then
+elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 312)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "101"; output(11) <= '1'; select_mem <= '1';
-elsif ((hcount >= 85) and (vcount >= 280) and (hcount < 85 + 512) and (vcount < 280 + 1)) then
+elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 280)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "101"; output(11) <= '0'; select_mem <= '1';
-elsif ((hcount >= 82) and (vcount >= 320) and (hcount < 82 + 518) and (vcount < 320 + 2)) then
- output <= X"008"; select_mem <= '0'; 
-elsif ((hcount >= 609) and (vcount >= 238) and (hcount < 609 + 16) and (vcount < 238 + 16)) then
+elsif ((hcount >= 82) and (hcount < 82 + 518) and (vcount >= 320) and (vcount < 320 + 2)) then
+ output <= X"008"; select_mem <= '0';
+elsif ((hcount >= 609) and (hcount < 609 + 16) and (vcount >= 238) and (vcount < 238 + 16)) then
  if toggle(4) = '1' then
  output <= Std_logic_vector(((vcount-238) * 16) + (hcount-609) + 272); select_mem <= '0';
 else
  output <= Std_logic_vector(((vcount-238) * 16) + (hcount-609) + 16); select_mem <= '0';
 end if;
-elsif ((hcount >= 85) and (vcount >= 262) and (hcount < 85 + 512) and (vcount < 262 + 1)) then
+elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 262)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "100"; output(11) <= '1'; select_mem <= '1';
-elsif ((hcount >= 85) and (vcount >= 230) and (hcount < 85 + 512) and (vcount < 230 + 1)) then
+elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 230)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "100"; output(11) <= '0'; select_mem <= '1';
-elsif ((hcount >= 82) and (vcount >= 270) and (hcount < 82 + 518) and (vcount < 270 + 2)) then
- output <= X"008"; select_mem <= '0'; 
-elsif ((hcount >= 609) and (vcount >= 188) and (hcount < 609 + 16) and (vcount < 188 + 16)) then
+elsif ((hcount >= 82) and (hcount < 82 + 518) and (vcount >= 270) and (vcount < 270 + 2)) then
+ output <= X"008"; select_mem <= '0';
+elsif ((hcount >= 609) and (hcount < 609 + 16) and (vcount >= 188) and (vcount < 188 + 16)) then
  if toggle(3) = '1' then
  output <= Std_logic_vector(((vcount-188) * 16) + (hcount-609) + 272); select_mem <= '0';
 else
  output <= Std_logic_vector(((vcount-188) * 16) + (hcount-609) + 16); select_mem <= '0';
 end if;
-elsif ((hcount >= 85) and (vcount >= 212) and (hcount < 85 + 512) and (vcount < 212 + 1)) then
+elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 212)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "011"; output(11) <= '1'; select_mem <= '1';
-elsif ((hcount >= 85) and (vcount >= 180) and (hcount < 85 + 512) and (vcount < 180 + 1)) then
+elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 180)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "011"; output(11) <= '0'; select_mem <= '1';
-elsif ((hcount >= 82) and (vcount >= 220) and (hcount < 82 + 518) and (vcount < 220 + 2)) then
- output <= X"008"; select_mem <= '0'; 
-elsif ((hcount >= 609) and (vcount >= 138) and (hcount < 609 + 16) and (vcount < 138 + 16)) then
+elsif ((hcount >= 82) and (hcount < 82 + 518) and (vcount >= 220) and (vcount < 220 + 2)) then
+ output <= X"008"; select_mem <= '0';
+elsif ((hcount >= 609) and (hcount < 609 + 16) and (vcount >= 138) and (vcount < 138 + 16)) then
  if toggle(2) = '1' then
  output <= Std_logic_vector(((vcount-138) * 16) + (hcount-609) + 272); select_mem <= '0';
 else
  output <= Std_logic_vector(((vcount-138) * 16) + (hcount-609) + 16); select_mem <= '0';
 end if;
-elsif ((hcount >= 85) and (vcount >= 162) and (hcount < 85 + 512) and (vcount < 162 + 1)) then
+elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 162)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "010"; output(11) <= '1'; select_mem <= '1';
-elsif ((hcount >= 85) and (vcount >= 130) and (hcount < 85 + 512) and (vcount < 130 + 1)) then
+elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 130)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "010"; output(11) <= '0'; select_mem <= '1';
-elsif ((hcount >= 82) and (vcount >= 170) and (hcount < 82 + 518) and (vcount < 170 + 2)) then
- output <= X"008"; select_mem <= '0'; 
-elsif ((hcount >= 609) and (vcount >= 88) and (hcount < 609 + 16) and (vcount < 88 + 16)) then
+elsif ((hcount >= 82) and (hcount < 82 + 518) and (vcount >= 170) and (vcount < 170 + 2)) then
+ output <= X"008"; select_mem <= '0';
+elsif ((hcount >= 609) and (hcount < 609 + 16) and (vcount >= 88) and (vcount < 88 + 16)) then
  if toggle(1) = '1' then
  output <= Std_logic_vector(((vcount-88) * 16) + (hcount-609) + 272); select_mem <= '0';
 else
  output <= Std_logic_vector(((vcount-88) * 16) + (hcount-609) + 16); select_mem <= '0';
 end if;
-elsif ((hcount >= 85) and (vcount >= 112) and (hcount < 85 + 512) and (vcount < 112 + 1)) then
+elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 112)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "001"; output(11) <= '1'; select_mem <= '1';
-elsif ((hcount >= 85) and (vcount >= 80) and (hcount < 85 + 512) and (vcount < 80 + 1)) then
+elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 80)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "001"; output(11) <= '0'; select_mem <= '1';
-elsif ((hcount >= 82) and (vcount >= 120) and (hcount < 82 + 518) and (vcount < 120 + 2)) then
- output <= X"008"; select_mem <= '0'; 
-elsif ((hcount >= 609) and (vcount >= 38) and (hcount < 609 + 16) and (vcount < 38 + 16)) then
+elsif ((hcount >= 82) and (hcount < 82 + 518) and (vcount >= 120) and (vcount < 120 + 2)) then
+ output <= X"008"; select_mem <= '0';
+elsif ((hcount >= 609) and (hcount < 609 + 16) and (vcount >= 38) and (vcount < 38 + 16)) then
  if toggle(0) = '1' then
  output <= Std_logic_vector(((vcount-38) * 16) + (hcount-609) + 272); select_mem <= '0';
 else
  output <= Std_logic_vector(((vcount-38) * 16) + (hcount-609) + 16); select_mem <= '0';
 end if;
-elsif ((hcount >= 85) and (vcount >= 62) and (hcount < 85 + 512) and (vcount < 62 + 1)) then
+elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 62)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "000"; output(11) <= '1'; select_mem <= '1';
-elsif ((hcount >= 85) and (vcount >= 30) and (hcount < 85 + 512) and (vcount < 30 + 1)) then
+elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 30)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "000"; output(11) <= '0'; select_mem <= '1';
-elsif ((hcount >= 82) and (vcount >= 70) and (hcount < 82 + 518) and (vcount < 70 + 2)) then
- output <= X"008"; select_mem <= '0'; 
-elsif ((hcount >= 84) and (vcount >= 20) and (hcount < 84 + 516) and (vcount < 20 + 2)) then
- output <= X"008"; select_mem <= '0'; 
-elsif ((hcount >= 598) and (vcount >= 20) and (hcount < 598 + 2) and (vcount < 20 + 400)) then
- output <= X"008"; select_mem <= '0'; 
-elsif ((hcount >= 82) and (vcount >= 20) and (hcount < 82 + 2) and (vcount < 20 + 400)) then
- output <= X"008"; select_mem <= '0'; 
-elsif ((hcount >= 634) and (vcount >= 479) and (hcount < 634 + 5) and (vcount < 479 + 1)) then
- output <= X"007"; select_mem <= '0'; 
-elsif ((hcount >= 639) and (vcount >= 474) and (hcount < 639 + 1) and (vcount < 474 + 5)) then
- output <= X"007"; select_mem <= '0'; 
-elsif ((hcount >= 0) and (vcount >= 1) and (hcount < 0 + 1) and (vcount < 1 + 4)) then
- output <= X"007"; select_mem <= '0'; 
-elsif ((hcount >= 0) and (vcount >= 0) and (hcount < 0 + 5) and (vcount < 0 + 1)) then
- output <= X"007"; select_mem <= '0'; 
+elsif ((hcount >= 82) and (hcount < 82 + 518) and (vcount >= 70) and (vcount < 70 + 2)) then
+ output <= X"008"; select_mem <= '0';
+elsif ((hcount >= 84) and (hcount < 84 + 516) and (vcount >= 20) and (vcount < 20 + 2)) then
+ output <= X"008"; select_mem <= '0';
+elsif ((hcount >= 598) and (hcount < 598 + 2) and (vcount >= 20) and (vcount < 20 + 400)) then
+ output <= X"008"; select_mem <= '0';
+elsif ((hcount >= 82) and (hcount < 82 + 2) and (vcount >= 20) and (vcount < 20 + 400)) then
+ output <= X"008"; select_mem <= '0';
+elsif ((hcount >= 634) and (hcount < 634 + 5) and (vcount = 479)) then
+ output <= X"007"; select_mem <= '0';
+elsif ((hcount = 639) and (vcount >= 474) and (vcount < 474 + 5)) then
+ output <= X"007"; select_mem <= '0';
+elsif ((hcount = 0) and (vcount >= 1) and (vcount < 1 + 4)) then
+ output <= X"007"; select_mem <= '0';
+elsif ((hcount >= 0) and (hcount < 0 + 5) and (vcount = 0)) then
+ output <= X"007"; select_mem <= '0';
 else
  output <= X"000"; select_mem <= '0';
 end if;

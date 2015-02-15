@@ -158,10 +158,19 @@ class Canvas(object):
    elsif (((%s = select_x1) or (%s = select_x2)) and ((%s >= select_y1) and (%s <= select_y2))) then
      output <= X"%03x"; select_mem <= '0';
   """) % (hpos, hpos, vpos, vpos, self.select_color)
+
+  def genConds(var, base, length):
+   if length == 1:
+    return ["(%s = %s)" % (var, str(base))]
+   return ["(%s >= %s)" % (var, str(base)),
+           "(%s < %s + %d)" % (var, str(base), length)]
+
   for pos, widget in reversed(list(self.widgetMap.iteritems())):
+   conds = genConds(hpos, pos[0], widget.w) + genConds(vpos, pos[1], widget.h)
    gen += textwrap.dedent("""
-    elsif ((%s >= %s) and (%s >= %s) and (%s < %s + %d) and (%s < %s + %d)) then
-   """) % (hpos, str(pos[0]), vpos, str(pos[1]), hpos, str(pos[0]), widget.w, vpos, str(pos[1]), widget.h)
+    elsif (%s) then
+   """) % (" and ".join(conds))
+
    gen += " " + widget.generate('(%s-%s)' % (hpos, str(pos[0])), '(%s-%s)' % (vpos, str(pos[1])))
   gen = gen[4:] + textwrap.dedent("""
    else
