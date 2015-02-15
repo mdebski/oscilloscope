@@ -1,0 +1,1368 @@
+Release 14.7 - xst P.20131013 (lin64)
+Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+--> 
+Parameter TMPDIR set to xst/projnav.tmp
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.05 secs
+ 
+--> 
+Parameter xsthdpdir set to xst
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.05 secs
+ 
+--> 
+Reading design: demo.prj
+
+TABLE OF CONTENTS
+  1) Synthesis Options Summary
+  2) HDL Compilation
+  3) Design Hierarchy Analysis
+  4) HDL Analysis
+  5) HDL Synthesis
+     5.1) HDL Synthesis Report
+  6) Advanced HDL Synthesis
+     6.1) Advanced HDL Synthesis Report
+  7) Low Level Synthesis
+  8) Partition Report
+  9) Final Report
+	9.1) Device utilization summary
+	9.2) Partition Resource Summary
+	9.3) TIMING REPORT
+
+
+=========================================================================
+*                      Synthesis Options Summary                        *
+=========================================================================
+---- Source Parameters
+Input File Name                    : "demo.prj"
+Input Format                       : mixed
+Ignore Synthesis Constraint File   : NO
+
+---- Target Parameters
+Output File Name                   : "demo"
+Output Format                      : NGC
+Target Device                      : xc3s100e-5-cp132
+
+---- Source Options
+Top Module Name                    : demo
+Automatic FSM Extraction           : YES
+FSM Encoding Algorithm             : Auto
+Safe Implementation                : No
+FSM Style                          : LUT
+RAM Extraction                     : Yes
+RAM Style                          : Auto
+ROM Extraction                     : Yes
+Mux Style                          : Auto
+Decoder Extraction                 : YES
+Priority Encoder Extraction        : Yes
+Shift Register Extraction          : YES
+Logical Shifter Extraction         : YES
+XOR Collapsing                     : YES
+ROM Style                          : Auto
+Mux Extraction                     : Yes
+Resource Sharing                   : YES
+Asynchronous To Synchronous        : NO
+Multiplier Style                   : Auto
+Automatic Register Balancing       : No
+
+---- Target Options
+Add IO Buffers                     : YES
+Global Maximum Fanout              : 100000
+Add Generic Clock Buffer(BUFG)     : 24
+Register Duplication               : YES
+Slice Packing                      : YES
+Optimize Instantiated Primitives   : NO
+Use Clock Enable                   : Yes
+Use Synchronous Set                : Yes
+Use Synchronous Reset              : Yes
+Pack IO Registers into IOBs        : Auto
+Equivalent register Removal        : YES
+
+---- General Options
+Optimization Goal                  : Speed
+Optimization Effort                : 1
+Keep Hierarchy                     : No
+Netlist Hierarchy                  : As_Optimized
+RTL Output                         : Yes
+Global Optimization                : AllClockNets
+Read Cores                         : YES
+Write Timing Constraints           : NO
+Cross Clock Analysis               : NO
+Hierarchy Separator                : /
+Bus Delimiter                      : <>
+Case Specifier                     : Maintain
+Slice Utilization Ratio            : 100
+BRAM Utilization Ratio             : 100
+Verilog 2001                       : YES
+Auto BRAM Packing                  : NO
+Slice Utilization Ratio Delta      : 5
+
+---- Other Options
+Cores Search Directories           : {"ipcore_dir"  }
+
+=========================================================================
+
+
+=========================================================================
+*                          HDL Compilation                              *
+=========================================================================
+Compiling vhdl file "/home/mdebski/oscilloscope/project/add3.vhd" in Library work.
+Architecture behavioral of Entity add3 is up to date.
+Compiling vhdl file "/home/mdebski/oscilloscope/project/common.vhd" in Library work.
+Architecture common of Entity common is up to date.
+Compiling vhdl file "/home/mdebski/oscilloscope/project/divider.vhd" in Library work.
+Architecture counter of Entity divider is up to date.
+Compiling vhdl file "/home/mdebski/oscilloscope/project/hack.vhd" in Library work.
+Architecture behavioral of Entity hack is up to date.
+Compiling vhdl file "/home/mdebski/oscilloscope/project/ipcore_dir/clk32_25.vhd" in Library work.
+Architecture behavioral of Entity clk32_25 is up to date.
+Compiling vhdl file "/home/mdebski/oscilloscope/project/ipcore_dir/clk32_40.vhd" in Library work.
+Architecture behavioral of Entity clk32_40 is up to date.
+Compiling vhdl file "/home/mdebski/oscilloscope/project/vga_controller_640_60.vhd" in Library work.
+Architecture behavioral of Entity vga_controller_640_60 is up to date.
+Compiling vhdl file "/home/mdebski/oscilloscope/project/renderer.vhd" in Library work.
+Entity <renderer> compiled.
+Entity <renderer> (Architecture <behavioral>) compiled.
+Compiling vhdl file "/home/mdebski/oscilloscope/project/mux.vhd" in Library work.
+Architecture behavioral of Entity mux is up to date.
+Compiling vhdl file "/home/mdebski/oscilloscope/project/sdivider.vhd" in Library work.
+Architecture counter of Entity sdivider is up to date.
+Compiling vhdl file "/home/mdebski/oscilloscope/project/debouncer2.vhd" in Library work.
+Architecture counter of Entity debouncer2 is up to date.
+Compiling vhdl file "/home/mdebski/oscilloscope/project/ctrl.vhd" in Library work.
+Architecture behavioral of Entity ctrl is up to date.
+Compiling vhdl file "/home/mdebski/oscilloscope/project/prescaler.vhd" in Library work.
+Architecture behavioral of Entity prescaler is up to date.
+Compiling vhdl file "/home/mdebski/oscilloscope/project/prober.vhd" in Library work.
+Architecture behavioral of Entity prober is up to date.
+Compiling vhdl file "/home/mdebski/oscilloscope/project/ipcore_dir/dataram.vhd" in Library work.
+Architecture dataram_a of Entity dataram is up to date.
+Compiling vhdl file "/home/mdebski/oscilloscope/project/ipcore_dir/vrom.vhd" in Library work.
+Architecture vrom_a of Entity vrom is up to date.
+Compiling vhdl file "/home/mdebski/oscilloscope/project/palette.vhd" in Library work.
+Entity <palette> compiled.
+Entity <palette> (Architecture <behavioral>) compiled.
+Compiling vhdl file "/home/mdebski/oscilloscope/project/dpalette.vhd" in Library work.
+Architecture behavioral of Entity dpalette is up to date.
+Compiling vhdl file "/home/mdebski/oscilloscope/project/double_dabble.vhd" in Library work.
+Architecture behavioral of Entity double_dabble is up to date.
+Compiling vhdl file "/home/mdebski/oscilloscope/project/demo.vhd" in Library work.
+Architecture structural of Entity demo is up to date.
+
+=========================================================================
+*                     Design Hierarchy Analysis                         *
+=========================================================================
+Analyzing hierarchy for entity <demo> in library <work> (architecture <structural>).
+
+Analyzing hierarchy for entity <clk32_25> in library <work> (architecture <BEHAVIORAL>).
+
+Analyzing hierarchy for entity <clk32_40> in library <work> (architecture <BEHAVIORAL>).
+
+Analyzing hierarchy for entity <vga_controller_640_60> in library <work> (architecture <Behavioral>).
+
+Analyzing hierarchy for entity <renderer> in library <work> (architecture <Behavioral>).
+
+Analyzing hierarchy for entity <mux> in library <work> (architecture <Behavioral>).
+
+Analyzing hierarchy for entity <sdivider> in library <work> (architecture <counter>) with generics.
+	nbit = 10
+	top = 1023
+
+Analyzing hierarchy for entity <debouncer2> in library <work> (architecture <counter>) with generics.
+	COUNT = 15
+	NBIT = 4
+
+Analyzing hierarchy for entity <ctrl> in library <work> (architecture <Behavioral>).
+
+Analyzing hierarchy for entity <prescaler> in library <work> (architecture <Behavioral>).
+
+Analyzing hierarchy for entity <prober> in library <work> (architecture <Behavioral>).
+
+Analyzing hierarchy for entity <palette> in library <work> (architecture <Behavioral>).
+
+Analyzing hierarchy for entity <dpalette> in library <work> (architecture <Behavioral>).
+
+Analyzing hierarchy for entity <double_dabble> in library <work> (architecture <Behavioral>) with generics.
+	m = 4
+	n = 13
+
+Analyzing hierarchy for entity <double_dabble> in library <work> (architecture <Behavioral>) with generics.
+	m = 3
+	n = 10
+
+Analyzing hierarchy for entity <divider> in library <work> (architecture <counter>) with generics.
+	nbit = 24
+
+Analyzing hierarchy for entity <hack> in library <work> (architecture <Behavioral>).
+
+Analyzing hierarchy for entity <add3> in library <work> (architecture <Behavioral>).
+
+
+=========================================================================
+*                            HDL Analysis                               *
+=========================================================================
+Analyzing Entity <demo> in library <work> (Architecture <structural>).
+    Set user-defined property "CAPACITANCE =  DONT_CARE" for instance <clk_ibufg> in unit <demo>.
+    Set user-defined property "IBUF_DELAY_VALUE =  0" for instance <clk_ibufg> in unit <demo>.
+    Set user-defined property "IBUF_LOW_PWR =  TRUE" for instance <clk_ibufg> in unit <demo>.
+    Set user-defined property "IOSTANDARD =  DEFAULT" for instance <clk_ibufg> in unit <demo>.
+Entity <demo> analyzed. Unit <demo> generated.
+
+Analyzing Entity <clk32_25> in library <work> (Architecture <BEHAVIORAL>).
+    Set user-defined property "CLKDV_DIVIDE =  2.0000000000000000" for instance <DCM_SP_INST> in unit <clk32_25>.
+    Set user-defined property "CLKFX_DIVIDE =  32" for instance <DCM_SP_INST> in unit <clk32_25>.
+    Set user-defined property "CLKFX_MULTIPLY =  25" for instance <DCM_SP_INST> in unit <clk32_25>.
+    Set user-defined property "CLKIN_DIVIDE_BY_2 =  FALSE" for instance <DCM_SP_INST> in unit <clk32_25>.
+    Set user-defined property "CLKIN_PERIOD =  31.2500000000000000" for instance <DCM_SP_INST> in unit <clk32_25>.
+    Set user-defined property "CLKOUT_PHASE_SHIFT =  NONE" for instance <DCM_SP_INST> in unit <clk32_25>.
+    Set user-defined property "CLK_FEEDBACK =  1X" for instance <DCM_SP_INST> in unit <clk32_25>.
+    Set user-defined property "DESKEW_ADJUST =  SYSTEM_SYNCHRONOUS" for instance <DCM_SP_INST> in unit <clk32_25>.
+    Set user-defined property "DFS_FREQUENCY_MODE =  LOW" for instance <DCM_SP_INST> in unit <clk32_25>.
+    Set user-defined property "DLL_FREQUENCY_MODE =  LOW" for instance <DCM_SP_INST> in unit <clk32_25>.
+    Set user-defined property "DSS_MODE =  NONE" for instance <DCM_SP_INST> in unit <clk32_25>.
+    Set user-defined property "DUTY_CYCLE_CORRECTION =  TRUE" for instance <DCM_SP_INST> in unit <clk32_25>.
+    Set user-defined property "FACTORY_JF =  C080" for instance <DCM_SP_INST> in unit <clk32_25>.
+    Set user-defined property "PHASE_SHIFT =  0" for instance <DCM_SP_INST> in unit <clk32_25>.
+    Set user-defined property "STARTUP_WAIT =  FALSE" for instance <DCM_SP_INST> in unit <clk32_25>.
+Entity <clk32_25> analyzed. Unit <clk32_25> generated.
+
+Analyzing Entity <clk32_40> in library <work> (Architecture <BEHAVIORAL>).
+    Set user-defined property "CLKDV_DIVIDE =  2.0000000000000000" for instance <DCM_SP_INST> in unit <clk32_40>.
+    Set user-defined property "CLKFX_DIVIDE =  25" for instance <DCM_SP_INST> in unit <clk32_40>.
+    Set user-defined property "CLKFX_MULTIPLY =  32" for instance <DCM_SP_INST> in unit <clk32_40>.
+    Set user-defined property "CLKIN_DIVIDE_BY_2 =  FALSE" for instance <DCM_SP_INST> in unit <clk32_40>.
+    Set user-defined property "CLKIN_PERIOD =  31.2500000000000000" for instance <DCM_SP_INST> in unit <clk32_40>.
+    Set user-defined property "CLKOUT_PHASE_SHIFT =  NONE" for instance <DCM_SP_INST> in unit <clk32_40>.
+    Set user-defined property "CLK_FEEDBACK =  1X" for instance <DCM_SP_INST> in unit <clk32_40>.
+    Set user-defined property "DESKEW_ADJUST =  SYSTEM_SYNCHRONOUS" for instance <DCM_SP_INST> in unit <clk32_40>.
+    Set user-defined property "DFS_FREQUENCY_MODE =  LOW" for instance <DCM_SP_INST> in unit <clk32_40>.
+    Set user-defined property "DLL_FREQUENCY_MODE =  LOW" for instance <DCM_SP_INST> in unit <clk32_40>.
+    Set user-defined property "DSS_MODE =  NONE" for instance <DCM_SP_INST> in unit <clk32_40>.
+    Set user-defined property "DUTY_CYCLE_CORRECTION =  TRUE" for instance <DCM_SP_INST> in unit <clk32_40>.
+    Set user-defined property "FACTORY_JF =  C080" for instance <DCM_SP_INST> in unit <clk32_40>.
+    Set user-defined property "PHASE_SHIFT =  0" for instance <DCM_SP_INST> in unit <clk32_40>.
+    Set user-defined property "STARTUP_WAIT =  FALSE" for instance <DCM_SP_INST> in unit <clk32_40>.
+Entity <clk32_40> analyzed. Unit <clk32_40> generated.
+
+Analyzing Entity <vga_controller_640_60> in library <work> (Architecture <Behavioral>).
+Entity <vga_controller_640_60> analyzed. Unit <vga_controller_640_60> generated.
+
+Analyzing Entity <renderer> in library <work> (Architecture <Behavioral>).
+Entity <renderer> analyzed. Unit <renderer> generated.
+
+Analyzing Entity <mux> in library <work> (Architecture <Behavioral>).
+Entity <mux> analyzed. Unit <mux> generated.
+
+Analyzing generic Entity <sdivider> in library <work> (Architecture <counter>).
+	nbit = 10
+	top = 1023
+Entity <sdivider> analyzed. Unit <sdivider> generated.
+
+Analyzing generic Entity <debouncer2> in library <work> (Architecture <counter>).
+	COUNT = 15
+	NBIT = 4
+Entity <debouncer2> analyzed. Unit <debouncer2> generated.
+
+Analyzing Entity <ctrl> in library <work> (Architecture <Behavioral>).
+Entity <ctrl> analyzed. Unit <ctrl> generated.
+
+Analyzing Entity <prescaler> in library <work> (Architecture <Behavioral>).
+Entity <prescaler> analyzed. Unit <prescaler> generated.
+
+Analyzing generic Entity <divider> in library <work> (Architecture <counter>).
+	nbit = 24
+Entity <divider> analyzed. Unit <divider> generated.
+
+Analyzing Entity <hack> in library <work> (Architecture <Behavioral>).
+Entity <hack> analyzed. Unit <hack> generated.
+
+Analyzing Entity <prober> in library <work> (Architecture <Behavioral>).
+Entity <prober> analyzed. Unit <prober> generated.
+
+Analyzing Entity <palette> in library <work> (Architecture <Behavioral>).
+Entity <palette> analyzed. Unit <palette> generated.
+
+Analyzing Entity <dpalette> in library <work> (Architecture <Behavioral>).
+Entity <dpalette> analyzed. Unit <dpalette> generated.
+
+Analyzing generic Entity <double_dabble.1> in library <work> (Architecture <Behavioral>).
+	m = 4
+	n = 13
+Entity <double_dabble.1> analyzed. Unit <double_dabble.1> generated.
+
+Analyzing Entity <add3> in library <work> (Architecture <Behavioral>).
+Entity <add3> analyzed. Unit <add3> generated.
+
+Analyzing generic Entity <double_dabble.2> in library <work> (Architecture <Behavioral>).
+	m = 3
+	n = 10
+Entity <double_dabble.2> analyzed. Unit <double_dabble.2> generated.
+
+
+=========================================================================
+*                           HDL Synthesis                               *
+=========================================================================
+
+Performing bidirectional port resolution...
+
+Synthesizing Unit <vga_controller_640_60>.
+    Related source file is "/home/mdebski/oscilloscope/project/vga_controller_640_60.vhd".
+    Found 1-bit register for signal <HS>.
+    Found 1-bit register for signal <VS>.
+    Found 1-bit register for signal <blank>.
+    Found 11-bit up counter for signal <hcounter>.
+    Found 11-bit comparator greatequal for signal <HS$cmp_ge0000> created at line 177.
+    Found 11-bit comparator less for signal <HS$cmp_lt0000> created at line 177.
+    Found 11-bit up counter for signal <vcounter>.
+    Found 11-bit comparator less for signal <video_enable$cmp_lt0000> created at line 202.
+    Found 11-bit comparator less for signal <video_enable$cmp_lt0001> created at line 202.
+    Found 11-bit comparator greatequal for signal <VS$cmp_ge0000> created at line 193.
+    Found 11-bit comparator less for signal <VS$cmp_lt0000> created at line 193.
+    Summary:
+	inferred   2 Counter(s).
+	inferred   3 D-type flip-flop(s).
+	inferred   6 Comparator(s).
+Unit <vga_controller_640_60> synthesized.
+
+
+Synthesizing Unit <renderer>.
+    Related source file is "/home/mdebski/oscilloscope/project/renderer.vhd".
+    Found 4x12-bit ROM for signal <output$mux0010>.
+    Found 12-bit adder for signal <output$addsub0000>.
+    Found 12-bit adder for signal <output$addsub0001> created at line 84.
+    Found 10-bit comparator greatequal for signal <output$cmp_ge0000> created at line 262.
+    Found 9-bit comparator greatequal for signal <output$cmp_ge0001> created at line 262.
+    Found 10-bit comparator greatequal for signal <output$cmp_ge0002> created at line 265.
+    Found 10-bit comparator greatequal for signal <output$cmp_ge0003> created at line 268.
+    Found 10-bit comparator greatequal for signal <output$cmp_ge0004> created at line 271.
+    Found 9-bit comparator greatequal for signal <output$cmp_ge0005> created at line 274.
+    Found 9-bit comparator greatequal for signal <output$cmp_ge0006> created at line 277.
+    Found 3-bit comparator lessequal for signal <output$cmp_le0000> created at line 84.
+    Found 10-bit comparator less for signal <output$cmp_lt0000> created at line 262.
+    Found 9-bit comparator less for signal <output$cmp_lt0001> created at line 262.
+    Found 9-bit comparator less for signal <output$cmp_lt0002> created at line 265.
+    Found 10-bit comparator less for signal <output$cmp_lt0003> created at line 268.
+    Found 10-bit comparator less for signal <output$cmp_lt0004> created at line 271.
+    Found 9-bit comparator less for signal <output$cmp_lt0005> created at line 274.
+    Found 9-bit comparator less for signal <output$cmp_lt0006> created at line 277.
+    Found 10-bit comparator less for signal <output$cmp_lt0007> created at line 280.
+    Found 9x9-bit multiplier for signal <output$mult0001> created at line 86.
+    Found 12-bit adder for signal <output$mux0001> created at line 73.
+    Found 12-bit adder for signal <output$mux0002> created at line 84.
+    Found 9-bit subtractor for signal <output$sub0000> created at line 73.
+    Found 9-bit subtractor for signal <output$sub0001> created at line 93.
+    Found 9-bit subtractor for signal <output$sub0002> created at line 113.
+    Found 9-bit subtractor for signal <output$sub0004> created at line 138.
+    Found 9-bit subtractor for signal <output$sub0005> created at line 154.
+    Found 9-bit subtractor for signal <output$sub0006> created at line 170.
+    Found 9-bit subtractor for signal <output$sub0007> created at line 186.
+    Found 9-bit subtractor for signal <output$sub0008> created at line 202.
+    Found 9-bit subtractor for signal <output$sub0009> created at line 218.
+    Found 9-bit subtractor for signal <output$sub0010> created at line 234.
+    Found 9-bit subtractor for signal <output$sub0011> created at line 250.
+    Found 9-bit subtractor for signal <output$sub0013> created at line 122.
+    Found 9-bit comparator greatequal for signal <output_0$cmp_ge0000> created at line 259.
+    Found 3-bit comparator lessequal for signal <output_0$cmp_le0000> created at line 83.
+    Found 9-bit comparator less for signal <output_0$cmp_lt0000> created at line 259.
+    Found 18-bit adder for signal <output_10$add0000> created at line 250.
+    Found 18-bit adder for signal <output_10$add0001> created at line 252.
+    Found 18-bit adder for signal <output_10$add0002> created at line 234.
+    Found 18-bit adder for signal <output_10$add0003> created at line 236.
+    Found 18-bit adder for signal <output_10$add0004> created at line 218.
+    Found 18-bit adder for signal <output_10$add0005> created at line 220.
+    Found 18-bit adder for signal <output_10$add0006> created at line 202.
+    Found 18-bit adder for signal <output_10$add0007> created at line 204.
+    Found 18-bit adder for signal <output_10$add0008> created at line 186.
+    Found 18-bit adder for signal <output_10$add0009> created at line 188.
+    Found 18-bit adder for signal <output_10$add0010> created at line 170.
+    Found 18-bit adder for signal <output_10$add0011> created at line 172.
+    Found 18-bit adder for signal <output_10$add0012> created at line 154.
+    Found 18-bit adder for signal <output_10$add0013> created at line 156.
+    Found 18-bit adder for signal <output_10$add0014> created at line 138.
+    Found 18-bit adder for signal <output_10$add0015> created at line 140.
+    Found 18-bit adder for signal <output_10$add0016> created at line 250.
+    Found 18-bit adder for signal <output_10$add0017> created at line 234.
+    Found 18-bit adder for signal <output_10$add0018> created at line 218.
+    Found 18-bit adder for signal <output_10$add0019> created at line 138.
+    Found 18-bit adder for signal <output_10$addsub0000> created at line 170.
+    Found 18-bit adder for signal <output_10$addsub0001> created at line 202.
+    Found 18-bit adder for signal <output_10$addsub0002> created at line 154.
+    Found 18-bit adder for signal <output_10$addsub0003> created at line 186.
+    Found 18-bit adder for signal <output_10$addsub0004> created at line 236.
+    Found 18-bit adder for signal <output_10$addsub0005> created at line 220.
+    Found 18-bit adder for signal <output_10$addsub0006> created at line 140.
+    Found 10-bit subtractor for signal <output_10$sub0001> created at line 252.
+    Found 10-bit subtractor for signal <output_10_0$sub0000> created at line 144.
+    Found 18-bit adder for signal <output_11$add0000> created at line 134.
+    Found 24-bit adder for signal <output_11$add0001> created at line 131.
+    Found 24-bit adder for signal <output_11$add0002> created at line 128.
+    Found 24-bit adder for signal <output_11$add0003> created at line 125.
+    Found 24-bit adder for signal <output_11$add0004> created at line 122.
+    Found 24-bit adder for signal <output_11$add0005> created at line 119.
+    Found 24-bit adder for signal <output_11$add0006> created at line 116.
+    Found 24-bit adder for signal <output_11$add0007> created at line 113.
+    Found 18-bit adder for signal <output_11$add0008> created at line 107.
+    Found 18-bit adder for signal <output_11$add0009> created at line 109.
+    Found 18-bit adder for signal <output_11$add0010> created at line 100.
+    Found 18-bit adder for signal <output_11$add0011> created at line 102.
+    Found 18-bit adder for signal <output_11$add0012> created at line 93.
+    Found 18-bit adder for signal <output_11$add0013> created at line 95.
+    Found 18-bit adder for signal <output_11$add0014> created at line 84.
+    Found 18-bit adder for signal <output_11$add0015> created at line 73.
+    Found 18-bit adder for signal <output_11$add0016> created at line 100.
+    Found 18-bit adder for signal <output_11$add0017> created at line 93.
+    Found 18-bit adder for signal <output_11$add0018> created at line 107.
+    Found 10-bit subtractor for signal <output_11$addsub0000> created at line 134.
+    Found 18-bit adder for signal <output_11$addsub0001> created at line 134.
+    Found 10-bit subtractor for signal <output_11$addsub0002> created at line 131.
+    Found 18-bit adder for signal <output_11$addsub0003> created at line 131.
+    Found 18-bit adder for signal <output_11$addsub0004> created at line 131.
+    Found 18-bit adder for signal <output_11$addsub0005> created at line 128.
+    Found 18-bit adder for signal <output_11$addsub0006> created at line 128.
+    Found 18-bit adder for signal <output_11$addsub0007> created at line 125.
+    Found 18-bit adder for signal <output_11$addsub0008> created at line 125.
+    Found 18-bit adder for signal <output_11$addsub0009> created at line 122.
+    Found 18-bit adder for signal <output_11$addsub0010> created at line 122.
+    Found 18-bit adder for signal <output_11$addsub0011> created at line 119.
+    Found 18-bit adder for signal <output_11$addsub0012> created at line 119.
+    Found 18-bit adder for signal <output_11$addsub0013> created at line 116.
+    Found 18-bit adder for signal <output_11$addsub0014> created at line 116.
+    Found 18-bit adder for signal <output_11$addsub0015> created at line 113.
+    Found 18-bit adder for signal <output_11$addsub0016> created at line 113.
+    Found 18-bit adder for signal <output_11$addsub0017> created at line 84.
+    Found 18-bit adder for signal <output_11$addsub0018> created at line 73.
+    Found 10-bit subtractor for signal <output_11$addsub0019> created at line 100.
+    Found 10-bit subtractor for signal <output_11$addsub0020> created at line 93.
+    Found 10-bit subtractor for signal <output_11$addsub0021> created at line 107.
+    Found 9x9-bit multiplier for signal <output_11$mult0000> created at line 84.
+    Found 10-bit subtractor for signal <output_11$sub0000> created at line 128.
+    Found 10-bit subtractor for signal <output_11$sub0001> created at line 125.
+    Found 10-bit subtractor for signal <output_11$sub0002> created at line 122.
+    Found 10-bit subtractor for signal <output_11$sub0003> created at line 84.
+    Found 9-bit comparator equal for signal <select_mem$cmp_eq0000> created at line 58.
+    Found 9-bit comparator equal for signal <select_mem$cmp_eq0001> created at line 58.
+    Found 10-bit comparator equal for signal <select_mem$cmp_eq0002> created at line 59.
+    Found 10-bit comparator equal for signal <select_mem$cmp_eq0003> created at line 59.
+    Found 10-bit comparator equal for signal <select_mem$cmp_eq0004> created at line 62.
+    Found 10-bit comparator equal for signal <select_mem$cmp_eq0005> created at line 66.
+    Found 10-bit comparator greatequal for signal <select_mem$cmp_ge0000> created at line 58.
+    Found 9-bit comparator greatequal for signal <select_mem$cmp_ge0001> created at line 59.
+    Found 10-bit comparator greatequal for signal <select_mem$cmp_ge0002> created at line 69.
+    Found 9-bit comparator greatequal for signal <select_mem$cmp_ge0003> created at line 69.
+    Found 10-bit comparator greatequal for signal <select_mem$cmp_ge0004> created at line 79.
+    Found 9-bit comparator greatequal for signal <select_mem$cmp_ge0005> created at line 79.
+    Found 10-bit comparator greatequal for signal <select_mem$cmp_ge0006> created at line 88.
+    Found 9-bit comparator greatequal for signal <select_mem$cmp_ge0007> created at line 88.
+    Found 10-bit comparator greatequal for signal <select_mem$cmp_ge0008> created at line 95.
+    Found 10-bit comparator greatequal for signal <select_mem$cmp_ge0009> created at line 102.
+    Found 10-bit comparator greatequal for signal <select_mem$cmp_ge0010> created at line 109.
+    Found 9-bit comparator greatequal for signal <select_mem$cmp_ge0011> created at line 109.
+    Found 10-bit comparator greatequal for signal <select_mem$cmp_ge0012> created at line 113.
+    Found 10-bit comparator greatequal for signal <select_mem$cmp_ge0013> created at line 116.
+    Found 10-bit comparator greatequal for signal <select_mem$cmp_ge0014> created at line 128.
+    Found 10-bit comparator greatequal for signal <select_mem$cmp_ge0015> created at line 131.
+    Found 9-bit comparator greatequal for signal <select_mem$cmp_ge0016> created at line 134.
+    Found 10-bit comparator greatequal for signal <select_mem$cmp_ge0017> created at line 140.
+    Found 9-bit comparator greatequal for signal <select_mem$cmp_ge0018> created at line 147.
+    Found 9-bit comparator greatequal for signal <select_mem$cmp_ge0019> created at line 150.
+    Found 9-bit comparator greatequal for signal <select_mem$cmp_ge0020> created at line 163.
+    Found 9-bit comparator greatequal for signal <select_mem$cmp_ge0021> created at line 166.
+    Found 9-bit comparator greatequal for signal <select_mem$cmp_ge0022> created at line 179.
+    Found 9-bit comparator greatequal for signal <select_mem$cmp_ge0023> created at line 182.
+    Found 9-bit comparator greatequal for signal <select_mem$cmp_ge0024> created at line 195.
+    Found 9-bit comparator greatequal for signal <select_mem$cmp_ge0025> created at line 198.
+    Found 9-bit comparator greatequal for signal <select_mem$cmp_ge0026> created at line 211.
+    Found 9-bit comparator greatequal for signal <select_mem$cmp_ge0027> created at line 214.
+    Found 9-bit comparator greatequal for signal <select_mem$cmp_ge0028> created at line 227.
+    Found 9-bit comparator greatequal for signal <select_mem$cmp_ge0029> created at line 230.
+    Found 9-bit comparator greatequal for signal <select_mem$cmp_ge0030> created at line 243.
+    Found 9-bit comparator greatequal for signal <select_mem$cmp_ge0031> created at line 246.
+    Found 10-bit comparator lessequal for signal <select_mem$cmp_le0000> created at line 58.
+    Found 9-bit comparator lessequal for signal <select_mem$cmp_le0001> created at line 59.
+    Found 9-bit comparator less for signal <select_mem$cmp_lt0000> created at line 62.
+    Found 10-bit comparator less for signal <select_mem$cmp_lt0001> created at line 69.
+    Found 9-bit comparator less for signal <select_mem$cmp_lt0002> created at line 69.
+    Found 10-bit comparator less for signal <select_mem$cmp_lt0003> created at line 79.
+    Found 9-bit comparator less for signal <select_mem$cmp_lt0004> created at line 79.
+    Found 10-bit comparator less for signal <select_mem$cmp_lt0005> created at line 88.
+    Found 9-bit comparator less for signal <select_mem$cmp_lt0006> created at line 88.
+    Found 10-bit comparator less for signal <select_mem$cmp_lt0007> created at line 95.
+    Found 10-bit comparator less for signal <select_mem$cmp_lt0008> created at line 102.
+    Found 10-bit comparator less for signal <select_mem$cmp_lt0009> created at line 109.
+    Found 9-bit comparator less for signal <select_mem$cmp_lt0010> created at line 109.
+    Found 10-bit comparator less for signal <select_mem$cmp_lt0011> created at line 113.
+    Found 10-bit comparator less for signal <select_mem$cmp_lt0012> created at line 116.
+    Found 10-bit comparator less for signal <select_mem$cmp_lt0013> created at line 128.
+    Found 10-bit comparator less for signal <select_mem$cmp_lt0014> created at line 131.
+    Found 9-bit comparator less for signal <select_mem$cmp_lt0015> created at line 134.
+    Found 10-bit comparator less for signal <select_mem$cmp_lt0016> created at line 140.
+    Found 9-bit comparator less for signal <select_mem$cmp_lt0017> created at line 147.
+    Found 9-bit comparator less for signal <select_mem$cmp_lt0018> created at line 150.
+    Found 9-bit comparator less for signal <select_mem$cmp_lt0019> created at line 163.
+    Found 9-bit comparator less for signal <select_mem$cmp_lt0020> created at line 166.
+    Found 9-bit comparator less for signal <select_mem$cmp_lt0021> created at line 179.
+    Found 9-bit comparator less for signal <select_mem$cmp_lt0022> created at line 182.
+    Found 9-bit comparator less for signal <select_mem$cmp_lt0023> created at line 195.
+    Found 9-bit comparator less for signal <select_mem$cmp_lt0024> created at line 198.
+    Found 9-bit comparator less for signal <select_mem$cmp_lt0025> created at line 211.
+    Found 9-bit comparator less for signal <select_mem$cmp_lt0026> created at line 214.
+    Found 9-bit comparator less for signal <select_mem$cmp_lt0027> created at line 227.
+    Found 9-bit comparator less for signal <select_mem$cmp_lt0028> created at line 230.
+    Found 9-bit comparator less for signal <select_mem$cmp_lt0029> created at line 243.
+    Found 9-bit comparator less for signal <select_mem$cmp_lt0030> created at line 246.
+    Found 10-bit subtractor for signal <select_x1$addsub0000>.
+    Found 10-bit adder for signal <select_x2$addsub0000>.
+    Summary:
+	inferred   1 ROM(s).
+	inferred  92 Adder/Subtractor(s).
+	inferred   2 Multiplier(s).
+	inferred  90 Comparator(s).
+Unit <renderer> synthesized.
+
+
+Synthesizing Unit <mux>.
+    Related source file is "/home/mdebski/oscilloscope/project/mux.vhd".
+Unit <mux> synthesized.
+
+
+Synthesizing Unit <sdivider>.
+    Related source file is "/home/mdebski/oscilloscope/project/sdivider.vhd".
+    Found 1-bit register for signal <clk_out>.
+    Found 10-bit down counter for signal <cnt>.
+    Summary:
+	inferred   1 Counter(s).
+	inferred   1 D-type flip-flop(s).
+Unit <sdivider> synthesized.
+
+
+Synthesizing Unit <debouncer2>.
+    Related source file is "/home/mdebski/oscilloscope/project/debouncer2.vhd".
+    Found 4-bit down counter for signal <cnt>.
+    Found 1-bit xor2 for signal <cnt$xor0000> created at line 30.
+    Found 1-bit register for signal <state>.
+    Summary:
+	inferred   1 Counter(s).
+	inferred   1 D-type flip-flop(s).
+Unit <debouncer2> synthesized.
+
+
+Synthesizing Unit <ctrl>.
+    Related source file is "/home/mdebski/oscilloscope/project/ctrl.vhd".
+    Found 10-bit adder for signal <line2_pos>.
+    Found 1-bit register for signal <change_mode>.
+    Found 10-bit register for signal <line_dist>.
+    Found 10-bit adder for signal <line_pos>.
+    Found 7-bit register for signal <btn_speed>.
+    Found 7-bit adder for signal <btn_speed$addsub0000> created at line 80.
+    Found 7-bit comparator greatequal for signal <btn_speed$cmp_ge0000> created at line 79.
+    Found 1-bit xor2 for signal <btn_speed$xor0000> created at line 82.
+    Found 17-bit up counter for signal <cnt>.
+    Found 2-bit register for signal <last>.
+    Found 1-bit register for signal <last_slow_clk>.
+    Found 9-bit comparator less for signal <line_dist$cmp_lt0000> created at line 60.
+    Found 9-bit subtractor for signal <line_dist$sub0000> created at line 61.
+    Found 9-bit subtractor for signal <line_dist$sub0001> created at line 63.
+    Found 12-bit updown accumulator for signal <sfreq>.
+    Found 9-bit updown accumulator for signal <sline2_pos>.
+    Found 9-bit updown accumulator for signal <sline_pos>.
+    Found 3-bit updown counter for signal <sprescale>.
+    Found 3-bit up counter for signal <sselected>.
+    Found 3-bit subtractor for signal <sselected$addsub0000> created at line 68.
+    Summary:
+	inferred   3 Counter(s).
+	inferred   3 Accumulator(s).
+	inferred  21 D-type flip-flop(s).
+	inferred   6 Adder/Subtractor(s).
+	inferred   2 Comparator(s).
+Unit <ctrl> synthesized.
+
+
+Synthesizing Unit <prober>.
+    Related source file is "/home/mdebski/oscilloscope/project/prober.vhd".
+    Found finite state machine <FSM_0> for signal <sstate>.
+    -----------------------------------------------------------------------
+    | States             | 4                                              |
+    | Transitions        | 21                                             |
+    | Inputs             | 4                                              |
+    | Outputs            | 8                                              |
+    | Clock              | scaled_clk                (rising_edge)        |
+    | Reset              | rst                       (positive)           |
+    | Reset type         | synchronous                                    |
+    | Reset State        | every                                          |
+    | Power Up State     | every                                          |
+    | Encoding           | automatic                                      |
+    | Implementation     | LUT                                            |
+    -----------------------------------------------------------------------
+    Found 1-bit register for signal <probe>.
+    Found 24-bit adder for signal <$add0000> created at line 77.
+    Found 12x12-bit multiplier for signal <add0000$mult0000> created at line 77.
+    Found 12-bit up counter for signal <cnt>.
+    Found 10-bit register for signal <got>.
+    Found 10-bit adder for signal <got$addsub0000> created at line 78.
+    Found 24-bit comparator greatequal for signal <got$cmp_ge0000> created at line 77.
+    Found 10-bit comparator greatequal for signal <got$cmp_ge0001> created at line 76.
+    Found 10-bit comparator less for signal <got$cmp_lt0000> created at line 76.
+    Found 24-bit comparator less for signal <got$cmp_lt0001> created at line 77.
+    Found 1-bit register for signal <last_chg>.
+    Found 8-bit register for signal <last_input>.
+    Found 1-bit register for signal <repeat>.
+    Found 1-bit xor2 for signal <sstate$xor0000> created at line 63.
+    Found 1-bit xor2 for signal <sstate$xor0001> created at line 63.
+    Found 1-bit xor2 for signal <sstate$xor0002> created at line 63.
+    Found 1-bit xor2 for signal <sstate$xor0003> created at line 63.
+    Found 1-bit xor2 for signal <sstate$xor0004> created at line 63.
+    Found 1-bit xor2 for signal <sstate$xor0005> created at line 63.
+    Found 1-bit xor2 for signal <sstate$xor0006> created at line 63.
+    Found 1-bit xor2 for signal <sstate$xor0007> created at line 63.
+    Summary:
+	inferred   1 Finite State Machine(s).
+	inferred   1 Counter(s).
+	inferred  21 D-type flip-flop(s).
+	inferred   2 Adder/Subtractor(s).
+	inferred   1 Multiplier(s).
+	inferred   4 Comparator(s).
+Unit <prober> synthesized.
+
+
+Synthesizing Unit <palette>.
+    Related source file is "/home/mdebski/oscilloscope/project/palette.vhd".
+    Found 16x8-bit ROM for signal <color_8bit>.
+    Summary:
+	inferred   1 ROM(s).
+Unit <palette> synthesized.
+
+
+Synthesizing Unit <dpalette>.
+    Related source file is "/home/mdebski/oscilloscope/project/dpalette.vhd".
+    Found 1-bit xor2 for signal <binval>.
+    Found 1-bit 8-to-1 multiplexer for signal <data$mux0000> created at line 17.
+    Summary:
+	inferred   1 Multiplexer(s).
+Unit <dpalette> synthesized.
+
+
+Synthesizing Unit <divider>.
+    Related source file is "/home/mdebski/oscilloscope/project/divider.vhd".
+    Found 1-bit register for signal <clk_out>.
+    Found 24-bit down counter for signal <cnt>.
+    Summary:
+	inferred   1 Counter(s).
+	inferred   1 D-type flip-flop(s).
+Unit <divider> synthesized.
+
+
+Synthesizing Unit <hack>.
+    Related source file is "/home/mdebski/oscilloscope/project/hack.vhd".
+Unit <hack> synthesized.
+
+
+Synthesizing Unit <add3>.
+    Related source file is "/home/mdebski/oscilloscope/project/add3.vhd".
+    Found 4-bit adder for signal <y$addsub0000> created at line 18.
+    Found 4-bit comparator less for signal <y$cmp_lt0000> created at line 15.
+    Summary:
+	inferred   1 Adder/Subtractor(s).
+	inferred   1 Comparator(s).
+Unit <add3> synthesized.
+
+
+Synthesizing Unit <clk32_25>.
+    Related source file is "/home/mdebski/oscilloscope/project/ipcore_dir/clk32_25.vhd".
+Unit <clk32_25> synthesized.
+
+
+Synthesizing Unit <clk32_40>.
+    Related source file is "/home/mdebski/oscilloscope/project/ipcore_dir/clk32_40.vhd".
+Unit <clk32_40> synthesized.
+
+
+Synthesizing Unit <prescaler>.
+    Related source file is "/home/mdebski/oscilloscope/project/prescaler.vhd".
+    Found 8x24-bit ROM for signal <top>.
+    Summary:
+	inferred   1 ROM(s).
+Unit <prescaler> synthesized.
+
+
+Synthesizing Unit <double_dabble_1>.
+    Related source file is "/home/mdebski/oscilloscope/project/double_dabble.vhd".
+    Found 16-bit register for signal <output>.
+    Found 4-bit down counter for signal <cnt>.
+    Found 1-bit 13-to-1 multiplexer for signal <input$mux0000> created at line 44.
+    Found 4-bit subtractor for signal <input$sub0000> created at line 44.
+    Found 16-bit register for signal <pre>.
+    Summary:
+	inferred   1 Counter(s).
+	inferred  32 D-type flip-flop(s).
+	inferred   1 Adder/Subtractor(s).
+	inferred   1 Multiplexer(s).
+Unit <double_dabble_1> synthesized.
+
+
+Synthesizing Unit <double_dabble_2>.
+    Related source file is "/home/mdebski/oscilloscope/project/double_dabble.vhd".
+WARNING:Xst:646 - Signal <post<11>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+    Found 12-bit register for signal <output>.
+    Found 4-bit down counter for signal <cnt>.
+    Found 1-bit 10-to-1 multiplexer for signal <input$mux0000> created at line 44.
+    Found 4-bit subtractor for signal <input$sub0000> created at line 44.
+    Found 12-bit register for signal <pre>.
+    Summary:
+	inferred   1 Counter(s).
+	inferred  24 D-type flip-flop(s).
+	inferred   1 Adder/Subtractor(s).
+	inferred   1 Multiplexer(s).
+Unit <double_dabble_2> synthesized.
+
+
+Synthesizing Unit <demo>.
+    Related source file is "/home/mdebski/oscilloscope/project/demo.vhd".
+WARNING:Xst:653 - Signal <rst> is used but never assigned. This sourceless signal will be automatically connected to value 0.
+    Found 12-bit adder carry out for signal <freq_inc$addsub0000> created at line 192.
+    Summary:
+	inferred   1 Adder/Subtractor(s).
+Unit <demo> synthesized.
+
+INFO:Xst:1767 - HDL ADVISOR - Resource sharing has identified that some arithmetic operations in this design can share the same physical resources for reduced device utilization. For improved clock frequency you may try to disable resource sharing.
+
+=========================================================================
+HDL Synthesis Report
+
+Macro Statistics
+# ROMs                                                 : 3
+ 16x8-bit ROM                                          : 1
+ 4x12-bit ROM                                          : 1
+ 8x24-bit ROM                                          : 1
+# Multipliers                                          : 3
+ 12x12-bit multiplier                                  : 1
+ 9x9-bit multiplier                                    : 2
+# Adders/Subtractors                                   : 110
+ 10-bit adder                                          : 4
+ 10-bit subtractor                                     : 12
+ 12-bit adder                                          : 4
+ 12-bit adder carry out                                : 1
+ 18-bit adder                                          : 56
+ 24-bit adder                                          : 8
+ 3-bit subtractor                                      : 1
+ 4-bit adder                                           : 7
+ 4-bit subtractor                                      : 2
+ 7-bit adder                                           : 1
+ 9-bit subtractor                                      : 14
+# Counters                                             : 14
+ 10-bit down counter                                   : 1
+ 11-bit up counter                                     : 2
+ 12-bit up counter                                     : 1
+ 17-bit up counter                                     : 1
+ 24-bit down counter                                   : 1
+ 3-bit up counter                                      : 1
+ 3-bit updown counter                                  : 1
+ 4-bit down counter                                    : 6
+# Accumulators                                         : 3
+ 12-bit updown accumulator                             : 1
+ 9-bit updown accumulator                              : 2
+# Registers                                            : 23
+ 1-bit register                                        : 14
+ 10-bit register                                       : 2
+ 12-bit register                                       : 2
+ 16-bit register                                       : 2
+ 2-bit register                                        : 1
+ 7-bit register                                        : 1
+ 8-bit register                                        : 1
+# Comparators                                          : 109
+ 10-bit comparator equal                               : 4
+ 10-bit comparator greatequal                          : 17
+ 10-bit comparator less                                : 16
+ 10-bit comparator lessequal                           : 1
+ 11-bit comparator greatequal                          : 2
+ 11-bit comparator less                                : 4
+ 24-bit comparator greatequal                          : 1
+ 24-bit comparator less                                : 1
+ 3-bit comparator lessequal                            : 2
+ 4-bit comparator less                                 : 7
+ 7-bit comparator greatequal                           : 1
+ 9-bit comparator equal                                : 2
+ 9-bit comparator greatequal                           : 24
+ 9-bit comparator less                                 : 26
+ 9-bit comparator lessequal                            : 1
+# Multiplexers                                         : 3
+ 1-bit 10-to-1 multiplexer                             : 1
+ 1-bit 13-to-1 multiplexer                             : 1
+ 1-bit 8-to-1 multiplexer                              : 1
+# Xors                                                 : 14
+ 1-bit xor2                                            : 14
+
+=========================================================================
+
+=========================================================================
+*                       Advanced HDL Synthesis                          *
+=========================================================================
+
+Analyzing FSM <FSM_0> for best encoding.
+Optimizing FSM <prober/sstate/FSM> on signal <sstate[1:2]> with sequential encoding.
+--------------------------
+ State        | Encoding
+--------------------------
+ every        | 00
+ once         | 11
+ once_probing | 10
+ once_done    | 01
+--------------------------
+Reading core <ipcore_dir/dataram.ngc>.
+Reading core <vrom.ngc>.
+Loading core <dataram> for timing and area information for instance <dram>.
+Loading core <vrom> for timing and area information for instance <vrom>.
+WARNING:Xst:1710 - FF/Latch <line_dist_9> (without init value) has a constant value of 0 in block <ctrl>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:2404 -  FFs/Latches <line_dist<9:9>> (without init value) have a constant value of 0 in block <ctrl>.
+
+=========================================================================
+Advanced HDL Synthesis Report
+
+Macro Statistics
+# ROMs                                                 : 3
+ 16x8-bit ROM                                          : 1
+ 4x12-bit ROM                                          : 1
+ 8x24-bit ROM                                          : 1
+# Multipliers                                          : 3
+ 12x12-bit multiplier                                  : 1
+ 9x9-bit multiplier                                    : 2
+# Adders/Subtractors                                   : 110
+ 10-bit adder                                          : 4
+ 10-bit subtractor                                     : 12
+ 12-bit adder                                          : 68
+ 12-bit adder carry out                                : 1
+ 3-bit subtractor                                      : 1
+ 4-bit adder                                           : 7
+ 4-bit subtractor                                      : 2
+ 7-bit adder                                           : 1
+ 8-bit subtractor                                      : 9
+ 9-bit subtractor                                      : 5
+# Counters                                             : 14
+ 10-bit down counter                                   : 1
+ 11-bit up counter                                     : 2
+ 12-bit up counter                                     : 1
+ 17-bit up counter                                     : 1
+ 24-bit down counter                                   : 1
+ 3-bit up counter                                      : 1
+ 3-bit updown counter                                  : 1
+ 4-bit down counter                                    : 6
+# Accumulators                                         : 3
+ 12-bit updown accumulator                             : 1
+ 9-bit updown accumulator                              : 2
+# Registers                                            : 108
+ Flip-Flops                                            : 108
+# Comparators                                          : 109
+ 10-bit comparator equal                               : 4
+ 10-bit comparator greatequal                          : 17
+ 10-bit comparator less                                : 16
+ 10-bit comparator lessequal                           : 1
+ 11-bit comparator greatequal                          : 2
+ 11-bit comparator less                                : 4
+ 24-bit comparator greatequal                          : 1
+ 24-bit comparator less                                : 1
+ 3-bit comparator lessequal                            : 2
+ 4-bit comparator less                                 : 7
+ 7-bit comparator greatequal                           : 1
+ 9-bit comparator equal                                : 2
+ 9-bit comparator greatequal                           : 24
+ 9-bit comparator less                                 : 26
+ 9-bit comparator lessequal                            : 1
+# Multiplexers                                         : 3
+ 1-bit 10-to-1 multiplexer                             : 1
+ 1-bit 13-to-1 multiplexer                             : 1
+ 1-bit 8-to-1 multiplexer                              : 1
+# Xors                                                 : 14
+ 1-bit xor2                                            : 14
+
+=========================================================================
+
+=========================================================================
+*                         Low Level Synthesis                           *
+=========================================================================
+WARNING:Xst:2677 - Node <ctrl/cnt_13> of sequential type is unconnected in block <demo>.
+WARNING:Xst:2677 - Node <ctrl/cnt_14> of sequential type is unconnected in block <demo>.
+WARNING:Xst:2677 - Node <ctrl/cnt_15> of sequential type is unconnected in block <demo>.
+WARNING:Xst:2677 - Node <ctrl/cnt_16> of sequential type is unconnected in block <demo>.
+
+Optimizing unit <demo> ...
+
+Optimizing unit <renderer> ...
+
+Optimizing unit <prober> ...
+
+Optimizing unit <double_dabble_1> ...
+
+Optimizing unit <double_dabble_2> ...
+
+Mapping all equations...
+Building and optimizing final netlist ...
+Found area constraint ratio of 100 (+ 5) on block demo, actual ratio is 111.
+Optimizing block <demo> to meet ratio 100 (+ 5) of 960 slices :
+Area constraint is met for block <demo>, final ratio is 99.
+FlipFlop controller/hcounter_1 has been replicated 1 time(s)
+FlipFlop controller/hcounter_2 has been replicated 1 time(s)
+
+Final Macro Processing ...
+
+=========================================================================
+Final Register Report
+
+Macro Statistics
+# Registers                                            : 251
+ Flip-Flops                                            : 251
+
+=========================================================================
+
+=========================================================================
+*                           Partition Report                            *
+=========================================================================
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+=========================================================================
+*                            Final Report                               *
+=========================================================================
+Final Results
+RTL Top Level Output File Name     : demo.ngr
+Top Level Output File Name         : demo
+Output Format                      : NGC
+Optimization Goal                  : Speed
+Keep Hierarchy                     : No
+
+Design Statistics
+# IOs                              : 39
+
+Cell Usage :
+# BELS                             : 3136
+#      GND                         : 3
+#      INV                         : 127
+#      LUT1                        : 153
+#      LUT2                        : 284
+#      LUT2_D                      : 28
+#      LUT2_L                      : 6
+#      LUT3                        : 290
+#      LUT3_D                      : 20
+#      LUT3_L                      : 19
+#      LUT4                        : 711
+#      LUT4_D                      : 55
+#      LUT4_L                      : 114
+#      MULT_AND                    : 9
+#      MUXCY                       : 622
+#      MUXF5                       : 97
+#      MUXF6                       : 3
+#      VCC                         : 3
+#      XORCY                       : 592
+# FlipFlops/Latches                : 251
+#      FD                          : 1
+#      FDC                         : 34
+#      FDCE                        : 2
+#      FDE                         : 53
+#      FDR                         : 31
+#      FDRE                        : 87
+#      FDSE                        : 43
+# RAMS                             : 2
+#      RAMB16_S36_S36              : 1
+#      RAMB16_S4_S4                : 1
+# Clock Buffers                    : 9
+#      BUFG                        : 9
+# IO Buffers                       : 39
+#      IBUF                        : 20
+#      IBUFG                       : 1
+#      OBUF                        : 18
+# DCMs                             : 2
+#      DCM_SP                      : 2
+# MULTs                            : 3
+#      MULT18X18SIO                : 3
+=========================================================================
+
+Device utilization summary:
+---------------------------
+
+Selected Device : 3s100ecp132-5 
+
+ Number of Slices:                      952  out of    960    99%  
+ Number of Slice Flip Flops:            251  out of   1920    13%  
+ Number of 4 input LUTs:               1807  out of   1920    94%  
+ Number of IOs:                          39
+ Number of bonded IOBs:                  39  out of     83    46%  
+ Number of BRAMs:                         2  out of      4    50%  
+ Number of MULT18X18SIOs:                 3  out of      4    75%  
+ Number of GCLKs:                         9  out of     24    37%  
+ Number of DCMs:                          2  out of      2   100%  
+
+---------------------------
+Partition Resource Summary:
+---------------------------
+
+  No Partitions were found in this design.
+
+---------------------------
+
+
+=========================================================================
+TIMING REPORT
+
+NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
+      FOR ACCURATE TIMING INFORMATION PLEASE REFER TO THE TRACE REPORT
+      GENERATED AFTER PLACE-and-ROUTE.
+
+Clock Information:
+------------------
+------------------------------------+-------------------------------------------------------------------------------------------------------------------------------+-------+
+Clock Signal                        | Clock buffer(FF name)                                                                                                         | Load  |
+------------------------------------+-------------------------------------------------------------------------------------------------------------------------------+-------+
+preclk180(preclk1801:O)             | NONE(*)(dram/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/s3_init.ram/dpram.dp36x36.ram)| 1     |
+clk                                 | clk32_25/DCM_SP_INST:CLKFX180                                                                                                 | 66    |
+vrom/N1                             | NONE(vrom/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/s3_init.ram/dpram.dp4x4.ram)     | 1     |
+clk                                 | clk32_25/DCM_SP_INST:CLKFX                                                                                                    | 107   |
+sdivider/clk_out1                   | BUFG                                                                                                                          | 20    |
+clk                                 | clk32_40/DCM_SP_INST:CLKFX                                                                                                    | 27    |
+led_0_OBUF1(prescaler/hack/output:O)| BUFG(*)(prober/sstate_FSM_FFd2)                                                                                               | 33    |
+------------------------------------+-------------------------------------------------------------------------------------------------------------------------------+-------+
+(*) These 2 clock signal(s) are generated by combinatorial logic,
+and XST is not able to identify which are the primary clock signals.
+Please use the CLOCK_SIGNAL constraint to specify the clock signal(s) generated by combinatorial logic.
+INFO:Xst:2169 - HDL ADVISOR - Some clock signals were not automatically buffered by XST with BUFG/BUFR resources. Please use the buffer_type constraint in order to insert these buffers to the clock signals to help prevent skew problems.
+
+Asynchronous Control Signals Information:
+----------------------------------------
+-----------------------------------+--------------------------------+-------+
+Control Signal                     | Buffer(FF name)                | Load  |
+-----------------------------------+--------------------------------+-------+
+led_3_OBUF(XST_GND:G)              | NONE(prescaler/divider/clk_out)| 36    |
+-----------------------------------+--------------------------------+-------+
+
+Timing Summary:
+---------------
+Speed Grade: -5
+
+   Minimum period: 29.582ns (Maximum Frequency: 33.804MHz)
+   Minimum input arrival time before clock: 13.133ns
+   Maximum output required time after clock: 22.488ns
+   Maximum combinational path delay: 15.700ns
+
+Timing Detail:
+--------------
+All values displayed in nanoseconds (ns)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'clk'
+  Clock period: 29.582ns (frequency: 33.804MHz)
+  Total number of paths / destination ports: 247146 / 415
+-------------------------------------------------------------------------
+Delay:               18.933ns (Levels of Logic = 24)
+  Source:            controller/hcounter_0 (FF)
+  Destination:       vrom/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/s3_init.ram/dpram.dp4x4.ram (RAM)
+  Source Clock:      clk rising 0.8X
+  Destination Clock: clk rising 0.8X +180
+
+  Data Path: controller/hcounter_0 to vrom/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/s3_init.ram/dpram.dp4x4.ram
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDR:C->Q             19   0.514   1.074  controller/hcounter_0 (controller/hcounter_0)
+     LUT1:I0->O            1   0.612   0.000  renderer/Msub_output_10_sub0001_cy<0>_rt (renderer/Msub_output_10_sub0001_cy<0>_rt)
+     MUXCY:S->O            1   0.404   0.000  renderer/Msub_output_10_sub0001_cy<0> (renderer/Msub_output_10_sub0001_cy<0>)
+     MUXCY:CI->O           1   0.052   0.000  renderer/Msub_output_10_sub0001_cy<1> (renderer/Msub_output_10_sub0001_cy<1>)
+     MUXCY:CI->O           1   0.052   0.000  renderer/Msub_output_10_sub0001_cy<2> (renderer/Msub_output_10_sub0001_cy<2>)
+     MUXCY:CI->O           1   0.052   0.000  renderer/Msub_output_10_sub0001_cy<3> (renderer/Msub_output_10_sub0001_cy<3>)
+     XORCY:CI->O          14   0.699   0.919  renderer/Msub_output_10_sub0001_xor<4> (renderer/Madd_output_mux0001C3_mand)
+     LUT2:I1->O            1   0.612   0.000  renderer/Madd_output_10_add0016_Madd_lut<4> (renderer/Madd_output_10_add0016_Madd_lut<4>)
+     MUXCY:S->O            1   0.404   0.000  renderer/Madd_output_10_add0016_Madd_cy<4> (renderer/Madd_output_10_add0016_Madd_cy<4>)
+     XORCY:CI->O           5   0.699   0.607  renderer/Madd_output_10_add0016_Madd_xor<5> (renderer/Madd_output_10_add0000_Madd_lut<5>)
+     LUT2_D:I1->O          1   0.612   0.360  renderer/Madd_output_10_add0000_Madd_cy<5>1 (renderer/Madd_output_10_add0000_Madd_cy<5>)
+     LUT4_D:I3->O          2   0.612   0.383  renderer/Madd_output_10_add0000_Madd_cy<8>11 (renderer/Madd_output_10_add0000_Madd_cy<8>)
+     LUT4:I3->O            1   0.612   0.000  renderer/output_10_mux0061280_G (N366)
+     MUXF5:I1->O           1   0.278   0.360  renderer/output_10_mux0061280 (renderer/output_10_mux0061280)
+     LUT4_L:I3->LO         1   0.612   0.103  renderer/output_10_mux0061354 (renderer/output_10_mux0061354)
+     LUT4:I3->O            1   0.612   0.360  renderer/output_10_mux0061453 (renderer/output_10_mux0061453)
+     LUT4_L:I3->LO         1   0.612   0.103  renderer/output_10_mux0061551 (renderer/output_10_mux0061551)
+     LUT4:I3->O            1   0.612   0.360  renderer/output_10_mux0061714 (renderer/output_10_mux0061714)
+     LUT4:I3->O            1   0.612   0.360  renderer/output_10_mux0061752 (renderer/output_10_mux0061752)
+     LUT4_L:I3->LO         1   0.612   0.103  renderer/output_10_mux0061790 (renderer/output_10_mux0061790)
+     LUT4:I3->O            1   0.612   0.360  renderer/output_10_mux0061834 (renderer/output_10_mux0061834)
+     LUT4_L:I3->LO         1   0.612   0.103  renderer/output_10_mux0061880 (renderer/output_10_mux0061880)
+     LUT4:I3->O            1   0.612   0.360  renderer/output_10_mux0061930 (renderer/output_10_mux0061930)
+     LUT4:I3->O            1   0.612   0.357  renderer/output_10_mux00611018 (render_out<10>)
+     begin scope: 'vrom'
+     RAMB16_S4_S4:ADDRA10        0.328          U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/s3_init.ram/dpram.dp4x4.ram
+    ----------------------------------------
+    Total                     18.933ns (12.661ns logic, 6.272ns route)
+                                       (66.9% logic, 33.1% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'sdivider/clk_out1'
+  Clock period: 3.335ns (frequency: 299.876MHz)
+  Total number of paths / destination ports: 140 / 56
+-------------------------------------------------------------------------
+Delay:               3.335ns (Levels of Logic = 1)
+  Source:            debs[0].deb/state (FF)
+  Destination:       debs[0].deb/cnt_0 (FF)
+  Source Clock:      sdivider/clk_out1 rising
+  Destination Clock: sdivider/clk_out1 rising
+
+  Data Path: debs[0].deb/state to debs[0].deb/cnt_0
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDE:C->Q             39   0.514   1.227  debs[0].deb/state (debs[0].deb/state)
+     LUT2:I0->O            4   0.612   0.499  debs[0].deb/cnt_not0001_inv1 (debs[0].deb/cnt_not0001_inv)
+     FDSE:CE                   0.483          debs[0].deb/cnt_0
+    ----------------------------------------
+    Total                      3.335ns (1.609ns logic, 1.726ns route)
+                                       (48.3% logic, 51.7% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'led_0_OBUF1'
+  Clock period: 11.884ns (frequency: 84.147MHz)
+  Total number of paths / destination ports: 31154 / 35
+-------------------------------------------------------------------------
+Delay:               11.884ns (Levels of Logic = 7)
+  Source:            prober/cnt_9 (FF)
+  Destination:       prober/got_9 (FF)
+  Source Clock:      led_0_OBUF1 rising
+  Destination Clock: led_0_OBUF1 rising
+
+  Data Path: prober/cnt_9 to prober/got_9
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDR:C->Q              3   0.514   0.451  prober/cnt_9 (prober/cnt_9)
+     MULT18X18SIO:A9->P10    1   4.091   0.509  prober/Mmult_add0000_mult0000 (prober/add0000_mult0000<10>)
+     LUT2:I0->O            1   0.612   0.000  prober/Madd__add0000_Madd_lut<10> (prober/Madd__add0000_Madd_lut<10>)
+     MUXCY:S->O            0   0.404   0.000  prober/Madd__add0000_Madd_cy<10> (prober/Madd__add0000_Madd_cy<10>)
+     XORCY:CI->O           1   0.699   0.509  prober/Madd__add0000_Madd_xor<11> (prober/_add0000<11>)
+     LUT2:I0->O            1   0.612   0.000  prober/Mcompar_got_cmp_ge0000_lut<11> (prober/Mcompar_got_cmp_ge0000_lut<11>)
+     MUXCY:S->O           12   0.752   0.886  prober/Mcompar_got_cmp_ge0000_cy<11> (prober/got_cmp_ge0000)
+     LUT4:I1->O           10   0.612   0.750  prober/got_not0002123 (prober/got_not0002)
+     FDRE:CE                   0.483          prober/got_0
+    ----------------------------------------
+    Total                     11.884ns (8.779ns logic, 3.105ns route)
+                                       (73.9% logic, 26.1% route)
+
+=========================================================================
+Timing constraint: Default OFFSET IN BEFORE for Clock 'clk'
+  Total number of paths / destination ports: 83 / 13
+-------------------------------------------------------------------------
+Offset:              13.133ns (Levels of Logic = 14)
+  Source:            sw<1> (PAD)
+  Destination:       vrom/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/s3_init.ram/dpram.dp4x4.ram (RAM)
+  Destination Clock: clk rising 0.8X +180
+
+  Data Path: sw<1> to vrom/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/s3_init.ram/dpram.dp4x4.ram
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O             8   1.106   0.795  sw_1_IBUF (sw_1_IBUF)
+     LUT2:I0->O            3   0.612   0.603  renderer/output_11_mux006111121 (renderer/N172)
+     LUT4:I0->O            1   0.612   0.387  renderer/output_10_mux0061338 (renderer/output_10_mux0061338)
+     LUT4_L:I2->LO         1   0.612   0.103  renderer/output_10_mux0061354 (renderer/output_10_mux0061354)
+     LUT4:I3->O            1   0.612   0.360  renderer/output_10_mux0061453 (renderer/output_10_mux0061453)
+     LUT4_L:I3->LO         1   0.612   0.103  renderer/output_10_mux0061551 (renderer/output_10_mux0061551)
+     LUT4:I3->O            1   0.612   0.360  renderer/output_10_mux0061714 (renderer/output_10_mux0061714)
+     LUT4:I3->O            1   0.612   0.360  renderer/output_10_mux0061752 (renderer/output_10_mux0061752)
+     LUT4_L:I3->LO         1   0.612   0.103  renderer/output_10_mux0061790 (renderer/output_10_mux0061790)
+     LUT4:I3->O            1   0.612   0.360  renderer/output_10_mux0061834 (renderer/output_10_mux0061834)
+     LUT4_L:I3->LO         1   0.612   0.103  renderer/output_10_mux0061880 (renderer/output_10_mux0061880)
+     LUT4:I3->O            1   0.612   0.360  renderer/output_10_mux0061930 (renderer/output_10_mux0061930)
+     LUT4:I3->O            1   0.612   0.357  renderer/output_10_mux00611018 (render_out<10>)
+     begin scope: 'vrom'
+     RAMB16_S4_S4:ADDRA10        0.328          U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/s3_init.ram/dpram.dp4x4.ram
+    ----------------------------------------
+    Total                     13.133ns (8.778ns logic, 4.355ns route)
+                                       (66.8% logic, 33.2% route)
+
+=========================================================================
+Timing constraint: Default OFFSET IN BEFORE for Clock 'preclk180'
+  Total number of paths / destination ports: 8 / 8
+-------------------------------------------------------------------------
+Offset:              1.784ns (Levels of Logic = 2)
+  Source:            input<7> (PAD)
+  Destination:       dram/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/s3_init.ram/dpram.dp36x36.ram (RAM)
+  Destination Clock: preclk180 rising
+
+  Data Path: input<7> to dram/U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/s3_init.ram/dpram.dp36x36.ram
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O             3   1.106   0.451  input_7_IBUF (input_7_IBUF)
+     begin scope: 'dram'
+     RAMB16_S36_S36:DIA25        0.227          U0/xst_blk_mem_generator/gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/s3_init.ram/dpram.dp36x36.ram
+    ----------------------------------------
+    Total                      1.784ns (1.333ns logic, 0.451ns route)
+                                       (74.7% logic, 25.3% route)
+
+=========================================================================
+Timing constraint: Default OFFSET IN BEFORE for Clock 'sdivider/clk_out1'
+  Total number of paths / destination ports: 16 / 16
+-------------------------------------------------------------------------
+Offset:              3.126ns (Levels of Logic = 2)
+  Source:            btn<2> (PAD)
+  Destination:       debs[2].deb/cnt_0 (FF)
+  Destination Clock: sdivider/clk_out1 rising
+
+  Data Path: btn<2> to debs[2].deb/cnt_0
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O             1   1.106   0.426  btn_2_IBUF (btn_2_IBUF)
+     LUT2:I1->O            4   0.612   0.499  debs[2].deb/cnt_not0001_inv1 (debs[2].deb/cnt_not0001_inv)
+     FDSE:CE                   0.483          debs[2].deb/cnt_0
+    ----------------------------------------
+    Total                      3.126ns (2.201ns logic, 0.925ns route)
+                                       (70.4% logic, 29.6% route)
+
+=========================================================================
+Timing constraint: Default OFFSET IN BEFORE for Clock 'led_0_OBUF1'
+  Total number of paths / destination ports: 360 / 20
+-------------------------------------------------------------------------
+Offset:              8.982ns (Levels of Logic = 7)
+  Source:            sw<4> (PAD)
+  Destination:       prober/got_9 (FF)
+  Destination Clock: led_0_OBUF1 rising
+
+  Data Path: sw<4> to prober/got_9
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O             5   1.106   0.690  sw_4_IBUF (sw_4_IBUF)
+     LUT3:I0->O            1   0.612   0.426  prober/SF01_SW0 (N42)
+     LUT4:I1->O            2   0.612   0.383  prober/SF01 (prober/N1)
+     LUT4:I3->O            1   0.612   0.360  prober/sstate_and0008_SW0 (N44)
+     LUT4:I3->O            3   0.612   0.603  prober/sstate_and0008 (prober/sstate_and0008)
+     LUT4:I0->O            1   0.612   0.509  prober/got_not0002112 (prober/got_not0002112)
+     LUT4:I0->O           10   0.612   0.750  prober/got_not0002123 (prober/got_not0002)
+     FDRE:CE                   0.483          prober/got_0
+    ----------------------------------------
+    Total                      8.982ns (5.261ns logic, 3.721ns route)
+                                       (58.6% logic, 41.4% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'clk'
+  Total number of paths / destination ports: 262008 / 11
+-------------------------------------------------------------------------
+Offset:              22.488ns (Levels of Logic = 27)
+  Source:            controller/hcounter_0 (FF)
+  Destination:       vout<3> (PAD)
+  Source Clock:      clk rising 0.8X
+
+  Data Path: controller/hcounter_0 to vout<3>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDR:C->Q             19   0.514   1.074  controller/hcounter_0 (controller/hcounter_0)
+     LUT1:I0->O            1   0.612   0.000  renderer/Msub_output_10_sub0001_cy<0>_rt (renderer/Msub_output_10_sub0001_cy<0>_rt)
+     MUXCY:S->O            1   0.404   0.000  renderer/Msub_output_10_sub0001_cy<0> (renderer/Msub_output_10_sub0001_cy<0>)
+     MUXCY:CI->O           1   0.052   0.000  renderer/Msub_output_10_sub0001_cy<1> (renderer/Msub_output_10_sub0001_cy<1>)
+     MUXCY:CI->O           1   0.052   0.000  renderer/Msub_output_10_sub0001_cy<2> (renderer/Msub_output_10_sub0001_cy<2>)
+     MUXCY:CI->O           1   0.052   0.000  renderer/Msub_output_10_sub0001_cy<3> (renderer/Msub_output_10_sub0001_cy<3>)
+     MUXCY:CI->O           1   0.052   0.000  renderer/Msub_output_10_sub0001_cy<4> (renderer/Msub_output_10_sub0001_cy<4>)
+     XORCY:CI->O          14   0.699   0.919  renderer/Msub_output_10_sub0001_xor<5> (renderer/output_10_sub0001<5>)
+     LUT2:I1->O            1   0.612   0.000  renderer/Madd_output_10_add0018_Madd_lut<5> (renderer/Madd_output_10_add0018_Madd_lut<5>)
+     MUXCY:S->O            1   0.404   0.000  renderer/Madd_output_10_add0018_Madd_cy<5> (renderer/Madd_output_10_add0018_Madd_cy<5>)
+     MUXCY:CI->O           1   0.052   0.000  renderer/Madd_output_10_add0018_Madd_cy<6> (renderer/Madd_output_10_add0018_Madd_cy<6>)
+     XORCY:CI->O           2   0.699   0.449  renderer/Madd_output_10_add0018_Madd_xor<7> (renderer/Madd_output_10_add0004_Madd_lut<7>)
+     LUT4_D:I1->LO         1   0.612   0.130  renderer/Madd_output_10_add0004_Madd_cy<7>11 (N603)
+     LUT3:I2->O            2   0.612   0.383  renderer/Madd_output_10_add0004_Madd_cy<9>11 (renderer/Madd_output_10_add0004_Madd_cy<9>)
+     LUT4:I3->O            1   0.612   0.000  renderer/output_11_mux0061717_G (N499)
+     MUXF5:I1->O           2   0.278   0.380  renderer/output_11_mux0061717 (renderer/output_11_mux0061717)
+     MUXF5:S->O            1   0.641   0.360  renderer/output_11_mux0061978_SW1 (N412)
+     LUT4:I3->O            1   0.612   0.360  renderer/output_11_mux00611022 (renderer/output_11_mux00611022)
+     LUT4_L:I3->LO         1   0.612   0.103  renderer/output_11_mux00611109 (renderer/output_11_mux00611109)
+     LUT4:I3->O            1   0.612   0.360  renderer/output_11_mux00611195 (renderer/output_11_mux00611195)
+     LUT4_L:I3->LO         1   0.612   0.103  renderer/output_11_mux00611280 (renderer/output_11_mux00611280)
+     LUT4:I3->O            1   0.612   0.360  renderer/output_11_mux00611318 (renderer/output_11_mux00611318)
+     LUT4_L:I3->LO         1   0.612   0.103  renderer/output_11_mux00611399 (renderer/output_11_mux00611399)
+     LUT4:I3->O            3   0.612   0.603  renderer/output_11_mux00611439 (render_out<11>)
+     LUT3:I0->O            1   0.612   0.000  mux/output<2>2_G (N388)
+     MUXF5:I1->O           2   0.278   0.532  mux/output<2>2 (N111)
+     LUT4:I0->O            1   0.612   0.357  mux/output<3>1 (vout_3_OBUF)
+     OBUF:I->O                 3.169          vout_3_OBUF (vout<3>)
+    ----------------------------------------
+    Total                     22.488ns (15.911ns logic, 6.576ns route)
+                                       (70.8% logic, 29.2% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'led_0_OBUF1'
+  Total number of paths / destination ports: 55 / 5
+-------------------------------------------------------------------------
+Offset:              14.661ns (Levels of Logic = 13)
+  Source:            prober/sstate_FSM_FFd2 (FF)
+  Destination:       vout<3> (PAD)
+  Source Clock:      led_0_OBUF1 rising
+
+  Data Path: prober/sstate_FSM_FFd2 to vout<3>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDR:C->Q             27   0.514   1.141  prober/sstate_FSM_FFd2 (prober/sstate_FSM_FFd2)
+     LUT4:I1->O            1   0.612   0.509  renderer/Madd_output_mux0001C71 (renderer/Madd_output_mux0001C7)
+     LUT4:I0->O            1   0.612   0.000  renderer/Madd_output_mux0001_Madd_lut<9> (renderer/Madd_output_mux0001_Madd_lut<9>)
+     MUXCY:S->O            1   0.404   0.000  renderer/Madd_output_mux0001_Madd_cy<9> (renderer/Madd_output_mux0001_Madd_cy<9>)
+     MUXCY:CI->O           0   0.052   0.000  renderer/Madd_output_mux0001_Madd_cy<10> (renderer/Madd_output_mux0001_Madd_cy<10>)
+     XORCY:CI->O           1   0.699   0.360  renderer/Madd_output_mux0001_Madd_xor<11> (renderer/output_mux0001<11>)
+     LUT4:I3->O            1   0.612   0.509  renderer/output_11_mux00614 (renderer/output_11_mux00614)
+     LUT3_L:I0->LO         1   0.612   0.252  renderer/output_11_mux00617 (renderer/output_11_mux00617)
+     LUT3:I0->O            1   0.612   0.387  renderer/output_11_mux006113 (renderer/output_11_mux006113)
+     LUT4:I2->O            3   0.612   0.603  renderer/output_11_mux00611439 (render_out<11>)
+     LUT3:I0->O            1   0.612   0.000  mux/output<2>2_G (N388)
+     MUXF5:I1->O           2   0.278   0.532  mux/output<2>2 (N111)
+     LUT4:I0->O            1   0.612   0.357  mux/output<3>1 (vout_3_OBUF)
+     OBUF:I->O                 3.169          vout_3_OBUF (vout<3>)
+    ----------------------------------------
+    Total                     14.661ns (10.011ns logic, 4.650ns route)
+                                       (68.3% logic, 31.7% route)
+
+=========================================================================
+Timing constraint: Default path analysis
+  Total number of paths / destination ports: 45 / 3
+-------------------------------------------------------------------------
+Delay:               15.700ns (Levels of Logic = 14)
+  Source:            sw<0> (PAD)
+  Destination:       vout<3> (PAD)
+
+  Data Path: sw<0> to vout<3>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O             6   1.106   0.721  sw_0_IBUF (sw_0_IBUF)
+     LUT4:I0->O            1   0.612   0.387  renderer/output_11_mux0061827 (renderer/output_11_mux0061827)
+     LUT4:I2->O            1   0.612   0.426  renderer/output_11_mux0061936 (renderer/output_11_mux0061936)
+     LUT4:I1->O            1   0.612   0.360  renderer/output_11_mux00611022 (renderer/output_11_mux00611022)
+     LUT4_L:I3->LO         1   0.612   0.103  renderer/output_11_mux00611109 (renderer/output_11_mux00611109)
+     LUT4:I3->O            1   0.612   0.360  renderer/output_11_mux00611195 (renderer/output_11_mux00611195)
+     LUT4_L:I3->LO         1   0.612   0.103  renderer/output_11_mux00611280 (renderer/output_11_mux00611280)
+     LUT4:I3->O            1   0.612   0.360  renderer/output_11_mux00611318 (renderer/output_11_mux00611318)
+     LUT4_L:I3->LO         1   0.612   0.103  renderer/output_11_mux00611399 (renderer/output_11_mux00611399)
+     LUT4:I3->O            3   0.612   0.603  renderer/output_11_mux00611439 (render_out<11>)
+     LUT3:I0->O            1   0.612   0.000  mux/output<2>2_G (N388)
+     MUXF5:I1->O           2   0.278   0.532  mux/output<2>2 (N111)
+     LUT4:I0->O            1   0.612   0.357  mux/output<3>1 (vout_3_OBUF)
+     OBUF:I->O                 3.169          vout_3_OBUF (vout<3>)
+    ----------------------------------------
+    Total                     15.700ns (11.285ns logic, 4.415ns route)
+                                       (71.9% logic, 28.1% route)
+
+=========================================================================
+
+
+Total REAL time to Xst completion: 25.00 secs
+Total CPU time to Xst completion: 24.90 secs
+ 
+--> 
+
+
+Total memory usage is 603924 kilobytes
+
+Number of errors   :    0 (   0 filtered)
+Number of warnings :   91 (  83 filtered)
+Number of infos    :    2 (   0 filtered)
+
