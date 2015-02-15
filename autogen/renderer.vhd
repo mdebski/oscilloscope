@@ -61,10 +61,13 @@ process(hcount, vcount, toggle, line_pos, line2_pos, freq_digits, state, prescal
 elsif (((hcount = select_x1) or (hcount = select_x2)) and ((vcount >= select_y1) and (vcount <= select_y2))) then
   output <= X"00d"; select_mem <= '0';
 
+-- Line2
 elsif ((hcount = line2_pos) and (vcount >= 0) and (vcount < 0 + 480)) then
  output <= X"00e"; select_mem <= '0';
+-- Line
 elsif ((hcount = line_pos) and (vcount >= 0) and (vcount < 0 + 480)) then
  output <= X"00e"; select_mem <= '0';
+-- <class 'primitives.Select'>
 elsif ((hcount >= 609) and (hcount < 609 + 16) and (vcount >= 429) and (vcount < 429 + 16)) then
  if state=EVERY then
  output <= Std_logic_vector(((vcount-429) * 16) + (hcount-609) + 2152); select_mem <= '0';
@@ -75,6 +78,7 @@ elsif state=ONCE_PROBING then
 else
  output <= Std_logic_vector(((vcount-429) * 16) + (hcount-609) + 2408); select_mem <= '0';
 end if;
+-- <class 'primitives.Select'>
 elsif ((hcount >= 579) and (hcount < 579 + 24) and (vcount >= 433) and (vcount < 433 + 8)) then
  if prescale <= 1 then
  output <= Std_logic_vector(((vcount-433) * 24) + (hcount-579) + 1704); select_mem <= '0';
@@ -83,148 +87,198 @@ elsif prescale <= 4 then
 else
  output <= Std_logic_vector(((vcount-433) * 24) + (hcount-579) + 1320); select_mem <= '0';
 end if;
+-- <class 'primitives.Select'>
 elsif ((hcount >= 566) and (hcount < 566 + 4) and (vcount >= 440) and (vcount < 440 + 3)) then
  if prescale = 2 or prescale = 5 then
  output <= Std_logic_vector(((vcount-440) * 4) + (hcount-566) + 1296); select_mem <= '0';
 else
  output <= Std_logic_vector(((vcount-440) * 4) + (hcount-566) + 1308); select_mem <= '0';
 end if;
+-- <class 'primitives.Select'>
 elsif ((hcount >= 558) and (hcount < 558 + 4) and (vcount >= 440) and (vcount < 440 + 3)) then
  if prescale = 0 or prescale = 3 or prescale = 6 then
  output <= Std_logic_vector(((vcount-440) * 4) + (hcount-558) + 1296); select_mem <= '0';
 else
  output <= Std_logic_vector(((vcount-440) * 4) + (hcount-558) + 1308); select_mem <= '0';
 end if;
+-- <class 'primitives.Select'>
 elsif ((hcount >= 550) and (hcount < 550 + 4) and (vcount >= 440) and (vcount < 440 + 3)) then
  if prescale = 1 or prescale = 4 or prescale = 7 then
  output <= Std_logic_vector(((vcount-440) * 4) + (hcount-550) + 1296); select_mem <= '0';
 else
  output <= Std_logic_vector(((vcount-440) * 4) + (hcount-550) + 1308); select_mem <= '0';
 end if;
+-- <class 'primitives.Digit'>
 elsif ((hcount >= 568) and (hcount < 568 + 8) and (vcount >= 445) and (vcount < 445 + 8)) then
  output <= Std_logic_vector(((vcount-445) * 8) + (hcount-568) + 656 + (64*to_unsigned(to_integer(dist_digits(0)), 12))); select_mem <= '0';
+-- <class 'primitives.Digit'>
 elsif ((hcount >= 560) and (hcount < 560 + 8) and (vcount >= 445) and (vcount < 445 + 8)) then
  output <= Std_logic_vector(((vcount-445) * 8) + (hcount-560) + 656 + (64*to_unsigned(to_integer(dist_digits(1)), 12))); select_mem <= '0';
+-- <class 'primitives.Digit'>
 elsif ((hcount >= 552) and (hcount < 552 + 8) and (vcount >= 445) and (vcount < 445 + 8)) then
  output <= Std_logic_vector(((vcount-445) * 8) + (hcount-552) + 656 + (64*to_unsigned(to_integer(dist_digits(2)), 12))); select_mem <= '0';
+-- <class 'primitives.Digit'>
 elsif ((hcount >= 568) and (hcount < 568 + 8) and (vcount >= 433) and (vcount < 433 + 8)) then
  output <= Std_logic_vector(((vcount-433) * 8) + (hcount-568) + 656 + (64*to_unsigned(to_integer(freq_digits(0)), 12))); select_mem <= '0';
+-- <class 'primitives.Digit'>
 elsif ((hcount >= 560) and (hcount < 560 + 8) and (vcount >= 433) and (vcount < 433 + 8)) then
  output <= Std_logic_vector(((vcount-433) * 8) + (hcount-560) + 656 + (64*to_unsigned(to_integer(freq_digits(1)), 12))); select_mem <= '0';
+-- <class 'primitives.Digit'>
 elsif ((hcount >= 552) and (hcount < 552 + 8) and (vcount >= 433) and (vcount < 433 + 8)) then
  output <= Std_logic_vector(((vcount-433) * 8) + (hcount-552) + 656 + (64*to_unsigned(to_integer(freq_digits(2)), 12))); select_mem <= '0';
+-- <class 'primitives.Digit'>
 elsif ((hcount >= 544) and (hcount < 544 + 8) and (vcount >= 433) and (vcount < 433 + 8)) then
  output <= Std_logic_vector(((vcount-433) * 8) + (hcount-544) + 656 + (64*to_unsigned(to_integer(freq_digits(3)), 12))); select_mem <= '0';
+-- <class 'primitives.Sprite'>
 elsif ((hcount >= 528) and (hcount < 528 + 16) and (vcount >= 433) and (vcount < 433 + 8)) then
  output <= Std_logic_vector(((vcount-433) * 16) + (hcount-528) + 528); select_mem <= '0';
+-- 7 led
 elsif ((hcount >= 609) and (hcount < 609 + 16) and (vcount >= 388) and (vcount < 388 + 16)) then
  if toggle(7) = '1' then
  output <= Std_logic_vector(((vcount-388) * 16) + (hcount-609) + 272); select_mem <= '0';
 else
  output <= Std_logic_vector(((vcount-388) * 16) + (hcount-609) + 16); select_mem <= '0';
 end if;
+-- 7 graph bottom
 elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 412)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "111"; output(11) <= '1'; select_mem <= '1';
+-- 7 graph top
 elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 380)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "111"; output(11) <= '0'; select_mem <= '1';
+-- 7 border
 elsif ((hcount >= 82) and (hcount < 82 + 518) and (vcount >= 420) and (vcount < 420 + 2)) then
  output <= X"008"; select_mem <= '0';
+-- 6 led
 elsif ((hcount >= 609) and (hcount < 609 + 16) and (vcount >= 338) and (vcount < 338 + 16)) then
  if toggle(6) = '1' then
  output <= Std_logic_vector(((vcount-338) * 16) + (hcount-609) + 272); select_mem <= '0';
 else
  output <= Std_logic_vector(((vcount-338) * 16) + (hcount-609) + 16); select_mem <= '0';
 end if;
+-- 6 graph bottom
 elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 362)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "110"; output(11) <= '1'; select_mem <= '1';
+-- 6 graph top
 elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 330)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "110"; output(11) <= '0'; select_mem <= '1';
+-- 6 border
 elsif ((hcount >= 82) and (hcount < 82 + 518) and (vcount >= 370) and (vcount < 370 + 2)) then
  output <= X"008"; select_mem <= '0';
+-- 5 led
 elsif ((hcount >= 609) and (hcount < 609 + 16) and (vcount >= 288) and (vcount < 288 + 16)) then
  if toggle(5) = '1' then
  output <= Std_logic_vector(((vcount-288) * 16) + (hcount-609) + 272); select_mem <= '0';
 else
  output <= Std_logic_vector(((vcount-288) * 16) + (hcount-609) + 16); select_mem <= '0';
 end if;
+-- 5 graph bottom
 elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 312)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "101"; output(11) <= '1'; select_mem <= '1';
+-- 5 graph top
 elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 280)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "101"; output(11) <= '0'; select_mem <= '1';
+-- 5 border
 elsif ((hcount >= 82) and (hcount < 82 + 518) and (vcount >= 320) and (vcount < 320 + 2)) then
  output <= X"008"; select_mem <= '0';
+-- 4 led
 elsif ((hcount >= 609) and (hcount < 609 + 16) and (vcount >= 238) and (vcount < 238 + 16)) then
  if toggle(4) = '1' then
  output <= Std_logic_vector(((vcount-238) * 16) + (hcount-609) + 272); select_mem <= '0';
 else
  output <= Std_logic_vector(((vcount-238) * 16) + (hcount-609) + 16); select_mem <= '0';
 end if;
+-- 4 graph bottom
 elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 262)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "100"; output(11) <= '1'; select_mem <= '1';
+-- 4 graph top
 elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 230)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "100"; output(11) <= '0'; select_mem <= '1';
+-- 4 border
 elsif ((hcount >= 82) and (hcount < 82 + 518) and (vcount >= 270) and (vcount < 270 + 2)) then
  output <= X"008"; select_mem <= '0';
+-- 3 led
 elsif ((hcount >= 609) and (hcount < 609 + 16) and (vcount >= 188) and (vcount < 188 + 16)) then
  if toggle(3) = '1' then
  output <= Std_logic_vector(((vcount-188) * 16) + (hcount-609) + 272); select_mem <= '0';
 else
  output <= Std_logic_vector(((vcount-188) * 16) + (hcount-609) + 16); select_mem <= '0';
 end if;
+-- 3 graph bottom
 elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 212)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "011"; output(11) <= '1'; select_mem <= '1';
+-- 3 graph top
 elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 180)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "011"; output(11) <= '0'; select_mem <= '1';
+-- 3 border
 elsif ((hcount >= 82) and (hcount < 82 + 518) and (vcount >= 220) and (vcount < 220 + 2)) then
  output <= X"008"; select_mem <= '0';
+-- 2 led
 elsif ((hcount >= 609) and (hcount < 609 + 16) and (vcount >= 138) and (vcount < 138 + 16)) then
  if toggle(2) = '1' then
  output <= Std_logic_vector(((vcount-138) * 16) + (hcount-609) + 272); select_mem <= '0';
 else
  output <= Std_logic_vector(((vcount-138) * 16) + (hcount-609) + 16); select_mem <= '0';
 end if;
+-- 2 graph bottom
 elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 162)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "010"; output(11) <= '1'; select_mem <= '1';
+-- 2 graph top
 elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 130)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "010"; output(11) <= '0'; select_mem <= '1';
+-- 2 border
 elsif ((hcount >= 82) and (hcount < 82 + 518) and (vcount >= 170) and (vcount < 170 + 2)) then
  output <= X"008"; select_mem <= '0';
+-- 1 led
 elsif ((hcount >= 609) and (hcount < 609 + 16) and (vcount >= 88) and (vcount < 88 + 16)) then
  if toggle(1) = '1' then
  output <= Std_logic_vector(((vcount-88) * 16) + (hcount-609) + 272); select_mem <= '0';
 else
  output <= Std_logic_vector(((vcount-88) * 16) + (hcount-609) + 16); select_mem <= '0';
 end if;
+-- 1 graph bottom
 elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 112)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "001"; output(11) <= '1'; select_mem <= '1';
+-- 1 graph top
 elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 80)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "001"; output(11) <= '0'; select_mem <= '1';
+-- 1 border
 elsif ((hcount >= 82) and (hcount < 82 + 518) and (vcount >= 120) and (vcount < 120 + 2)) then
  output <= X"008"; select_mem <= '0';
+-- 0 led
 elsif ((hcount >= 609) and (hcount < 609 + 16) and (vcount >= 38) and (vcount < 38 + 16)) then
  if toggle(0) = '1' then
  output <= Std_logic_vector(((vcount-38) * 16) + (hcount-609) + 272); select_mem <= '0';
 else
  output <= Std_logic_vector(((vcount-38) * 16) + (hcount-609) + 16); select_mem <= '0';
 end if;
+-- 0 graph bottom
 elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 62)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "000"; output(11) <= '1'; select_mem <= '1';
+-- 0 graph top
 elsif ((hcount >= 85) and (hcount < 85 + 512) and (vcount = 30)) then
  output(10 downto 0) <= std_logic_vector((hcount-85)); index <= "000"; output(11) <= '0'; select_mem <= '1';
+-- 0 border
 elsif ((hcount >= 82) and (hcount < 82 + 518) and (vcount >= 70) and (vcount < 70 + 2)) then
  output <= X"008"; select_mem <= '0';
+-- Top border
 elsif ((hcount >= 84) and (hcount < 84 + 516) and (vcount >= 20) and (vcount < 20 + 2)) then
  output <= X"008"; select_mem <= '0';
+-- Right border
 elsif ((hcount >= 598) and (hcount < 598 + 2) and (vcount >= 20) and (vcount < 20 + 400)) then
  output <= X"008"; select_mem <= '0';
+-- Left border
 elsif ((hcount >= 82) and (hcount < 82 + 2) and (vcount >= 20) and (vcount < 20 + 400)) then
  output <= X"008"; select_mem <= '0';
+-- Cross BR
 elsif ((hcount >= 634) and (hcount < 634 + 5) and (vcount = 479)) then
  output <= X"007"; select_mem <= '0';
+-- Cross BR
 elsif ((hcount = 639) and (vcount >= 474) and (vcount < 474 + 5)) then
  output <= X"007"; select_mem <= '0';
+-- Cross TL
 elsif ((hcount = 0) and (vcount >= 1) and (vcount < 1 + 4)) then
  output <= X"007"; select_mem <= '0';
+-- Cross TL
 elsif ((hcount >= 0) and (hcount < 0 + 5) and (vcount = 0)) then
  output <= X"007"; select_mem <= '0';
 else

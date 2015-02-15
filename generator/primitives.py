@@ -168,8 +168,9 @@ class Canvas(object):
   for pos, widget in reversed(list(self.widgetMap.iteritems())):
    conds = genConds(hpos, pos[0], widget.w) + genConds(vpos, pos[1], widget.h)
    gen += textwrap.dedent("""
+    -- %s
     elsif (%s) then
-   """) % (" and ".join(conds))
+   """) % (widget.name, " and ".join(conds))
 
    gen += " " + widget.generate('(%s-%s)' % (hpos, str(pos[0])), '(%s-%s)' % (vpos, str(pos[1])))
   gen = gen[4:] + textwrap.dedent("""
@@ -248,6 +249,7 @@ class Widget(object):
  def __init__(self, *args, **kwargs):
   self.args = args
   self.kwargs = kwargs
+  self.name = kwargs.get('name', type(self))
 
  def draw(self, canvas, palette):
   raise NotImplementedError
