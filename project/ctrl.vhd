@@ -36,9 +36,11 @@ architecture Behavioral of ctrl is
  signal sselected: unsigned(2 downto 0);
  signal sprescale: unsigned(2 downto 0);
  signal sfreq: unsigned(11 downto 0);
- signal btn_speed: unsigned(6 downto 0);
- constant MAX_BTN_SPEED: unsigned(6 downto 0) := to_unsigned(127, 5);
- signal cnt: unsigned(16 downto 0);
+ constant CNT_ACC_MASK: unsigned(16 downto 0) := "00000111111111111";
+ constant CNT_MIN_MASK: unsigned(16 downto 0) := "00000000000011111";
+ constant CNT_MAX_MASK: unsigned(16 downto 0) := "00000001111111111";
+ constant CNT_ZEROS:    unsigned(16 downto 0) := "00000000000000000";
+ signal cnt, cnt_mask: unsigned(16 downto 0);
  signal last_slow_clk: std_logic;
 begin
  line_pos <= sline_pos + LINE_MIN; line2_pos <= sline2_pos + LINE_MIN;
@@ -51,8 +53,8 @@ process(clk) is begin if rising_edge(clk) then
   sselected <= SELECTED_MIN;
   sprescale <= to_unsigned(0, 3);
   sfreq <= to_unsigned(4095, 11);
-  cnt <= (others => '0');
-  btn_speed <= to_unsigned(1, 5);
+  cnt <= CNT_ZEROS;
+  cnt_mask <= CNT_MAX_MASK;
  else
   last <= btn(BTN_PREV downto BTN_NEXT);
   last_slow_clk <= slow_clk;
@@ -75,30 +77,30 @@ process(clk) is begin if rising_edge(clk) then
   end if;
   if(slow_clk = '1' and last_slow_clk = '0') then
    cnt <= cnt+1;
-   if(cnt(9 downto 0) = "0000000000") then -- repeat button
-    if(cnt(12 downto 0) = "0000000000000" and btn_speed < MAX_BTN_SPEED) then -- increase speed
-     btn_speed <= btn_speed + 1;
+   if((cnt and cnt_mask) = CNT_ZEROS) then -- repeat button
+    if((cnt and CNT_ACC_MASK) = CNT_ZEROS) then -- increase speed
+     cnt_mask <= (cnt_mask srl 1) or CNT_MIN_MASK;
     end if;
     if(btn(BTN_INC) /= btn(BTN_DEC)) then
      if(btn(BTN_INC) = '1') then
       case sselected is
        when SEL_MODE => change_mode <= '1';
-       when SEL_FREQ => sfreq <= sfreq + btn_speed;
+       when SEL_FREQ => sfreq <= sfreq + 1;
        when SEL_SCALE => sprescale <= sprescale - 1;
-       when SEL_LINE => sline_pos <= sline_pos + btn_speed;
-       when SEL_LINE2 => sline2_pos <= sline2_pos + btn_speed;
+       when SEL_LINE => sline_pos <= sline_pos + 1;
+       when SEL_LINE2 => sline2_pos <= sline2_pos + 1;
       end case;
      else
       case sselected is
        when SEL_MODE => change_mode <= '1';
-       when SEL_FREQ => sfreq <= sfreq - btn_speed;
+       when SEL_FREQ => sfreq <= sfreq - 1;
        when SEL_SCALE => sprescale <= sprescale + 1;
-       when SEL_LINE => sline_pos <= sline_pos - btn_speed;
-       when SEL_LINE2 => sline2_pos <= sline2_pos - btn_speed;
+       when SEL_LINE => sline_pos <= sline_pos - 1;
+       when SEL_LINE2 => sline2_pos <= sline2_pos - 1;
       end case;
      end if;
     else
-     btn_speed <= to_unsigned(1, 5);
+     cnt_mask <= CNT_MAX_MASK;
     end if;
    end if;
   end if;
