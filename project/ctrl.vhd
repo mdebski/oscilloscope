@@ -53,7 +53,7 @@ process(clk) is begin if rising_edge(clk) then
   sselected <= SELECTED_MIN;
   sprescale <= to_unsigned(0, 3);
   sfreq <= to_unsigned(4095, 11);
-  cnt <= CNT_ZEROS;
+  cnt <= CNT_ZEROS + 1;
   cnt_mask <= CNT_MAX_MASK;
  else
   last <= btn(BTN_PREV downto BTN_NEXT);
@@ -76,32 +76,35 @@ process(clk) is begin if rising_edge(clk) then
    end case;
   end if;
   if(slow_clk = '1' and last_slow_clk = '0') then
-   cnt <= cnt+1;
-   if((cnt and cnt_mask) = CNT_ZEROS) then -- repeat button
-    if((cnt and CNT_ACC_MASK) = CNT_ZEROS) then -- increase speed
-     cnt_mask <= (cnt_mask srl 1) or CNT_MIN_MASK;
-    end if;
-    if(btn(BTN_INC) /= btn(BTN_DEC)) then
-     if(btn(BTN_INC) = '1') then
-      case sselected is
-       when SEL_MODE => change_mode <= '1';
-       when SEL_FREQ => sfreq <= sfreq + 1;
-       when SEL_SCALE => sprescale <= sprescale - 1;
-       when SEL_LINE => sline_pos <= sline_pos + 1;
-       when SEL_LINE2 => sline2_pos <= sline2_pos + 1;
-      end case;
-     else
-      case sselected is
-       when SEL_MODE => change_mode <= '1';
-       when SEL_FREQ => sfreq <= sfreq - 1;
-       when SEL_SCALE => sprescale <= sprescale + 1;
-       when SEL_LINE => sline_pos <= sline_pos - 1;
-       when SEL_LINE2 => sline2_pos <= sline2_pos - 1;
-      end case;
+   if(btn(BTN_INC) /= btn(BTN_DEC)) then
+    cnt <= cnt+1;
+    if((cnt and cnt_mask) = CNT_ZEROS) then -- repeat button
+     if((cnt and CNT_ACC_MASK) = CNT_ZEROS) then -- increase speed
+      cnt_mask <= (cnt_mask srl 1) or CNT_MIN_MASK;
      end if;
-    else
-     cnt_mask <= CNT_MAX_MASK;
+     if(btn(BTN_INC) /= btn(BTN_DEC)) then
+      if(btn(BTN_INC) = '1') then
+       case sselected is
+        when SEL_MODE => change_mode <= '1';
+        when SEL_FREQ => sfreq <= sfreq + 1;
+        when SEL_SCALE => sprescale <= sprescale - 1;
+        when SEL_LINE => sline_pos <= sline_pos + 1;
+        when SEL_LINE2 => sline2_pos <= sline2_pos + 1;
+       end case;
+      else
+       case sselected is
+        when SEL_MODE => change_mode <= '1';
+        when SEL_FREQ => sfreq <= sfreq - 1;
+        when SEL_SCALE => sprescale <= sprescale + 1;
+        when SEL_LINE => sline_pos <= sline_pos - 1;
+        when SEL_LINE2 => sline2_pos <= sline2_pos - 1;
+       end case;
+      end if;
+     end if;
     end if;
+   else
+    cnt_mask <= CNT_MAX_MASK;
+    cnt <= CNT_ZEROS + 1;
    end if;
   end if;
  end if;

@@ -556,8 +556,8 @@ Synthesizing Unit <ctrl>.
     Found 10-bit register for signal <line_dist>.
     Found 10-bit adder for signal <line_pos>.
     Found 17-bit up counter for signal <cnt>.
+    Found 1-bit xor2 for signal <cnt$xor0000> created at line 79.
     Found 17-bit register for signal <cnt_mask>.
-    Found 1-bit xor2 for signal <cnt_mask$xor0000> created at line 84.
     Found 2-bit register for signal <last>.
     Found 1-bit register for signal <last_slow_clk>.
     Found 9-bit comparator less for signal <line_dist$cmp_lt0000> created at line 62.
@@ -894,11 +894,6 @@ WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <cnt_mask_13> (witho
 WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <cnt_mask_14> (without init value) has a constant value of 0 in block <ctrl>. This FF/Latch will be trimmed during the optimization process.
 WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <cnt_mask_15> (without init value) has a constant value of 0 in block <ctrl>. This FF/Latch will be trimmed during the optimization process.
 WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <cnt_mask_16> (without init value) has a constant value of 0 in block <ctrl>. This FF/Latch will be trimmed during the optimization process.
-WARNING:Xst:2677 - Node <cnt_12> of sequential type is unconnected in block <ctrl>.
-WARNING:Xst:2677 - Node <cnt_13> of sequential type is unconnected in block <ctrl>.
-WARNING:Xst:2677 - Node <cnt_14> of sequential type is unconnected in block <ctrl>.
-WARNING:Xst:2677 - Node <cnt_15> of sequential type is unconnected in block <ctrl>.
-WARNING:Xst:2677 - Node <cnt_16> of sequential type is unconnected in block <ctrl>.
 
 Optimizing unit <demo> ...
 
@@ -961,12 +956,12 @@ Design Statistics
 Cell Usage :
 # BELS                             : 3132
 #      GND                         : 3
-#      INV                         : 127
-#      LUT1                        : 152
+#      INV                         : 126
+#      LUT1                        : 141
 #      LUT2                        : 296
 #      LUT2_D                      : 23
 #      LUT2_L                      : 4
-#      LUT3                        : 272
+#      LUT3                        : 286
 #      LUT3_D                      : 26
 #      LUT3_L                      : 9
 #      LUT4                        : 720
@@ -974,7 +969,7 @@ Cell Usage :
 #      LUT4_L                      : 119
 #      MULT_AND                    : 9
 #      MUXCY                       : 621
-#      MUXF5                       : 99
+#      MUXF5                       : 97
 #      MUXF6                       : 3
 #      VCC                         : 3
 #      XORCY                       : 591
@@ -984,8 +979,8 @@ Cell Usage :
 #      FDCE                        : 2
 #      FDE                         : 53
 #      FDR                         : 32
-#      FDRE                        : 80
-#      FDSE                        : 47
+#      FDRE                        : 79
+#      FDSE                        : 48
 # RAMS                             : 2
 #      RAMB16_S36_S36              : 1
 #      RAMB16_S4_S4                : 1
@@ -1008,7 +1003,7 @@ Selected Device : 3s100ecp132-5
 
  Number of Slices:                      950  out of    960    98%  
  Number of Slice Flip Flops:            249  out of   1920    12%  
- Number of 4 input LUTs:               1803  out of   1920    93%  
+ Number of 4 input LUTs:               1805  out of   1920    94%  
  Number of IOs:                          39
  Number of bonded IOBs:                  39  out of     83    46%  
  Number of BRAMs:                         2  out of      4    50%  
@@ -1074,7 +1069,7 @@ All values displayed in nanoseconds (ns)
 =========================================================================
 Timing constraint: Default period analysis for Clock 'clk'
   Clock period: 30.025ns (frequency: 33.306MHz)
-  Total number of paths / destination ports: 249929 / 410
+  Total number of paths / destination ports: 249854 / 410
 -------------------------------------------------------------------------
 Delay:               19.216ns (Levels of Logic = 24)
   Source:            controller/hcounter_0 (FF)
@@ -1118,10 +1113,10 @@ Delay:               19.216ns (Levels of Logic = 24)
 
 =========================================================================
 Timing constraint: Default period analysis for Clock 'sdivider/clk_out1'
-  Clock period: 3.335ns (frequency: 299.828MHz)
+  Clock period: 3.338ns (frequency: 299.563MHz)
   Total number of paths / destination ports: 140 / 56
 -------------------------------------------------------------------------
-Delay:               3.335ns (Levels of Logic = 1)
+Delay:               3.338ns (Levels of Logic = 1)
   Source:            debs[0].deb/state (FF)
   Destination:       debs[0].deb/cnt_3 (FF)
   Source Clock:      sdivider/clk_out1 rising
@@ -1131,11 +1126,11 @@ Delay:               3.335ns (Levels of Logic = 1)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDE:C->Q             41   0.514   1.227  debs[0].deb/state (debs[0].deb/state)
+     FDE:C->Q             52   0.514   1.230  debs[0].deb/state (debs[0].deb/state)
      LUT2:I0->O            4   0.612   0.499  debs[0].deb/cnt_not0001_inv1 (debs[0].deb/cnt_not0001_inv)
      FDSE:CE                   0.483          debs[0].deb/cnt_0
     ----------------------------------------
-    Total                      3.335ns (1.609ns logic, 1.726ns route)
+    Total                      3.338ns (1.609ns logic, 1.729ns route)
                                        (48.2% logic, 51.8% route)
 
 =========================================================================
@@ -1144,17 +1139,17 @@ Timing constraint: Default period analysis for Clock 'led_0_OBUF1'
   Total number of paths / destination ports: 31154 / 35
 -------------------------------------------------------------------------
 Delay:               11.884ns (Levels of Logic = 7)
-  Source:            prober/cnt_10 (FF)
+  Source:            prober/cnt_4 (FF)
   Destination:       prober/got_9 (FF)
   Source Clock:      led_0_OBUF1 rising
   Destination Clock: led_0_OBUF1 rising
 
-  Data Path: prober/cnt_10 to prober/got_9
+  Data Path: prober/cnt_4 to prober/got_9
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDR:C->Q              3   0.514   0.451  prober/cnt_10 (prober/cnt_10)
-     MULT18X18SIO:A10->P10    1   4.091   0.509  prober/Mmult_add0000_mult0000 (prober/add0000_mult0000<10>)
+     FDR:C->Q              3   0.514   0.451  prober/cnt_4 (prober/cnt_4)
+     MULT18X18SIO:A4->P10    1   4.091   0.509  prober/Mmult_add0000_mult0000 (prober/add0000_mult0000<10>)
      LUT2:I0->O            1   0.612   0.000  prober/Madd__add0000_Madd_lut<10> (prober/Madd__add0000_Madd_lut<10>)
      MUXCY:S->O            0   0.404   0.000  prober/Madd__add0000_Madd_cy<10> (prober/Madd__add0000_Madd_cy<10>)
      XORCY:CI->O           1   0.699   0.509  prober/Madd__add0000_Madd_xor<11> (prober/_add0000<11>)
@@ -1291,7 +1286,7 @@ Offset:              22.612ns (Levels of Logic = 26)
      XORCY:CI->O           2   0.699   0.449  renderer/Madd_output_10_add0017_Madd_xor<7> (renderer/Madd_output_10_add0002_Madd_lut<7>)
      LUT4:I1->O            4   0.612   0.529  renderer/Madd_output_10_add0002_Madd_cy<7>11 (renderer/Madd_output_10_add0002_Madd_cy<7>)
      LUT3:I2->O            1   0.612   0.360  renderer/Madd_output_10_add0002_Madd_cy<9>11 (renderer/Madd_output_10_add0002_Madd_cy<9>)
-     LUT4:I3->O            1   0.612   0.000  renderer/output_11_mux0061786_G (N255)
+     LUT4:I3->O            1   0.612   0.000  renderer/output_11_mux0061786_G (N253)
      MUXF5:I1->O           2   0.278   0.380  renderer/output_11_mux0061786 (renderer/output_11_mux0061786)
      MUXF5:S->O            1   0.641   0.360  renderer/output_11_mux0061936_SW0 (N372)
      LUT4:I3->O            1   0.612   0.357  renderer/output_11_mux0061978 (renderer/output_11_mux0061978)
@@ -1371,15 +1366,15 @@ Delay:               15.407ns (Levels of Logic = 13)
 =========================================================================
 
 
-Total REAL time to Xst completion: 24.00 secs
-Total CPU time to Xst completion: 23.94 secs
+Total REAL time to Xst completion: 25.00 secs
+Total CPU time to Xst completion: 24.43 secs
  
 --> 
 
 
-Total memory usage is 604192 kilobytes
+Total memory usage is 604800 kilobytes
 
 Number of errors   :    0 (   0 filtered)
-Number of warnings :  110 (  81 filtered)
+Number of warnings :  105 (  81 filtered)
 Number of infos    :    3 (   0 filtered)
 
